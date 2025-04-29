@@ -405,4 +405,72 @@ body {
 }
 .get-in-touch-link:hover i.fas.fa-envelope {
     color: #FFCC70 !important;
+}
+
+.get-in-touch {
+    text-align: center;
+    margin-top: 3rem;
+}
+
+.get-in-touch h2 {
+    margin-bottom: 2rem;
+}
+
+.contact-methods {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+.contact-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #222;
+    color: #fff;
+    text-decoration: none;
+    transition: transform 0.2s, background 0.2s;
+}
+
+.contact-icon:hover {
+    transform: translateY(-5px);
+    background: #444;
+}
+
+.contact-icon i {
+    font-size: 1.5rem;
+}
+
+.contact-icon.email {
+    background: #EA4335;
+}
+
+.contact-icon.github {
+    background: #333;
+}
+
+.contact-icon.discord {
+    background: #5865F2;
+}
+
+.discord-tooltip {
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #222;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    opacity: 0;
+    transition: opacity 0.2s;
+    pointer-events: none;
+}
+
+.contact-icon.discord:hover .discord-tooltip {
+    opacity: 1;
 } 
