@@ -460,6 +460,7 @@ body {
 
 .contact-icon.discord {
     background: #5865F2;
+    position: relative;
 }
 
 .discord-tooltip {
