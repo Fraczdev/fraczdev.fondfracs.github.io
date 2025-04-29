@@ -211,10 +211,10 @@ body {
 }
 
 .discord-tooltip {
-    display: none;
+    display: block !important;
+    background: yellow;
+    color: black;
     position: absolute;
-    background: #23272a;
-    color: #fff;
     padding: 4px 10px;
     border-radius: 8px;
     font-size: 0.95rem;
