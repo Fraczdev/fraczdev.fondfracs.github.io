@@ -1,1 +1,143 @@
-function _0x29d0(){const _0x498724=['target','unobserve','data','mouseleave','heartbeat_interval','getElementById','discord-activity-text','charAt','querySelector','319guEHKu','deg)\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20rotateX(','.name','mousemove','width','data-level','4DJzdpO','stringify','#f04747','Playing\x20','observe','find','2788ORWapH','1182bpbjeE','parentElement','PRESENCE_UPDATE','forEach','type','addEventListener','#faa61a','1235621597776445480','Listening\x20to\x20','getAttribute','deg)\x0a\x20\x20\x20\x20\x20\x20\x20\x20','background','send','message','discord_status','parse','wss://api.lanyard.rest/socket','discord-status-dot','#747f8d','textContent','2433370KgwkAv','7035525HNOMWr','clientX','innerWidth','\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20perspective(1000px)\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20rotateY(','querySelectorAll','80YZRNsX','perspective(1000px)\x20rotateY(0deg)\x20rotateX(0deg)','transform','name','170290MqwcTx','open','617298fBevnC','clientY','style','.skill-level','708738JfQTkH','531923XaPBMu'];_0x29d0=function(){return _0x498724;};return _0x29d0();}const _0x1ae21f=_0x33bc;function _0x33bc(_0x5b956a,_0x5dc891){const _0x29d0e2=_0x29d0();return _0x33bc=function(_0x33bc54,_0x38dbe7){_0x33bc54=_0x33bc54-0x1c8;let _0x554b63=_0x29d0e2[_0x33bc54];return _0x554b63;},_0x33bc(_0x5b956a,_0x5dc891);}(function(_0x39c515,_0x1c7582){const _0x1159ef=_0x33bc,_0x289e86=_0x39c515();while(!![]){try{const _0x1948b9=-parseInt(_0x1159ef(0x1e0))/0x1+parseInt(_0x1159ef(0x1fb))/0x2*(-parseInt(_0x1159ef(0x1fc))/0x3)+parseInt(_0x1159ef(0x1f5))/0x4*(-parseInt(_0x1159ef(0x1d4))/0x5)+parseInt(_0x1159ef(0x1e4))/0x6+parseInt(_0x1159ef(0x1e5))/0x7*(parseInt(_0x1159ef(0x1da))/0x8)+parseInt(_0x1159ef(0x1d5))/0x9+parseInt(_0x1159ef(0x1de))/0xa*(parseInt(_0x1159ef(0x1ef))/0xb);if(_0x1948b9===_0x1c7582)break;else _0x289e86['push'](_0x289e86['shift']());}catch(_0x4e41b9){_0x289e86['push'](_0x289e86['shift']());}}}(_0x29d0,0x7a293),document[_0x1ae21f(0x201)]('DOMContentLoaded',()=>{const _0x515ad6=_0x1ae21f,_0x3d60d5=document[_0x515ad6(0x1d9)](_0x515ad6(0x1e3)),_0x51efc0=new IntersectionObserver(_0x106b55=>{const _0x3cba44=_0x515ad6;_0x106b55[_0x3cba44(0x1ff)](_0x2f6148=>{const _0x5aefec=_0x3cba44;_0x2f6148['isIntersecting']&&(_0x2f6148[_0x5aefec(0x1e6)]['style']['width']=_0x2f6148[_0x5aefec(0x1e6)][_0x5aefec(0x1fd)][_0x5aefec(0x1c9)](_0x5aefec(0x1f4)),_0x51efc0[_0x5aefec(0x1e7)](_0x2f6148[_0x5aefec(0x1e6)]));});},{'threshold':0.5});_0x3d60d5[_0x515ad6(0x1ff)](_0x5c8d3e=>{const _0x7c4426=_0x515ad6,_0x3615ef=_0x5c8d3e[_0x7c4426(0x1e2)][_0x7c4426(0x1f3)];_0x5c8d3e[_0x7c4426(0x1e2)]['width']='0',_0x5c8d3e[_0x7c4426(0x1fd)]['setAttribute'](_0x7c4426(0x1f4),_0x3615ef),_0x51efc0[_0x7c4426(0x1f9)](_0x5c8d3e);});const _0x830aa0=document['querySelector']('.glass-card');document[_0x515ad6(0x201)](_0x515ad6(0x1f2),_0x89fafb=>{const _0x1c83fc=_0x515ad6,_0x105a2a=_0x89fafb[_0x1c83fc(0x1d6)]/window[_0x1c83fc(0x1d7)],_0x2818d=_0x89fafb[_0x1c83fc(0x1e1)]/window['innerHeight'];_0x830aa0[_0x1c83fc(0x1e2)][_0x1c83fc(0x1dc)]=_0x1c83fc(0x1d8)+(_0x105a2a*0xa-0x5)+_0x1c83fc(0x1f0)+(_0x2818d*-0xa+0x5)+_0x1c83fc(0x1ca);}),document[_0x515ad6(0x201)](_0x515ad6(0x1e9),()=>{const _0x198d24=_0x515ad6;_0x830aa0['style'][_0x198d24(0x1dc)]=_0x198d24(0x1db);});const _0x5b4968=document[_0x515ad6(0x1ee)](_0x515ad6(0x1f1)),_0x4db8ce=_0x5b4968['textContent'];_0x5b4968[_0x515ad6(0x1d3)]='';let _0x350b25=0x0;const _0x39fe4e=()=>{const _0x536841=_0x515ad6;_0x350b25<_0x4db8ce['length']&&(_0x5b4968[_0x536841(0x1d3)]+=_0x4db8ce[_0x536841(0x1ed)](_0x350b25),_0x350b25++,setTimeout(_0x39fe4e,0x64));};setTimeout(_0x39fe4e,0x3e8);const _0x119d2e=new WebSocket(_0x515ad6(0x1d0)),_0xd9dd9b=_0x515ad6(0x203);let _0x23cb07;_0x119d2e[_0x515ad6(0x201)](_0x515ad6(0x1df),()=>{}),_0x119d2e[_0x515ad6(0x201)](_0x515ad6(0x1cd),_0x235053=>{const _0x1a0216=_0x515ad6,_0x7f92af=JSON[_0x1a0216(0x1cf)](_0x235053[_0x1a0216(0x1e8)]);if(_0x7f92af['op']===0x1&&_0x7f92af['d']&&_0x7f92af['d']['heartbeat_interval']){if(_0x23cb07)clearInterval(_0x23cb07);_0x23cb07=setInterval(()=>{const _0x12167f=_0x1a0216;_0x119d2e[_0x12167f(0x1cc)](JSON[_0x12167f(0x1f6)]({'op':0x3}));},_0x7f92af['d'][_0x1a0216(0x1ea)]),_0x119d2e[_0x1a0216(0x1cc)](JSON[_0x1a0216(0x1f6)]({'op':0x2,'d':{'subscribe_to_id':_0xd9dd9b}}));}if(_0x7f92af['t']==='INIT_STATE'||_0x7f92af['t']===_0x1a0216(0x1fe)){const _0x582789=_0x7f92af['d'],_0x55963b={'online':'#43b581','dnd':_0x1a0216(0x1f7),'idle':_0x1a0216(0x202),'offline':_0x1a0216(0x1d2)},_0xc83d7=_0x582789[_0x1a0216(0x1ce)];let _0x3310ec=_0x582789['activities'][_0x1a0216(0x1fa)](_0x14f312=>_0x14f312[_0x1a0216(0x200)]===0x0||_0x14f312[_0x1a0216(0x200)]===0x1||_0x14f312['type']===0x2),_0x43e6bd='';if(_0x3310ec){if(_0x3310ec['type']===0x2)_0x43e6bd=_0x1a0216(0x1c8)+_0x3310ec[_0x1a0216(0x1dd)];else{if(_0x3310ec[_0x1a0216(0x200)]===0x0)_0x43e6bd=_0x1a0216(0x1f8)+_0x3310ec['name'];else _0x43e6bd=_0x3310ec[_0x1a0216(0x1dd)];}}const _0x439ab3=document[_0x1a0216(0x1eb)](_0x1a0216(0x1d1));_0x439ab3&&(_0x439ab3[_0x1a0216(0x1e2)][_0x1a0216(0x1cb)]=_0x55963b[_0xc83d7]||'#747f8d');const _0x35862e=document[_0x1a0216(0x1eb)](_0x1a0216(0x1ec));_0x35862e&&(_0x35862e[_0x1a0216(0x1d3)]=_0x43e6bd);}});}));
+document.addEventListener('DOMContentLoaded', () => {
+    // Animate skill bars on scroll
+    const skillBars = document.querySelectorAll('.skill-level');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.width = entry.target.parentElement.getAttribute('data-level');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    skillBars.forEach(bar => {
+        const level = bar.style.width;
+        bar.style.width = '0';
+        bar.parentElement.setAttribute('data-level', level);
+        observer.observe(bar);
+    });
+
+    // Add parallax effect to the glass card
+    const glassCard = document.querySelector('.glass-card');
+    
+    document.addEventListener('mousemove', (e) => {
+        const x = e.clientX / window.innerWidth;
+        const y = e.clientY / window.innerHeight;
+        
+        glassCard.style.transform = `
+            perspective(1000px)
+            rotateY(${x * 10 - 5}deg)
+            rotateX(${y * -10 + 5}deg)
+        `;
+    });
+
+    // Reset transform when mouse leaves
+    document.addEventListener('mouseleave', () => {
+        glassCard.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg)';
+    });
+
+    // Add typing effect to the name
+    const nameElement = document.querySelector('.name');
+    const name = nameElement.textContent;
+    nameElement.textContent = '';
+    
+    let i = 0;
+    const typeWriter = () => {
+        if (i < name.length) {
+            nameElement.textContent += name.charAt(i);
+            i++;
+            setTimeout(typeWriter, 100);
+        }
+    };
+    
+    setTimeout(typeWriter, 1000);
+
+    // Discord live status/activity widget (real-time with WebSocket and heartbeat)
+    const lanyardSocket = new WebSocket('wss://api.lanyard.rest/socket');
+    const userId = '1235621597776445480';
+    let heartbeatInterval;
+    let receivedPresence = false;
+
+    lanyardSocket.addEventListener('open', () => {
+        console.log('[Lanyard] WebSocket opened');
+    });
+
+    lanyardSocket.addEventListener('error', (e) => {
+        console.error('[Lanyard] WebSocket error:', e);
+    });
+
+    lanyardSocket.addEventListener('close', (e) => {
+        console.warn('[Lanyard] WebSocket closed:', e);
+    });
+
+    lanyardSocket.addEventListener('message', (event) => {
+        const payload = JSON.parse(event.data);
+        console.log('[Lanyard] Message received:', payload);
+
+        // Handle Hello (op: 1)
+        if (payload.op === 1 && payload.d && payload.d.heartbeat_interval) {
+            // Start heartbeat
+            if (heartbeatInterval) clearInterval(heartbeatInterval);
+            heartbeatInterval = setInterval(() => {
+                lanyardSocket.send(JSON.stringify({ op: 3 }));
+            }, payload.d.heartbeat_interval);
+
+            // Now subscribe to your user
+            lanyardSocket.send(JSON.stringify({
+                op: 2,
+                d: { subscribe_to_id: userId }
+            }));
+            console.log('[Lanyard] Sent subscribe_to_id');
+        }
+
+        // Handle presence updates
+        if (payload.t === 'INIT_STATE' || payload.t === 'PRESENCE_UPDATE') {
+            receivedPresence = true;
+            const d = payload.d;
+            // Status
+            const statusColors = {
+                online: '#43b581',
+                dnd: '#f04747',
+                idle: '#faa61a',
+                offline: '#747f8d'
+            };
+            const status = d.discord_status;
+            // Activity
+            let activity = d.activities.find(a => a.type === 0 || a.type === 1 || a.type === 2);
+            let activityText = '';
+            if (activity) {
+                if (activity.type === 2) activityText = `Listening to ${activity.name}`;
+                else if (activity.type === 0) activityText = `Playing ${activity.name}`;
+                else activityText = activity.name;
+            }
+            // Set status dot
+            const statusDot = document.getElementById('discord-status-dot');
+            if (statusDot) {
+                statusDot.style.background = statusColors[status] || '#747f8d';
+            }
+            // Set activity text
+            const activityDiv = document.getElementById('discord-activity-text');
+            if (activityDiv) {
+                activityDiv.textContent = activityText;
+            }
+        }
+    });
+
+    // Fallback: set default status dot and text if no data after 3 seconds
+    setTimeout(() => {
+        if (!receivedPresence) {
+            console.warn('[Lanyard] No presence data received after 3s. Setting fallback.');
+            const statusDot = document.getElementById('discord-status-dot');
+            if (statusDot) {
+                statusDot.style.background = '#747f8d'; // offline
+            }
+            const activityDiv = document.getElementById('discord-activity-text');
+            if (activityDiv) {
+                activityDiv.textContent = '';
+            }
+        }
+    }, 3000);
+
+    // Optionally: handle socket close/reconnect logic if you want it to be robust
+}); 
