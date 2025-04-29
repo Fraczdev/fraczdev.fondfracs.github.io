@@ -482,10 +482,10 @@ body {
 
 #discord-status-dot {
     position: absolute;
-    bottom: -18px;
-    right: -18px;
-    width: 22px;
-    height: 22px;
+    bottom: -10px;
+    right: -10px;
+    width: 26px;
+    height: 26px;
     border-radius: 50%;
     border: 4px solid #23272a;
     background: #747f8d;
