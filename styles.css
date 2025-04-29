@@ -214,7 +214,7 @@ body {
     display: none;
     position: absolute;
     background: #23272a;
-    color: #fff;
+    color: #fff !important;
     padding: 7px 16px;
     border-radius: 8px;
     font-size: 1rem;
@@ -224,6 +224,8 @@ body {
     white-space: nowrap;
     z-index: 20;
     box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+    font-weight: 500;
+    letter-spacing: 0.5px;
 }
 
 .contact-icon.discord:hover .discord-tooltip {
