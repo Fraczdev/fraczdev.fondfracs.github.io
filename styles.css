@@ -211,22 +211,34 @@ body {
 }
 
 .discord-tooltip {
-    display: block !important;
-    background: yellow;
-    color: black;
+    display: none;
     position: absolute;
-    padding: 4px 10px;
+    background: #23272a;
+    color: #fff;
+    padding: 7px 16px;
     border-radius: 8px;
-    font-size: 0.95rem;
+    font-size: 1rem;
     left: 50%;
     transform: translateX(-50%);
-    bottom: 120%;
+    bottom: 130%;
     white-space: nowrap;
-    z-index: 10;
+    z-index: 20;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.18);
 }
 
-.discord-link:hover .discord-tooltip {
+.contact-icon.discord:hover .discord-tooltip {
     display: block;
+}
+
+.discord-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 7px;
+    border-style: solid;
+    border-color: #23272a transparent transparent transparent;
 }
 
 @media (max-width: 768px) {
@@ -461,24 +473,6 @@ body {
 .contact-icon.discord {
     background: #5865F2;
     position: relative;
-}
-
-.discord-tooltip {
-    position: absolute;
-    top: -30px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #222;
-    padding: 5px 10px;
-    border-radius: 4px;
-    font-size: 0.9rem;
-    opacity: 0;
-    transition: opacity 0.2s;
-    pointer-events: none;
-}
-
-.contact-icon.discord:hover .discord-tooltip {
-    opacity: 1;
 }
 
 #discord-status-dot {
