@@ -1,1 +1,121 @@
-const _0x510ee0=_0x4c29;(function(_0x3616bf,_0x48f6ac){const _0x2cdbda=_0x4c29,_0x3ad11b=_0x3616bf();while(!![]){try{const _0x383c02=parseInt(_0x2cdbda(0x1ce))/0x1+-parseInt(_0x2cdbda(0x1c7))/0x2+parseInt(_0x2cdbda(0x1d7))/0x3*(parseInt(_0x2cdbda(0x1ea))/0x4)+-parseInt(_0x2cdbda(0x1f3))/0x5+-parseInt(_0x2cdbda(0x1dd))/0x6+-parseInt(_0x2cdbda(0x1e6))/0x7+parseInt(_0x2cdbda(0x1cd))/0x8;if(_0x383c02===_0x48f6ac)break;else _0x3ad11b['push'](_0x3ad11b['shift']());}catch(_0xfe4ba5){_0x3ad11b['push'](_0x3ad11b['shift']());}}}(_0x350d,0xcc90a),document[_0x510ee0(0x1e2)]('DOMContentLoaded',()=>{const _0x537c15=_0x510ee0,_0x1140cc=document['querySelectorAll'](_0x537c15(0x1ee)),_0x5b3370=new IntersectionObserver(_0x510c2a=>{_0x510c2a['forEach'](_0x57926e=>{const _0x387e3b=_0x4c29;_0x57926e[_0x387e3b(0x1f2)]&&(_0x57926e[_0x387e3b(0x1e3)][_0x387e3b(0x1f6)][_0x387e3b(0x1e4)]=_0x57926e[_0x387e3b(0x1e3)]['parentElement'][_0x387e3b(0x1cc)]('data-level'),_0x5b3370[_0x387e3b(0x1cb)](_0x57926e[_0x387e3b(0x1e3)]));});},{'threshold':0.5});_0x1140cc[_0x537c15(0x1d1)](_0x26e30c=>{const _0x38bfa3=_0x537c15,_0x19779e=_0x26e30c['style'][_0x38bfa3(0x1e4)];_0x26e30c[_0x38bfa3(0x1f6)]['width']='0',_0x26e30c[_0x38bfa3(0x1c9)]['setAttribute']('data-level',_0x19779e),_0x5b3370[_0x38bfa3(0x1c8)](_0x26e30c);});const _0x3abdab=document[_0x537c15(0x1dc)](_0x537c15(0x1f4));document[_0x537c15(0x1e2)](_0x537c15(0x1c6),_0x1bdd36=>{const _0x3acc87=_0x537c15,_0x1050ed=_0x1bdd36['clientX']/window['innerWidth'],_0x5a7ea9=_0x1bdd36['clientY']/window[_0x3acc87(0x1d2)];_0x3abdab[_0x3acc87(0x1f6)][_0x3acc87(0x1e8)]=_0x3acc87(0x1db)+(_0x1050ed*0xa-0x5)+_0x3acc87(0x1d6)+(_0x5a7ea9*-0xa+0x5)+_0x3acc87(0x1e0);}),document[_0x537c15(0x1e2)](_0x537c15(0x1c0),()=>{const _0x2024d8=_0x537c15;_0x3abdab['style'][_0x2024d8(0x1e8)]='perspective(1000px)\x20rotateY(0deg)\x20rotateX(0deg)';});const _0x2b078d=document[_0x537c15(0x1dc)]('.name'),_0x4d27a5=_0x2b078d[_0x537c15(0x1d4)];_0x2b078d[_0x537c15(0x1d4)]='';let _0x17b195=0x0;const _0x36c2e2=()=>{const _0x149e63=_0x537c15;_0x17b195<_0x4d27a5[_0x149e63(0x1c5)]&&(_0x2b078d[_0x149e63(0x1d4)]+=_0x4d27a5[_0x149e63(0x1ec)](_0x17b195),_0x17b195++,setTimeout(_0x36c2e2,0x64));};setTimeout(_0x36c2e2,0x3e8);const _0x3cf72e=new WebSocket(_0x537c15(0x1f0));let _0x3a7413=_0x537c15(0x1df);_0x3cf72e[_0x537c15(0x1e2)]('open',()=>{const _0x92c453=_0x537c15;_0x3cf72e[_0x92c453(0x1da)](JSON[_0x92c453(0x1e9)]({'op':0x2,'d':{'subscribe_to_id':_0x3a7413}}));}),_0x3cf72e[_0x537c15(0x1e2)](_0x537c15(0x1f5),_0x22d672=>{const _0x403385=_0x537c15,_0x48b8ae=JSON[_0x403385(0x1d9)](_0x22d672[_0x403385(0x1eb)]);if(_0x48b8ae['t']===_0x403385(0x1ca)||_0x48b8ae['t']==='PRESENCE_UPDATE'){const _0x31192c=_0x48b8ae['d'],_0x2fe83a=_0x403385(0x1e1)+_0x31192c[_0x403385(0x1f1)]['id']+'/'+_0x31192c[_0x403385(0x1f1)][_0x403385(0x1c4)]+_0x403385(0x1c3),_0x1d8d8b={'online':_0x403385(0x1d0),'dnd':_0x403385(0x1d8),'idle':'#faa61a','offline':_0x403385(0x1d5)},_0x1b7504=_0x31192c['discord_status'];let _0x41654c=_0x31192c['activities']['find'](_0x46951f=>_0x46951f[_0x403385(0x1e5)]===0x0||_0x46951f['type']===0x1||_0x46951f[_0x403385(0x1e5)]===0x2),_0x38d16e='';if(_0x41654c){if(_0x41654c[_0x403385(0x1e5)]===0x2)_0x38d16e=_0x403385(0x1ef)+_0x41654c[_0x403385(0x1cf)];else{if(_0x41654c['type']===0x0)_0x38d16e=_0x403385(0x1ed)+_0x41654c[_0x403385(0x1cf)];else _0x38d16e=_0x41654c['name'];}}const _0x5e51be=document['getElementById'](_0x403385(0x1c1));_0x5e51be&&(_0x5e51be[_0x403385(0x1f7)]='\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20style=\x22display:\x20flex;\x20align-items:\x20center;\x20gap:\x2010px;\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20style=\x22position:\x20relative;\x20width:\x2038px;\x20height:\x2038px;\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<img\x20src=\x22'+_0x2fe83a+_0x403385(0x1c2)+_0x1d8d8b[_0x1b7504]+';\x20border:\x202px\x20solid\x20#23272a;\x22></span>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<span\x20style=\x22font-size:\x201.08rem;\x20color:\x20#fff;\x20opacity:\x200.93;\x22>'+(_0x38d16e?_0x38d16e:_0x1b7504[_0x403385(0x1ec)](0x0)[_0x403385(0x1de)]()+_0x1b7504[_0x403385(0x1d3)](0x1))+_0x403385(0x1e7));}});}));function _0x4c29(_0x3eadc5,_0xd4c43c){const _0x350dc3=_0x350d();return _0x4c29=function(_0x4c2916,_0x502caf){_0x4c2916=_0x4c2916-0x1c0;let _0xafd56e=_0x350dc3[_0x4c2916];return _0xafd56e;},_0x4c29(_0x3eadc5,_0xd4c43c);}function _0x350d(){const _0x3a46f1=['parentElement','INIT_STATE','unobserve','getAttribute','11654680Srsmjg','1188396papbAd','name','#43b581','forEach','innerHeight','slice','textContent','#747f8d','deg)\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20rotateX(','1443681EExXnf','#f04747','parse','send','\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20perspective(1000px)\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20rotateY(','querySelector','2635002ELGJug','toUpperCase','1235621597776445480','deg)\x0a\x20\x20\x20\x20\x20\x20\x20\x20','https://cdn.discordapp.com/avatars/','addEventListener','target','width','type','6750541yqJkEH','</span>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20','transform','stringify','4OxJXwB','data','charAt','Playing\x20','.skill-level','Listening\x20to\x20','wss://api.lanyard.rest/socket','discord_user','isIntersecting','1508065EFZzqp','.glass-card','message','style','innerHTML','mouseleave','discord-live-status','\x22\x20alt=\x22Discord\x20Avatar\x22\x20style=\x22width:\x2038px;\x20height:\x2038px;\x20border-radius:\x2050%;\x20border:\x202.5px\x20solid\x20#23272a;\x20background:\x20#fff;\x22\x20/>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<span\x20style=\x22position:\x20absolute;\x20bottom:\x202px;\x20right:\x202px;\x20width:\x2012px;\x20height:\x2012px;\x20border-radius:\x2050%;\x20background:\x20','.png','avatar','length','mousemove','1166834SxPEub','observe'];_0x350d=function(){return _0x3a46f1;};return _0x350d();}
+document.addEventListener('DOMContentLoaded', () => {
+    // Animate skill bars on scroll
+    const skillBars = document.querySelectorAll('.skill-level');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.width = entry.target.parentElement.getAttribute('data-level');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    skillBars.forEach(bar => {
+        const level = bar.style.width;
+        bar.style.width = '0';
+        bar.parentElement.setAttribute('data-level', level);
+        observer.observe(bar);
+    });
+
+    // Add parallax effect to the glass card
+    const glassCard = document.querySelector('.glass-card');
+    
+    document.addEventListener('mousemove', (e) => {
+        const x = e.clientX / window.innerWidth;
+        const y = e.clientY / window.innerHeight;
+        
+        glassCard.style.transform = `
+            perspective(1000px)
+            rotateY(${x * 10 - 5}deg)
+            rotateX(${y * -10 + 5}deg)
+        `;
+    });
+
+    // Reset transform when mouse leaves
+    document.addEventListener('mouseleave', () => {
+        glassCard.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg)';
+    });
+
+    // Add typing effect to the name
+    const nameElement = document.querySelector('.name');
+    const name = nameElement.textContent;
+    nameElement.textContent = '';
+    
+    let i = 0;
+    const typeWriter = () => {
+        if (i < name.length) {
+            nameElement.textContent += name.charAt(i);
+            i++;
+            setTimeout(typeWriter, 100);
+        }
+    };
+    
+    setTimeout(typeWriter, 1000);
+
+    // Discord live status/activity widget (real-time with WebSocket and heartbeat)
+    const lanyardSocket = new WebSocket('wss://api.lanyard.rest/socket');
+    const userId = '1235621597776445480';
+    let heartbeatInterval;
+
+    lanyardSocket.addEventListener('open', () => {
+        // Wait for Hello (op: 1) before subscribing!
+    });
+
+    lanyardSocket.addEventListener('message', (event) => {
+        const payload = JSON.parse(event.data);
+
+        // Handle Hello (op: 1)
+        if (payload.op === 1 && payload.d && payload.d.heartbeat_interval) {
+            // Start heartbeat
+            if (heartbeatInterval) clearInterval(heartbeatInterval);
+            heartbeatInterval = setInterval(() => {
+                lanyardSocket.send(JSON.stringify({ op: 3 }));
+            }, payload.d.heartbeat_interval);
+
+            // Now subscribe to your user
+            lanyardSocket.send(JSON.stringify({
+                op: 2,
+                d: { subscribe_to_id: userId }
+            }));
+        }
+
+        // Handle presence updates
+        if (payload.t === 'INIT_STATE' || payload.t === 'PRESENCE_UPDATE') {
+            const d = payload.d;
+            // Avatar
+            const avatarUrl = `https://cdn.discordapp.com/avatars/${d.discord_user.id}/${d.discord_user.avatar}.png`;
+            // Status
+            const statusColors = {
+                online: '#43b581',
+                dnd: '#f04747',
+                idle: '#faa61a',
+                offline: '#747f8d'
+            };
+            const status = d.discord_status;
+            // Activity
+            let activity = d.activities.find(a => a.type === 0 || a.type === 1 || a.type === 2);
+            let activityText = '';
+            if (activity) {
+                if (activity.type === 2) activityText = `Listening to ${activity.name}`;
+                else if (activity.type === 0) activityText = `Playing ${activity.name}`;
+                else activityText = activity.name;
+            }
+            // Render
+            const discordLiveStatus = document.getElementById('discord-live-status');
+            if (discordLiveStatus) {
+                discordLiveStatus.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <div style="position: relative; width: 38px; height: 38px;">
+                            <img src="${avatarUrl}" alt="Discord Avatar" style="width: 38px; height: 38px; border-radius: 50%; border: 2.5px solid #23272a; background: #fff;" />
+                            <span style="position: absolute; bottom: 2px; right: 2px; width: 12px; height: 12px; border-radius: 50%; background: ${statusColors[status]}; border: 2px solid #23272a;"></span>
+                        </div>
+                        <span style="font-size: 1.08rem; color: #fff; opacity: 0.93;">${activityText ? activityText : status.charAt(0).toUpperCase() + status.slice(1)}</span>
+                    </div>
+                `;
+            }
+        }
+    });
+
+    // Optionally: handle socket close/reconnect logic if you want it to be robust
+}); 
