@@ -94,10 +94,6 @@
             color: white;
             animation: fadeIn 1s ease-in-out;
             overflow: hidden;
-            max-width: 900px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
         }
 
         .glass-card::before {
