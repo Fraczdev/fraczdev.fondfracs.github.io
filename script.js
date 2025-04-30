@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-
     const skillBars = document.querySelectorAll('.skill-level');
     
     const observer = new IntersectionObserver((entries) => {
@@ -120,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.warn('[Lanyard] No presence data received after 3s. Setting fallback.');
             const statusDot = document.getElementById('discord-status-dot');
             if (statusDot) {
-                statusDot.style.background = '#747f8d'; // offline
+                statusDot.style.background = '#747f8d';
             }
             const activityDiv = document.getElementById('discord-activity-text');
             if (activityDiv) {
@@ -141,7 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentTrackIndex = 0;
     let isPlayingSpotifyPlaylist = false;
 
-    // Fetch playlist tracks
+    
     async function fetchPlaylistTracks() {
         try {
             const response = await fetch('/.netlify/functions/spotify/playlist-tracks');
@@ -157,7 +156,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Update music info display
     function updateMusicInfo(title, artist, currentTime, duration) {
         songTitle.textContent = title;
         songArtist.textContent = artist;
@@ -170,14 +168,12 @@ document.addEventListener('DOMContentLoaded', () => {
         timestamp.textContent = `${formatTime(current)} / ${formatTime(total)}`;
     }
 
-    // Format time in MM:SS
     function formatTime(seconds) {
         const minutes = Math.floor(seconds / 60);
         const remainingSeconds = seconds % 60;
         return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
     }
 
-    // Check current playback and Discord status
     async function checkPlaybackStatus() {
         try {
             const response = await fetch('/.netlify/functions/spotify/current-playback');
@@ -193,14 +189,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 disk.style.animationPlayState = 'running';
                 isPlayingSpotifyPlaylist = true;
             } else {
-                // If nothing is playing on Spotify, check Discord status
                 const discordActivity = document.getElementById('discord-activity-text');
                 if (discordActivity && discordActivity.textContent.startsWith('Listening to')) {
-                    // Discord music is playing
                     disk.style.animationPlayState = 'running';
                     isPlayingSpotifyPlaylist = false;
                 } else {
-                    // No music playing, show random playlist track
                     if (!isPlayingSpotifyPlaylist) {
                         currentTrackIndex = Math.floor(Math.random() * playlistTracks.length);
                         const track = playlistTracks[currentTrackIndex];
@@ -214,11 +207,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Initialize
     fetchPlaylistTracks();
     setInterval(checkPlaybackStatus, 1000);
 
-    // Create audio context and analyzer
     const audioContext = new (window.AudioContext || window.webkitAudioContext)();
     const analyser = audioContext.createAnalyser();
     const source = audioContext.createMediaElementSource(audio);
@@ -226,10 +217,9 @@ document.addEventListener('DOMContentLoaded', () => {
     analyser.connect(audioContext.destination);
     analyser.fftSize = 256;
 
-    // Create waveform bars
     const bufferLength = analyser.frequencyBinCount;
     const dataArray = new Uint8Array(bufferLength);
-    const numBars = 60; // Number of bars in the waveform
+    const numBars = 60;
     const bars = [];
 
     for (let i = 0; i < numBars; i++) {
@@ -241,28 +231,26 @@ document.addEventListener('DOMContentLoaded', () => {
         bars.push(bar);
     }
 
-    // Animation function
     function animate() {
         requestAnimationFrame(animate);
         analyser.getByteFrequencyData(dataArray);
 
-        // Update waveform bars
+
         bars.forEach((bar, i) => {
             const dataIndex = Math.floor((i / numBars) * bufferLength);
             const height = (dataArray[dataIndex] / 255) * 100;
             bar.style.height = `${height}%`;
         });
 
-        // Calculate average volume for page vibration
         const average = dataArray.reduce((a, b) => a + b) / bufferLength;
-        const vibration = (average / 255) * 5; // Adjust multiplier for intensity
+        const vibration = (average / 255) * 5;
         glassCard.style.transform = `perspective(1000px) rotateY(0deg) rotateX(0deg) scale(${1 + vibration * 0.01})`;
     }
 
     disk.addEventListener('click', () => {
         if (audio.paused) {
             audio.play();
-            audioContext.resume(); // Required for Chrome autoplay policy
+            audioContext.resume();
             disk.style.animationPlayState = 'running';
         } else {
             audio.pause();
@@ -270,6 +258,5 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Start animation
     animate();
 }); 
