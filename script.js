@@ -1,2 +1,275 @@
-const _0x174516=_0x27f5;function _0x27f5(_0x860d1b,_0x95623e){const _0xed0808=_0xed08();return _0x27f5=function(_0x27f592,_0x3525c3){_0x27f592=_0x27f592-0xbf;let _0x364c78=_0xed0808[_0x27f592];return _0x364c78;},_0x27f5(_0x860d1b,_0x95623e);}function _0xed08(){const _0x4be582=['display','name','[Lanyard]\x20No\x20presence\x20data\x20received\x20after\x203s.\x20Setting\x20fallback.','pause','75240fzkrMM','paused','stringify','webkitAudioContext','#faa61a','36jhPgkg','find','1235621597776445480','\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20perspective(1000px)\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20rotateY(','getElementById','INIT_STATE','isIntersecting','heartbeat_interval','transform','type','running','innerHeight','#f04747','push','animationPlayState','play','#43b581','className','[Lanyard]\x20WebSocket\x20error:','918162wqxMNS','click','discord_status','resume','style','wss://api.lanyard.rest/socket','send','AudioContext','destination','3170OyEDYo','forEach','length','waveform','4SFMoOm','addEventListener','.skill-level','deg)\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20rotateX(','close','reduce','waveform-bar','[Lanyard]\x20WebSocket\x20opened','3906072BdaZZz','background','discord-status-dot','floor','querySelectorAll','76832doOyQy','data','Playing\x20','unobserve','warn','querySelector','open','Listening\x20to\x20','deg)\x0a\x20\x20\x20\x20\x20\x20\x20\x20','width','connect','clientX','perspective(1000px)\x20rotateY(0deg)\x20rotateX(0deg)','2937024hElVLf','div','mousemove','target','3612810xTZWwO','DOMContentLoaded','parse','17631AQjADi','data-level','textContent','log','left','PRESENCE_UPDATE','getAttribute','observe','#747f8d','[Lanyard]\x20Sent\x20subscribe_to_id','rotate(','charAt','frequencyBinCount','activities','createAnalyser'];_0xed08=function(){return _0x4be582;};return _0xed08();}(function(_0x2f4051,_0x4737b1){const _0x23df09=_0x27f5,_0x3f9fd9=_0x2f4051();while(!![]){try{const _0x5e2c9d=-parseInt(_0x23df09(0x100))/0x1+-parseInt(_0x23df09(0xd9))/0x2*(parseInt(_0x23df09(0x105))/0x3)+-parseInt(_0x23df09(0xcc))/0x4*(-parseInt(_0x23df09(0xea))/0x5)+parseInt(_0x23df09(0xd4))/0x6+-parseInt(_0x23df09(0xbf))/0x7+parseInt(_0x23df09(0xe6))/0x8+-parseInt(_0x23df09(0xed))/0x9*(parseInt(_0x23df09(0xc8))/0xa);if(_0x5e2c9d===_0x4737b1)break;else _0x3f9fd9['push'](_0x3f9fd9['shift']());}catch(_0x3a1278){_0x3f9fd9['push'](_0x3f9fd9['shift']());}}}(_0xed08,0x6e6cd),document['addEventListener'](_0x174516(0xeb),()=>{const _0x378b19=_0x174516,_0xdb7c97=document[_0x378b19(0xd8)](_0x378b19(0xce)),_0x2eb40c=new IntersectionObserver(_0x18b4db=>{const _0x307442=_0x378b19;_0x18b4db[_0x307442(0xc9)](_0x34539d=>{const _0x4e49e6=_0x307442;_0x34539d[_0x4e49e6(0x10b)]&&(_0x34539d['target'][_0x4e49e6(0xc3)]['width']=_0x34539d[_0x4e49e6(0xe9)]['parentElement'][_0x4e49e6(0xf3)]('data-level'),_0x2eb40c[_0x4e49e6(0xdc)](_0x34539d[_0x4e49e6(0xe9)]));});},{'threshold':0.5});_0xdb7c97[_0x378b19(0xc9)](_0x1fc0fa=>{const _0xefb007=_0x378b19,_0x3e6ed4=_0x1fc0fa['style'][_0xefb007(0xe2)];_0x1fc0fa[_0xefb007(0xc3)][_0xefb007(0xe2)]='0',_0x1fc0fa['parentElement']['setAttribute'](_0xefb007(0xee),_0x3e6ed4),_0x2eb40c[_0xefb007(0xf4)](_0x1fc0fa);});const _0x43901c=document['querySelector']('.glass-card');document[_0x378b19(0xcd)](_0x378b19(0xe8),_0x2a9a0d=>{const _0x3ac841=_0x378b19,_0x2807f8=_0x2a9a0d[_0x3ac841(0xe4)]/window['innerWidth'],_0x3cbaad=_0x2a9a0d['clientY']/window[_0x3ac841(0x110)];_0x43901c[_0x3ac841(0xc3)][_0x3ac841(0x10d)]=_0x3ac841(0x108)+(_0x2807f8*0xa-0x5)+_0x3ac841(0xcf)+(_0x3cbaad*-0xa+0x5)+_0x3ac841(0xe1);}),document[_0x378b19(0xcd)]('mouseleave',()=>{const _0x4aa933=_0x378b19;_0x43901c[_0x4aa933(0xc3)][_0x4aa933(0x10d)]=_0x4aa933(0xe5);});const _0x408849=document[_0x378b19(0xde)]('.name'),_0x548240=_0x408849['textContent'];_0x408849[_0x378b19(0xef)]='';let _0xf20a7c=0x0;const _0x2688cd=()=>{const _0x48c56d=_0x378b19;_0xf20a7c<_0x548240[_0x48c56d(0xca)]&&(_0x408849[_0x48c56d(0xef)]+=_0x548240[_0x48c56d(0xf8)](_0xf20a7c),_0xf20a7c++,setTimeout(_0x2688cd,0x64));};setTimeout(_0x2688cd,0x3e8);const _0x136f27=new WebSocket(_0x378b19(0xc4)),_0x30e660=_0x378b19(0x107);let _0x10a7a7,_0x2826a5=![];_0x136f27['addEventListener'](_0x378b19(0xdf),()=>{const _0xb965eb=_0x378b19;console[_0xb965eb(0xf0)](_0xb965eb(0xd3));}),_0x136f27[_0x378b19(0xcd)]('error',_0x327856=>{const _0x137538=_0x378b19;console['error'](_0x137538(0x117),_0x327856);}),_0x136f27[_0x378b19(0xcd)](_0x378b19(0xd0),_0xfd4ca2=>{const _0xfc6a2e=_0x378b19;console[_0xfc6a2e(0xdd)]('[Lanyard]\x20WebSocket\x20closed:',_0xfd4ca2);}),_0x136f27[_0x378b19(0xcd)]('message',_0x3a7d76=>{const _0x2b0ccd=_0x378b19,_0x446383=JSON[_0x2b0ccd(0xec)](_0x3a7d76[_0x2b0ccd(0xda)]);console[_0x2b0ccd(0xf0)]('[Lanyard]\x20Message\x20received:',_0x446383);if(_0x446383['op']===0x1&&_0x446383['d']&&_0x446383['d'][_0x2b0ccd(0x10c)]){if(_0x10a7a7)clearInterval(_0x10a7a7);_0x10a7a7=setInterval(()=>{const _0xe668ed=_0x2b0ccd;_0x136f27[_0xe668ed(0xc5)](JSON[_0xe668ed(0x102)]({'op':0x3}));},_0x446383['d'][_0x2b0ccd(0x10c)]),_0x136f27['send'](JSON['stringify']({'op':0x2,'d':{'subscribe_to_id':_0x30e660}})),console[_0x2b0ccd(0xf0)](_0x2b0ccd(0xf6));}if(_0x446383['t']===_0x2b0ccd(0x10a)||_0x446383['t']===_0x2b0ccd(0xf2)){_0x2826a5=!![];const _0x16ba4e=_0x446383['d'],_0xa1c884={'online':_0x2b0ccd(0x115),'dnd':_0x2b0ccd(0x111),'idle':_0x2b0ccd(0x104),'offline':_0x2b0ccd(0xf5)},_0x45e15b=_0x16ba4e[_0x2b0ccd(0xc1)];let _0x57012=_0x16ba4e[_0x2b0ccd(0xfa)][_0x2b0ccd(0x106)](_0x58003c=>_0x58003c[_0x2b0ccd(0x10e)]===0x0||_0x58003c[_0x2b0ccd(0x10e)]===0x1||_0x58003c[_0x2b0ccd(0x10e)]===0x2),_0x184536='';if(_0x57012){if(_0x57012[_0x2b0ccd(0x10e)]===0x2)_0x184536=_0x2b0ccd(0xe0)+_0x57012[_0x2b0ccd(0xfd)];else{if(_0x57012[_0x2b0ccd(0x10e)]===0x0)_0x184536=_0x2b0ccd(0xdb)+_0x57012[_0x2b0ccd(0xfd)];else _0x184536=_0x57012[_0x2b0ccd(0xfd)];}}const _0x21969e=document[_0x2b0ccd(0x109)](_0x2b0ccd(0xd6));_0x21969e?(_0x21969e[_0x2b0ccd(0xc3)][_0x2b0ccd(0xd5)]=_0xa1c884[_0x45e15b]||_0x2b0ccd(0xf5),_0x21969e['style'][_0x2b0ccd(0xfc)]='block'):console['log']('Status\x20dot\x20element\x20not\x20found');const _0x29c762=document[_0x2b0ccd(0x109)]('discord-activity-text');_0x29c762&&(_0x29c762[_0x2b0ccd(0xef)]=_0x184536);}}),setTimeout(()=>{const _0x4a74d7=_0x378b19;if(!_0x2826a5){console[_0x4a74d7(0xdd)](_0x4a74d7(0xfe));const _0x374ce6=document[_0x4a74d7(0x109)](_0x4a74d7(0xd6));_0x374ce6&&(_0x374ce6[_0x4a74d7(0xc3)][_0x4a74d7(0xd5)]=_0x4a74d7(0xf5));const _0x510626=document['getElementById']('discord-activity-text');_0x510626&&(_0x510626[_0x4a74d7(0xef)]='');}},0xbb8);const _0x497478=document[_0x378b19(0xde)]('.vinyl-disk'),_0x4b0c79=document[_0x378b19(0x109)]('player'),_0x3ff207=document[_0x378b19(0x109)](_0x378b19(0xcb)),_0x1f4214=new(window[(_0x378b19(0xc6))]||window[(_0x378b19(0x103))])(),_0x4da9a4=_0x1f4214[_0x378b19(0xfb)](),_0x445734=_0x1f4214['createMediaElementSource'](_0x4b0c79);_0x445734[_0x378b19(0xe3)](_0x4da9a4),_0x4da9a4[_0x378b19(0xe3)](_0x1f4214[_0x378b19(0xc7)]),_0x4da9a4['fftSize']=0x100;const _0x261801=_0x4da9a4[_0x378b19(0xf9)],_0x5aeef9=new Uint8Array(_0x261801),_0x5862bd=0x3c,_0xe5be84=[];for(let _0x38f676=0x0;_0x38f676<_0x5862bd;_0x38f676++){const _0x3cbb95=document['createElement'](_0x378b19(0xe7));_0x3cbb95[_0x378b19(0x116)]=_0x378b19(0xd2),_0x3cbb95[_0x378b19(0xc3)][_0x378b19(0xf1)]=_0x38f676/_0x5862bd*0x64+'%',_0x3cbb95[_0x378b19(0xc3)][_0x378b19(0x10d)]=_0x378b19(0xf7)+_0x38f676/_0x5862bd*0x168+'deg)',_0x3ff207['appendChild'](_0x3cbb95),_0xe5be84[_0x378b19(0x112)](_0x3cbb95);}function _0x24ac51(){const _0x29ef84=_0x378b19;requestAnimationFrame(_0x24ac51),_0x4da9a4['getByteFrequencyData'](_0x5aeef9),_0xe5be84[_0x29ef84(0xc9)]((_0x3eccc7,_0x25fd33)=>{const _0x1321c4=_0x29ef84,_0x4d3389=Math[_0x1321c4(0xd7)](_0x25fd33/_0x5862bd*_0x261801),_0x20360c=_0x5aeef9[_0x4d3389]/0xff*0x64;_0x3eccc7['style']['height']=_0x20360c+'%';});const _0xd30de8=_0x5aeef9[_0x29ef84(0xd1)]((_0x5a1828,_0x229d9c)=>_0x5a1828+_0x229d9c)/_0x261801,_0x346b3b=_0xd30de8/0xff*0x5;_0x43901c[_0x29ef84(0xc3)][_0x29ef84(0x10d)]='perspective(1000px)\x20rotateY(0deg)\x20rotateX(0deg)\x20scale('+(0x1+_0x346b3b*0.01)+')';}_0x497478[_0x378b19(0xcd)](_0x378b19(0xc0),()=>{const _0x2462db=_0x378b19;_0x4b0c79[_0x2462db(0x101)]?(_0x4b0c79[_0x2462db(0x114)](),_0x1f4214[_0x2462db(0xc2)](),_0x497478[_0x2462db(0xc3)][_0x2462db(0x113)]=_0x2462db(0x10f)):(_0x4b0c79[_0x2462db(0xff)](),_0x497478[_0x2462db(0xc3)][_0x2462db(0x113)]=_0x2462db(0x101));}),_0x24ac51();}));
-// obfuscated, bitch! -Jesse Pinkman
+document.addEventListener('DOMContentLoaded', () => {
+
+    const skillBars = document.querySelectorAll('.skill-level');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.width = entry.target.parentElement.getAttribute('data-level');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    skillBars.forEach(bar => {
+        const level = bar.style.width;
+        bar.style.width = '0';
+        bar.parentElement.setAttribute('data-level', level);
+        observer.observe(bar);
+    });
+
+    const glassCard = document.querySelector('.glass-card');
+    
+    document.addEventListener('mousemove', (e) => {
+        const x = e.clientX / window.innerWidth;
+        const y = e.clientY / window.innerHeight;
+        
+        glassCard.style.transform = `
+            perspective(1000px)
+            rotateY(${x * 10 - 5}deg)
+            rotateX(${y * -10 + 5}deg)
+        `;
+    });
+
+    document.addEventListener('mouseleave', () => {
+        glassCard.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg)';
+    });
+
+    const nameElement = document.querySelector('.name');
+    const name = nameElement.textContent;
+    nameElement.textContent = '';
+    
+    let i = 0;
+    const typeWriter = () => {
+        if (i < name.length) {
+            nameElement.textContent += name.charAt(i);
+            i++;
+            setTimeout(typeWriter, 100);
+        }
+    };
+    
+    setTimeout(typeWriter, 1000);
+
+    const lanyardSocket = new WebSocket('wss://api.lanyard.rest/socket');
+    const userId = '1235621597776445480';
+    let heartbeatInterval;
+    let receivedPresence = false;
+
+    lanyardSocket.addEventListener('open', () => {
+        console.log('[Lanyard] WebSocket opened');
+    });
+
+    lanyardSocket.addEventListener('error', (e) => {
+        console.error('[Lanyard] WebSocket error:', e);
+    });
+
+    lanyardSocket.addEventListener('close', (e) => {
+        console.warn('[Lanyard] WebSocket closed:', e);
+    });
+
+    lanyardSocket.addEventListener('message', (event) => {
+        const payload = JSON.parse(event.data);
+        console.log('[Lanyard] Message received:', payload);
+
+        if (payload.op === 1 && payload.d && payload.d.heartbeat_interval) {
+            if (heartbeatInterval) clearInterval(heartbeatInterval);
+            heartbeatInterval = setInterval(() => {
+                lanyardSocket.send(JSON.stringify({ op: 3 }));
+            }, payload.d.heartbeat_interval);
+
+            lanyardSocket.send(JSON.stringify({
+                op: 2,
+                d: { subscribe_to_id: userId }
+            }));
+            console.log('[Lanyard] Sent subscribe_to_id');
+        }
+
+        if (payload.t === 'INIT_STATE' || payload.t === 'PRESENCE_UPDATE') {
+            receivedPresence = true;
+            const d = payload.d;
+            const statusColors = {
+                online: '#43b581',
+                dnd: '#f04747',
+                idle: '#faa61a',
+                offline: '#747f8d'
+            };
+            const status = d.discord_status;
+            let activity = d.activities.find(a => a.type === 0 || a.type === 1 || a.type === 2);
+            let activityText = '';
+            if (activity) {
+                if (activity.type === 2) activityText = `Listening to ${activity.name}`;
+                else if (activity.type === 0) activityText = `Playing ${activity.name}`;
+                else activityText = activity.name;
+            }
+            const statusDot = document.getElementById('discord-status-dot');
+            if (statusDot) {
+                statusDot.style.background = statusColors[status] || '#747f8d';
+                statusDot.style.display = 'block';
+            } else {
+                console.log('Status dot element not found');
+            }
+            const activityDiv = document.getElementById('discord-activity-text');
+            if (activityDiv) {
+                activityDiv.textContent = activityText;
+            }
+        }
+    });
+
+    setTimeout(() => {
+        if (!receivedPresence) {
+            console.warn('[Lanyard] No presence data received after 3s. Setting fallback.');
+            const statusDot = document.getElementById('discord-status-dot');
+            if (statusDot) {
+                statusDot.style.background = '#747f8d'; // offline
+            }
+            const activityDiv = document.getElementById('discord-activity-text');
+            if (activityDiv) {
+                activityDiv.textContent = '';
+            }
+        }
+    }, 3000);
+
+    const disk = document.querySelector('.vinyl-disk');
+    const audio = document.getElementById('player');
+    const waveform = document.getElementById('waveform');
+    const songTitle = document.querySelector('.song-title');
+    const songArtist = document.querySelector('.song-artist');
+    const progressBar = document.querySelector('.progress');
+    const timestamp = document.querySelector('.timestamp');
+
+    let playlistTracks = [];
+    let currentTrackIndex = 0;
+    let isPlayingSpotifyPlaylist = false;
+
+    // Fetch playlist tracks
+    async function fetchPlaylistTracks() {
+        try {
+            const response = await fetch('/.netlify/functions/spotify/playlist-tracks');
+            const data = await response.json();
+            playlistTracks = data.items.map(item => ({
+                name: item.track.name,
+                artist: item.track.artists[0].name,
+                duration: item.track.duration_ms
+            }));
+            console.log('Playlist tracks loaded:', playlistTracks);
+        } catch (err) {
+            console.error('Error fetching playlist:', err);
+        }
+    }
+
+    // Update music info display
+    function updateMusicInfo(title, artist, currentTime, duration) {
+        songTitle.textContent = title;
+        songArtist.textContent = artist;
+        
+        const current = Math.floor(currentTime / 1000);
+        const total = Math.floor(duration / 1000);
+        const progress = (currentTime / duration) * 100;
+        
+        progressBar.style.width = `${progress}%`;
+        timestamp.textContent = `${formatTime(current)} / ${formatTime(total)}`;
+    }
+
+    // Format time in MM:SS
+    function formatTime(seconds) {
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = seconds % 60;
+        return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+    }
+
+    // Check current playback and Discord status
+    async function checkPlaybackStatus() {
+        try {
+            const response = await fetch('/.netlify/functions/spotify/current-playback');
+            const data = await response.json();
+            
+            if (data.is_playing) {
+                updateMusicInfo(
+                    data.item.name,
+                    data.item.artists[0].name,
+                    data.progress_ms,
+                    data.item.duration_ms
+                );
+                disk.style.animationPlayState = 'running';
+                isPlayingSpotifyPlaylist = true;
+            } else {
+                // If nothing is playing on Spotify, check Discord status
+                const discordActivity = document.getElementById('discord-activity-text');
+                if (discordActivity && discordActivity.textContent.startsWith('Listening to')) {
+                    // Discord music is playing
+                    disk.style.animationPlayState = 'running';
+                    isPlayingSpotifyPlaylist = false;
+                } else {
+                    // No music playing, show random playlist track
+                    if (!isPlayingSpotifyPlaylist) {
+                        currentTrackIndex = Math.floor(Math.random() * playlistTracks.length);
+                        const track = playlistTracks[currentTrackIndex];
+                        updateMusicInfo(track.name, track.artist, 0, track.duration);
+                        disk.style.animationPlayState = 'paused';
+                    }
+                }
+            }
+        } catch (err) {
+            console.error('Error checking playback:', err);
+        }
+    }
+
+    // Initialize
+    fetchPlaylistTracks();
+    setInterval(checkPlaybackStatus, 1000);
+
+    // Create audio context and analyzer
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    const analyser = audioContext.createAnalyser();
+    const source = audioContext.createMediaElementSource(audio);
+    source.connect(analyser);
+    analyser.connect(audioContext.destination);
+    analyser.fftSize = 256;
+
+    // Create waveform bars
+    const bufferLength = analyser.frequencyBinCount;
+    const dataArray = new Uint8Array(bufferLength);
+    const numBars = 60; // Number of bars in the waveform
+    const bars = [];
+
+    for (let i = 0; i < numBars; i++) {
+        const bar = document.createElement('div');
+        bar.className = 'waveform-bar';
+        bar.style.left = `${(i / numBars) * 100}%`;
+        bar.style.transform = `rotate(${(i / numBars) * 360}deg)`;
+        waveform.appendChild(bar);
+        bars.push(bar);
+    }
+
+    // Animation function
+    function animate() {
+        requestAnimationFrame(animate);
+        analyser.getByteFrequencyData(dataArray);
+
+        // Update waveform bars
+        bars.forEach((bar, i) => {
+            const dataIndex = Math.floor((i / numBars) * bufferLength);
+            const height = (dataArray[dataIndex] / 255) * 100;
+            bar.style.height = `${height}%`;
+        });
+
+        // Calculate average volume for page vibration
+        const average = dataArray.reduce((a, b) => a + b) / bufferLength;
+        const vibration = (average / 255) * 5; // Adjust multiplier for intensity
+        glassCard.style.transform = `perspective(1000px) rotateY(0deg) rotateX(0deg) scale(${1 + vibration * 0.01})`;
+    }
+
+    disk.addEventListener('click', () => {
+        if (audio.paused) {
+            audio.play();
+            audioContext.resume(); // Required for Chrome autoplay policy
+            disk.style.animationPlayState = 'running';
+        } else {
+            audio.pause();
+            disk.style.animationPlayState = 'paused';
+        }
+    });
+
+    // Start animation
+    animate();
+}); 
