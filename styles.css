@@ -46,19 +46,19 @@
 
     @keyframes float {
         0% {
-            transform: translate(0, 0) rotate(0deg);
+            transform: translate(0, 0);
         }
         25% {
-            transform: translate(50px, 50px) rotate(90deg);
+            transform: translate(30px, 30px);
         }
         50% {
-            transform: translate(0, 100px) rotate(180deg);
+            transform: translate(0, 60px);
         }
         75% {
-            transform: translate(-50px, 50px) rotate(270deg);
+            transform: translate(-30px, 30px);
         }
         100% {
-            transform: translate(0, 0) rotate(360deg);
+            transform: translate(0, 0);
         }
     }
 
@@ -78,6 +78,7 @@
         width: 100%;
         max-width: 1200px;
         padding: 20px;
+        margin: 0 auto;
     }
 
     .glass-card {
