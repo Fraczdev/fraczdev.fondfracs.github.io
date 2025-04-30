@@ -79,6 +79,8 @@
             max-width: 1200px;
             padding: 20px;
             margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
 
         .glass-card {
@@ -94,6 +96,8 @@
             overflow: hidden;
             max-width: 900px;
             margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
 
         .glass-card::before {
@@ -566,4 +570,21 @@
             opacity: 0.93;
             min-height: 1.5em;
             margin-bottom: 2px;
+        }
+
+        .squiggle {
+            position: absolute;
+            z-index: 0;
+            opacity: 0.7;
+            pointer-events: none;
+        }
+        .squiggle-top-left {
+            top: 0;
+            left: 0;
+            transform: translate(-30px, 10px) rotate(-8deg);
+        }
+        .squiggle-top-right {
+            top: 0;
+            right: 0;
+            transform: translate(30px, 10px) scaleX(-1) rotate(-8deg);
         } 
