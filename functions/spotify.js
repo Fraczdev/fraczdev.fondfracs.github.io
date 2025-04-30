@@ -35,7 +35,7 @@ exports.handler = async function(event, context) {
 
   try {
     switch (path) {
-      case 'login':
+      case 'get-token':
         const scopes = ['user-read-playback-state', 'playlist-read-private'];
         return {
           statusCode: 302,
@@ -47,13 +47,11 @@ exports.handler = async function(event, context) {
       case 'callback':
         const { code } = event.queryStringParameters;
         const data = await spotifyApi.authorizationCodeGrant(code);
-        spotifyApi.setAccessToken(data.body['access_token']);
-        spotifyApi.setRefreshToken(data.body['refresh_token']);
+        console.log('Refresh token:', data.body['refresh_token']);
         return {
-          statusCode: 302,
-          headers: {
-            Location: '/'
-          }
+          statusCode: 200,
+          headers,
+          body: JSON.stringify({ message: 'Check your Netlify function logs for the refresh token!' })
         };
 
       case 'current-playback':
@@ -80,7 +78,6 @@ exports.handler = async function(event, context) {
         };
     }
   } catch (error) {
-    console.error('Function error:', error);
     return {
       statusCode: 500,
       headers,
