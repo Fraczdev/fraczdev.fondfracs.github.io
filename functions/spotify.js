@@ -37,10 +37,11 @@ exports.handler = async function(event, context) {
     switch (path) {
       case 'get-token':
         const scopes = ['user-read-playback-state', 'playlist-read-private'];
+        const authorizeURL = spotifyApi.createAuthorizeURL(scopes, 'state', 'code');
         return {
           statusCode: 302,
           headers: {
-            Location: spotifyApi.createAuthorizeURL(scopes)
+            Location: authorizeURL
           }
         };
 
