@@ -2,19 +2,10 @@ const SpotifyWebApi = require('spotify-web-api-node');
 
 const spotifyApi = new SpotifyWebApi({
   clientId: process.env.SPOTIFY_CLIENT_ID,
-  clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
-  redirectUri: process.env.REDIRECT_URI
+  clientSecret: process.env.SPOTIFY_CLIENT_SECRET
 });
 
-async function refreshToken() {
-  try {
-    const data = await spotifyApi.refreshAccessToken();
-    spotifyApi.setAccessToken(data.body['access_token']);
-    return data.body['access_token'];
-  } catch (err) {
-    throw err;
-  }
-}
+spotifyApi.setRefreshToken(process.env.SPOTIFY_REFRESH_TOKEN);
 
 exports.handler = async function(event, context) {
   const headers = {
@@ -34,27 +25,11 @@ exports.handler = async function(event, context) {
   const path = event.path.split('/').pop();
 
   try {
+    // Refresh the access token first
+    const refreshData = await spotifyApi.refreshAccessToken();
+    spotifyApi.setAccessToken(refreshData.body['access_token']);
+
     switch (path) {
-      case 'get-token':
-        const scopes = ['user-read-playback-state', 'playlist-read-private'];
-        const authorizeURL = spotifyApi.createAuthorizeURL(scopes, 'state', 'code');
-        return {
-          statusCode: 302,
-          headers: {
-            Location: authorizeURL
-          }
-        };
-
-      case 'callback':
-        const { code } = event.queryStringParameters;
-        const data = await spotifyApi.authorizationCodeGrant(code);
-        console.log('Refresh token:', data.body['refresh_token']);
-        return {
-          statusCode: 200,
-          headers,
-          body: JSON.stringify({ message: 'Check your Netlify function logs for the refresh token!' })
-        };
-
       case 'current-playback':
         const playbackData = await spotifyApi.getMyCurrentPlaybackState();
         return {
