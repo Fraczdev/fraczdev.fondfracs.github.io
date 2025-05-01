@@ -59,6 +59,15 @@ exports.handler = async function(event, context) {
           body: JSON.stringify({ success: true })
         };
 
+      case 'set-volume':
+        const { volume } = JSON.parse(event.body);
+        await spotifyApi.setVolume(volume);
+        return {
+          statusCode: 200,
+          headers,
+          body: JSON.stringify({ success: true })
+        };
+
       default:
         return {
           statusCode: 404,
