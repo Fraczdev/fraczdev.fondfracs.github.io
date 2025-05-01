@@ -807,7 +807,7 @@
             }
         }
 
-        /* Mobile responsive thing */
+        /* Mobile Responsive Design */
         @media screen and (max-width: 768px) {
             .container {
                 padding: 10px;
@@ -817,7 +817,7 @@
                 width: 100%;
                 margin: 0;
                 padding: 15px;
-                transform: none !important; /* Disabled 3D effect on mobile cause of perf issues*/
+                transform: none !important; /* Disable 3D effect on mobile */
             }
 
             .profile-section {
@@ -846,21 +846,22 @@
                 gap: 10px;
             }
 
-           
+            /* Update Music Player for mobile */
             .music-player {
-                position: fixed;
-                bottom: 0;
-                left: 0;
-                right: 0;
+                position: relative;  /* Change from fixed to relative */
                 top: auto;
+                right: auto;
+                bottom: auto;
+                left: auto;
                 width: 100%;
                 height: auto;
-                background: rgba(0, 0, 0, 0.8);
+                margin-top: 20px;  /* Add space between content and player */
+                background: rgba(0, 0, 0, 0.2);
                 backdrop-filter: blur(10px);
-                padding: 10px;
+                padding: 15px;
                 display: flex;
                 align-items: center;
-                z-index: 1000;
+                border-radius: 15px;  /* Add rounded corners */
             }
 
             .vinyl-disk {
@@ -891,13 +892,13 @@
                 margin: 5px 0;
             }
 
-            
+            /* Hide decorative elements on mobile */
             .music-player::before,
             .music-player::after {
                 display: none;
             }
 
-          
+            /* Adjust contact section for mobile */
             .contact-methods {
                 gap: 0.8rem;
             }
@@ -907,13 +908,13 @@
                 height: 36px;
             }
 
-            
+            /* Remove the bottom margin from glass-card since player isn't fixed anymore */
             .glass-card {
-                margin-bottom: 80px;
+                margin-bottom: 20px;
             }
         }
 
-       
+        /* Touch device optimizations */
         @media (hover: none) {
             .contact-icon:hover {
                 transform: none;
