@@ -72,7 +72,7 @@ body {
     position: absolute;
     top: 20px;
     right: 20px;
-    width: 120px;
+    width: 300px;
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
     border-radius: 20px;
@@ -80,6 +80,9 @@ body {
     overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.1);
     z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 20px;
 }
 
 .music-player::after {
@@ -672,8 +675,9 @@ body::after {
 }
 
 .vinyl-disk {
-    width: 120px;
-    height: 120px;
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
     border-radius: 50%;
     overflow: hidden;
     position: relative;
@@ -704,7 +708,8 @@ body::after {
 }
 
 .music-info {
-    margin-top: 20px;
+    flex-grow: 1;
+    margin-top: 0;
     text-align: center;
 }
 
@@ -716,14 +721,22 @@ body::after {
 }
 
 .song-title {
-    font-size: 1.2em;
+    font-size: 1.1em;
     font-weight: 600;
     color: white;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .song-artist {
     font-size: 0.9em;
     color: rgba(255, 255, 255, 0.7);
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .progress-bar {
