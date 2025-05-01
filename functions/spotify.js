@@ -6,8 +6,6 @@ const spotifyApi = new SpotifyWebApi({
   redirectUri: process.env.REDIRECT_URI
 });
 
-spotifyApi.setRefreshToken(process.env.SPOTIFY_REFRESH_TOKEN);
-
 exports.handler = async function(event, context) {
   const headers = {
     'Access-Control-Allow-Origin': '*',
@@ -26,55 +24,11 @@ exports.handler = async function(event, context) {
   const path = event.path.split('/').pop();
 
   try {
-    // Refresh the access token first
-    const refreshData = await spotifyApi.refreshAccessToken();
-    spotifyApi.setAccessToken(refreshData.body['access_token']);
-
     switch (path) {
-      case 'current-playback':
-        const playbackData = await spotifyApi.getMyCurrentPlaybackState();
-        console.log('Current playback state:', JSON.stringify(playbackData.body, null, 2));
-        return {
-          statusCode: 200,
-          headers,
-          body: JSON.stringify(playbackData.body)
-        };
-
-      case 'playlist-tracks':
-        const playlistData = await spotifyApi.getPlaylistTracks('37i9dQZF1EQp9BVPsNVof1');
-        return {
-          statusCode: 200,
-          headers,
-          body: JSON.stringify(playlistData.body)
-        };
-
-      case 'toggle-playback':
-        const currentPlayback = await spotifyApi.getMyCurrentPlaybackState();
-        if (currentPlayback.body.is_playing) {
-          await spotifyApi.pause();
-        } else {
-          await spotifyApi.play();
-        }
-        return {
-          statusCode: 200,
-          headers,
-          body: JSON.stringify({ success: true })
-        };
-
-      case 'set-volume':
-        const { volume } = JSON.parse(event.body);
-        await spotifyApi.setVolume(volume);
-        return {
-          statusCode: 200,
-          headers,
-          body: JSON.stringify({ success: true })
-        };
-
       case 'get-token':
         const scopes = [
           'user-read-playback-state',
           'playlist-read-private',
-          'user-modify-playback-state',
           'user-modify-playback-state'
         ];
         const authorizeURL = spotifyApi.createAuthorizeURL(scopes, 'state', 'code');
