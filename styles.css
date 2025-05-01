@@ -72,28 +72,25 @@ body {
     position: absolute;
     top: 20px;
     right: 20px;
-    width: 300px;
+    width: 400px;
+    height: 200px;
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
-    border-radius: 20px;
-    padding: 20px;
+    border-radius: 30px;
+    padding: 25px;
     overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.1);
     z-index: 10;
-    display: flex;
-    align-items: center;
-    gap: 20px;
 }
 
 .music-player::after {
     content: 'Music here!';
     position: absolute;
-    top: -15px;
-    right: 130px;
+    top: 10px;
+    left: 20px;
     font-family: 'Comic Sans MS', cursive;
     font-size: 24px;
     color: white;
-    transform: rotate(-5deg);
     text-shadow: 2px 2px 0 rgba(0,0,0,0.2);
     white-space: nowrap;
 }
@@ -675,13 +672,12 @@ body::after {
 }
 
 .vinyl-disk {
-    width: 80px;
-    height: 80px;
-    flex-shrink: 0;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     overflow: hidden;
     position: relative;
-    margin: 0 auto;
+    margin: 40px auto 20px;
     background: transparent;
 }
 
@@ -708,20 +704,12 @@ body::after {
 }
 
 .music-info {
-    flex-grow: 1;
-    margin-top: 0;
     text-align: center;
-}
-
-.now-playing {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    margin-bottom: 15px;
+    margin-top: 10px;
 }
 
 .song-title {
-    font-size: 1.1em;
+    font-size: 1.4em;
     font-weight: 600;
     color: white;
     margin: 0;
@@ -731,9 +719,9 @@ body::after {
 }
 
 .song-artist {
-    font-size: 0.9em;
+    font-size: 1.1em;
     color: rgba(255, 255, 255, 0.7);
-    margin: 0;
+    margin: 5px 0;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -744,7 +732,9 @@ body::after {
     height: 4px;
     border-radius: 2px;
     position: relative;
-    margin: 15px 0;
+    margin: 15px auto;
+    width: 80%;
+    max-width: 300px;
 }
 
 .progress {
