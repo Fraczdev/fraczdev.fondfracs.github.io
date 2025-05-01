@@ -1,1104 +1,310 @@
-:root {
-    --bg-dark: #121212;
-    --card-bg-dark: rgba(30, 30, 30, 0.3);
-    --text-primary-dark: #ffffff;
-    --text-secondary-dark: rgba(255, 255, 255, 0.7);
-    --accent-color: #C850C0;
-    --gradient-1: #4158D0;
-    --gradient-2: #C850C0;
-    --gradient-3: #FFCC70;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
-}
-
-body {
-    min-height: 100vh;
-    background: linear-gradient(45deg, var(--gradient-1), var(--gradient-2), var(--gradient-3));
-    background-size: 400% 400%;
-    animation: gradient 15s ease infinite;
-    padding: 20px;
-    position: relative;
-}
-
-.glass-card {
-    position: relative;
-    background: var(--card-bg-dark);
-    backdrop-filter: blur(10px);
-    border-radius: 20px;
-    padding: 40px;
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    color: var(--text-primary-dark);
-    animation: fadeIn 1s ease-in-out;
-    overflow: hidden;
-    transition: transform 0.3s ease;
-    transform-style: preserve-3d;
-    will-change: transform;
-}
-
-.glass-card:hover {
-    box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.5);
-}
-
-[data-animate] {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-[data-animate].animate {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.contact-icon, .info-card, .skill {
-    transition: all 0.3s ease;
-}
-
-.contact-icon:hover, .info-card:hover {
-    transform: translateY(-5px) scale(1.02);
-}
-
-.skill:hover .skill-bar {
-    box-shadow: 0 0 20px var(--accent-color);
-}
-
-.music-player {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    width: 250px;
-    height: 400px;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border-radius: 30px;
-    padding: 25px;
-    overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    z-index: 10;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.music-player::before {
-    content: '';
-    position: absolute;
-    top: 15px;
-    left: 120px;
-    width: 35px;
-    height: 20px;
-    background: url('arrow.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    opacity: 1;
-    pointer-events: none;
-}
-
-.music-player::after {
-    content: 'Music here!';
-    position: absolute;
-    top: 15px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-family: 'Comic Sans MS', cursive;
-    font-size: 24px;
-    color: white;
-    text-shadow: 2px 2px 0 rgba(0,0,0,0.2);
-    white-space: nowrap;
-}
-
-.music-player:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.5);
-}
-
-a, button, .skill-level, .lang-level {
-    transition: all 0.3s ease;
-}
-
-.glass-effect {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-}
-
-body::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 0 L100 50 L50 100 L0 50 Z' fill='rgba(255,255,255,0.15)'/%3E%3C/svg%3E");
-    background-size: 60px 60px;
-    background-repeat: repeat;
-    animation: float 20s linear infinite;
-    z-index: -1;
-}
-
-body::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='50' cy='50' r='40' fill='rgba(255,255,255,0.12)'/%3E%3C/svg%3E");
-    background-size: 60px 60px;
-    background-repeat: repeat;
-    animation: float 20s linear infinite;
-    z-index: -1;
-}
-
-@keyframes float {
-    0% {
-        transform: translate(0, 0);
-    }
-    25% {
-        transform: translate(10px, 10px);
-    }
-    50% {
-        transform: translate(0, 20px);
-    }
-    75% {
-        transform: translate(-10px, 10px);
-    }
-    100% {
-        transform: translate(0, 0);
-    }
-}
-
-@keyframes gradient {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
-}
-
-.container {
-    width: 100%;
-    max-width: 1200px;
-    padding: 20px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 1;
-}
-
-.glass-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0 L100 0 L100 100 L0 100 Z' fill='rgba(255,255,255,0.08)'/%3E%3C/svg%3E");
-    background-size: 200px 200px;
-    animation: float 25s linear infinite;
-    z-index: -1;
-    border-radius: 20px;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.profile-section {
-    text-align: center;
-    margin-bottom: 40px;
-    animation: slideUp 1s ease-out;
-}
-
-.profile-image {
-    width: 150px;
-    height: 150px;
-    margin: 0 auto 20px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.2);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    position: relative;
-}
-
-.image-placeholder {
-    font-size: 60px;
-    color: rgba(255, 255, 255, 0.8);
-}
-
-.name {
-    font-size: 2.5rem;
-    margin-bottom: 10px;
-    font-weight: 600;
-}
-
-.location {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    font-size: 1.2rem;
-    color: rgba(255, 255, 255, 0.8);
-}
-
-.info-section {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    margin-bottom: 40px;
-}
-
-.info-card {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 25px;
-    border-radius: 15px;
-    transition: transform 0.3s ease;
-    animation: slideUp 1s ease-out 0.2s both;
-}
-
-.info-card:hover {
-    transform: translateY(-5px);
-}
-
-.info-card h2 {
-    font-size: 1.5rem;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.highlight {
-    color: #FFCC70;
-    font-weight: 500;
-}
-
-.languages {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-    margin-top: 15px;
-}
-
-.language-tag {
-    background: rgba(255, 255, 255, 0.2);
-    padding: 12px 25px;
-    border-radius: 25px;
-    font-size: 1.1rem;
-    transition: all 0.3s ease;
-    min-width: 120px;
-    text-align: center;
-}
-
-.language-tag:hover {
-    background: rgba(255, 255, 255, 0.3);
-}
-
-.skills {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.skill {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.skill-bar {
-    height: 8px;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 4px;
-    overflow: hidden;
-}
-
-.skill-level {
-    height: 100%;
-    background: linear-gradient(90deg, #FFCC70, #C850C0);
-    border-radius: 4px;
-    transition: width 1s ease-in-out;
-}
-
-.contact-section {
-    text-align: center;
-    padding-top: 30px;
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.contact-title {
-    font-size: 1.3rem;
-    font-weight: 600;
-    margin-bottom: 18px;
-    color: #FFCC70;
-    text-align: left;
-}
-
-.social-links {
-    display: flex;
-    gap: 22px;
-    justify-content: flex-start;
-    margin-top: 18px;
-}
-
-.social-link {
-    color: #fff;
-    font-size: 1.5rem;
-    transition: color 0.2s;
-    display: flex;
-    align-items: center;
-}
-
-.social-link:hover {
-    color: #FFCC70;
-}
-
-.discord-link {
-    position: relative;
-}
-
-.discord-tooltip {
-    display: none;
-    position: absolute;
-    background: #23272a;
-    color: #fff !important;
-    padding: 7px 16px;
-    border-radius: 8px;
-    font-size: 1rem;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: 130%;
-    white-space: nowrap;
-    z-index: 20;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.18);
-    font-weight: 500;
-    letter-spacing: 0.5px;
-}
-
-.contact-icon.discord:hover .discord-tooltip {
-    display: block;
-}
-
-.discord-tooltip::after {
-    content: '';
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    border-width: 7px;
-    border-style: solid;
-    border-color: #23272a transparent transparent transparent;
-}
-
-@media (max-width: 768px) {
-    .glass-card {
-        padding: 20px;
-    }
-    
-    .name {
-        font-size: 2rem;
-    }
-    
-    .info-section {
-        grid-template-columns: 1fr;
-    }
-}
-
-.about-extra {
-    margin-top: 25px;
-    font-size: 1rem;
-    color: #fff;
-    opacity: 0.95;
-}
-.about-extra .highlight {
-    color: #FFCC70;
-    font-weight: 600;
-}
-
-.language-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 18px;
-    width: 100%;
-    justify-content: flex-start;
-}
-.flag {
-    font-size: 1.6rem;
-    margin-right: 2px;
-    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.10));
-}
-.lang-bar {
-    flex: 1;
-    height: 8px;
-    background: rgba(255,255,255,0.18);
-    border-radius: 4px;
-    margin-left: 10px;
-    min-width: 60px;
-    max-width: 120px;
-    overflow: hidden;
-}
-.lang-level {
-    height: 100%;
-    background: linear-gradient(90deg, #FFCC70, #C850C0);
-    border-radius: 4px;
-    transition: width 1s cubic-bezier(.4,2,.6,1);
-}
-
-.bio-center {
-    text-align: center;
-    margin: 18px auto 0 auto;
-    max-width: 600px;
-    font-size: 1.15rem;
-    color: #fff;
-    opacity: 0.97;
-    font-weight: 400;
-}
-
-.about-extra .fun-fact {
-    margin-top: 28px;
-    font-size: 1rem;
-    color: #fff;
-    opacity: 0.95;
-}
-
-.hobbies-list {
-    margin-bottom: 18px;
-}
-.hobbies-heading {
-    font-size: 1.15rem;
-    font-weight: 600;
-    margin-bottom: 10px;
-    color: #FFCC70;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-.hobbies-icons {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 18px 28px;
-}
-.hobbies-icons li {
-    display: flex;
-    align-items: center;
-    font-size: 1.05rem;
-    color: #fff;
-    background: rgba(255,255,255,0.08);
-    border-radius: 18px;
-    padding: 7px 16px 7px 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-    transition: background 0.2s;
-}
-.hobbies-icons li:hover {
-    background: rgba(255,255,255,0.16);
-}
-.hobby-icon {
-    font-size: 1.3em;
-    margin-right: 10px;
-    color: #FFCC70;
-    display: flex;
-    align-items: center;
-}
-
-.profile-pic {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 3px solid rgba(255,255,255,0.25);
-    box-shadow: 0 2px 12px rgba(0,0,0,0.10);
-    background: #fff;
-}
-
-.language-extra {
-    margin-top: 28px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-}
-.lang-journey-label {
-    font-size: 0.98rem;
-    color: #FFCC70;
-    font-weight: 500;
-    margin-bottom: 2px;
-}
-.lang-journey-bar {
-    width: 80%;
-    max-width: 220px;
-    height: 10px;
-    background: rgba(255,255,255,0.18);
-    border-radius: 6px;
-    overflow: hidden;
-    margin-bottom: 2px;
-}
-.lang-journey-progress {
-    height: 100%;
-    background: linear-gradient(90deg, #FFCC70, #C850C0);
-    border-radius: 6px;
-    transition: width 1s cubic-bezier(.4,2,.6,1);
-}
-.lang-quote {
-    font-size: 0.95rem;
-    color: #fff;
-    opacity: 0.85;
-    font-style: italic;
-    text-align: center;
-    margin-top: 4px;
-}
-.self-taught-note {
-    margin-top: 22px;
-    font-size: 1rem;
-    color: #fff;
-    background: rgba(255,255,255,0.08);
-    border-radius: 14px;
-    padding: 10px 18px;
-    text-align: center;
-    opacity: 0.95;
-}
-
-.get-in-touch-link i.fas.fa-envelope {
-    color: #fff !important;
-    transition: color 0.2s;
-}
-.get-in-touch-link:hover i.fas.fa-envelope {
-    color: #FFCC70 !important;
-}
-
-.get-in-touch {
-    text-align: center;
-    margin-top: 3rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.get-in-touch h2 {
-    margin-bottom: 1rem;
-    color: #FFCC70;
-    font-size: 1.3rem;
-    font-weight: 600;
-}
-
-.contact-methods {
-    display: flex;
-    justify-content: center;
-    gap: 1.2rem;
-    margin-top: 0;
-    width: 100%;
-}
-
-.contact-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    background: #222;
-    color: #fff;
-    text-decoration: none;
-    transition: transform 0.2s, background 0.2s;
-    position: relative;
-}
-
-.contact-icon:hover {
-    transform: translateY(-5px);
-    background: #444;
-}
-
-.contact-icon i {
-    font-size: 1.25rem;
-}
-
-.contact-icon.email {
-    background: #EA4335;
-}
-
-.contact-icon.github {
-    background: #333;
-}
-
-.contact-icon.discord {
-    background: #5865F2;
-    position: relative;
-}
-
-#discord-status-dot {
-    position: absolute;
-    bottom: 12px;
-    right: 12px;
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    border: 4px solid #23272a;
-    background: #747f8d;
-    z-index: 2;
-    transition: background 0.2s;
-}
-
-#discord-activity-text {
-    text-align: center;
-    font-size: 1.08rem;
-    color: #fff;
-    opacity: 0.93;
-    min-height: 1.5em;
-    margin-bottom: 2px;
-}
-
-.squiggle {
-    position: absolute;
-    z-index: 0;
-    opacity: 0.7;
-    pointer-events: none;
-}
-.squiggle-top-left {
-    top: 0;
-    left: 0;
-    transform: translate(-30px, 10px) rotate(-8deg);
-}
-.squiggle-top-right {
-    top: 0;
-    right: 0;
-    transform: translate(30px, 10px) scaleX(-1) rotate(-8deg);
-}
-
-.vinyl-disk {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    overflow: hidden;
-    position: relative;
-    margin: 20px auto;
-    background: transparent;
-}
-
-.vinyl-disk::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 12px;
-    height: 12px;
-    background: white;
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 2;
-    border: 2px solid rgba(0, 0, 0, 0.3);
-}
-
-.vinyl-disk img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 50%;
-    animation: spin 20s linear infinite;
-}
-
-.music-info {
-    text-align: center;
-    margin-top: 15px;
-    width: 100%;
-}
-
-.song-title-wrapper, .song-artist-wrapper {
-    width: 100%;
-    overflow: hidden;
-    position: relative;
-}
-
-.song-title, .song-artist {
-    white-space: nowrap;
-    display: inline-block;
-    padding-left: 100%;
-    animation: none;
-}
-
-.song-title.scroll, .song-artist.scroll {
-    animation: scrollText 15s linear infinite;
-}
-
-@keyframes scrollText {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-100%);
-    }
-}
-
-.now-playing {
-    width: 100%;
-    margin: 0 auto;
-    overflow: hidden;
-}
-
-.progress-bar {
-    background: rgba(255, 255, 255, 0.1);
-    height: 4px;
-    border-radius: 2px;
-    position: relative;
-    margin: 15px auto;
-    width: 90%;
-}
-
-.progress {
-    background: var(--accent-color);
-    height: 100%;
-    border-radius: 2px;
-    width: 0;
-    transition: width 0.2s ease;
-}
-
-.timestamp {
-    font-size: 0.8em;
-    color: rgba(255, 255, 255, 0.7);
-    margin-top: 5px;
-    display: block;
-}
-
-.listen-with-me {
-    background: var(--accent-color);
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 20px;
-    font-size: 0.9em;
-    cursor: pointer;
-    transition: transform 0.2s ease, background-color 0.2s ease;
-    margin-top: 10px;
-}
-
-.listen-with-me:hover {
-    transform: translateY(-2px);
-    background-color: var(--gradient-2);
-}
-
-.volume-control {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-top: 15px;
-    padding: 0 15px;
-}
-
-.volume-control i {
-    color: white;
-    opacity: 0.8;
-    transition: opacity 0.2s;
-}
-
-.volume-control i:hover {
-    opacity: 1;
-}
-
-.slider-container {
-    position: relative;
-    width: 80px;
-    height: 20px;
-    display: flex;
-    align-items: center;
-}
-
-#volume-slider {
-    -webkit-appearance: none;
-    width: 100%;
-    height: 4px;
-    border-radius: 2px;
-    background: rgba(255, 255, 255, 0.1);
-    outline: none;
-    position: relative;
-    z-index: 2;
-}
-
-.slider-progress {
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    height: 4px;
-    background: rgba(255, 255, 255, 0.8);
-    border-radius: 2px;
-    pointer-events: none;
-    transition: width 0.1s ease;
-}
-
-#volume-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: white;
-    cursor: pointer;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    transition: transform 0.2s;
-}
-
-#volume-slider::-webkit-slider-thumb:hover {
-    transform: scale(1.2);
-}
-
-#volume-slider::-moz-range-thumb {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: white;
-    cursor: pointer;
-    border: none;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    transition: transform 0.2s;
-}
-
-#volume-slider::-moz-range-thumb:hover {
-    transform: scale(1.2);
-}
-
-@keyframes spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-/* Pause spinning when no music is playing */
-.vinyl-disk.paused img {
-    animation-play-state: paused;
-}
-
-@media screen and (max-width: 768px) {
-    .container {
-        padding: 15px;
-        margin: 0 auto;
-        width: 100%;
-        max-width: 100%;
-    }
-
-    .glass-card {
-        width: calc(100% - 30px);
-        margin: 0 auto;
-        padding: 20px;
-        transform: none !important;
-    }
-
-    .info-card.glass-effect {
-        width: 100%;
-        margin: 10px auto;
-        padding: 20px;
-        box-sizing: border-box;
-    }
-
-    .music-player {
-        position: relative;
-        top: auto;
-        right: auto;
-        width: calc(100% - 30px);
-        min-height: 280px;
-        margin: 20px auto;
-        padding: 20px;
-        flex-direction: column;
-        align-items: center;
-        border-radius: 15px;
-        box-sizing: border-box;
-    }
-
-    .music-info {
-        width: 100%;
-        text-align: center;
-        margin: 10px auto;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .progress-bar {
-        width: 90%;
-        margin: 15px auto;
-    }
-
-    .listen-with-me {
-        margin: 15px auto 5px;
-        display: inline-block;
-        padding: 8px 20px;
-        min-width: 120px;
-    }
-
-    .profile-section {
-        padding: 15px;
-        width: 100%;
-        margin: 0 auto;
-    }
-
-    .profile-image {
-        width: 100px;
-        height: 100px;
-        margin: 0 auto;
-    }
-
-    .info-section {
-        flex-direction: column;
-        width: 100%;
-        padding: 0;
-    }
-
-    .info-card {
-        width: 100%;
-        margin: 10px auto;
-        padding: 20px;
-    }
-
-    .hobbies-list {
-        flex-wrap: wrap;
-    }
-
-    .hobbies-icons {
-        gap: 10px;
-        justify-content: center;
-    }
-
-    .vinyl-disk {
-        width: 120px;
-        height: 120px;
-        margin: 30px auto 15px;
-    }
-
-    .song-title-wrapper, .song-artist-wrapper {
-        width: 90%;
-        margin: 0 auto;
-    }
-
-    .contact-methods {
-        gap: 1.2rem;
-        justify-content: center;
-        margin: 0 auto;
-    }
-
-    .contact-icon {
-        width: 40px;
-        height: 40px;
-    }
-
-    .bio-center {
-        padding: 0 15px;
-        margin: 18px auto;
-    }
-
-    .language-item {
-        justify-content: center;
-    }
-
-    .skill {
-        padding: 0 10px;
-    }
-
-    .no-music-message {
-        font-size: 1.1em;
-        width: 90%;
-        padding: 0 15px;
-    }
-}
-
-@media (hover: none) {
-    .contact-icon:hover {
-        transform: none;
-    }
-
-    #volume-slider::-webkit-slider-thumb:hover {
-        transform: none;
-    }
-
-    .social-link:hover {
-        color: inherit;
-    }
-}
-
-@keyframes slideUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-@keyframes scaleIn {
-    from {
-        transform: scale(0.9);
-        opacity: 0;
-    }
-    to {
-        transform: scale(1);
-        opacity: 1;
-    }
-}
-
-.profile-section { animation: slideUp 1s ease-out; }
-.info-card:nth-child(1) { animation: slideUp 1s ease-out 0.2s both; }
-.info-card:nth-child(2) { animation: slideUp 1s ease-out 0.4s both; }
-.info-card:nth-child(3) { animation: slideUp 1s ease-out 0.6s both; }
-
-.no-music-message {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    color: white;
-    font-size: 1.2em;
-    font-family: 'Comic Sans MS', cursive;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    width: 80%;
-    display: none;
-}
-
-.music-player.no-music .no-music-message {
-    opacity: 1;
-    display: block;
-}
-
-.music-player.no-music .vinyl-disk,
-.music-player.no-music .music-info,
-.music-player.no-music .progress-bar,
-.music-player.no-music .listen-with-me {
-    opacity: 0;
-    pointer-events: none;
-}       
+    document.addEventListener('DOMContentLoaded', () => {
+        const skillBars = document.querySelectorAll('.skill-level');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.width = entry.target.parentElement.getAttribute('data-level');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        skillBars.forEach(bar => {
+            const level = bar.style.width;
+            bar.style.width = '0';
+            bar.parentElement.setAttribute('data-level', level);
+            observer.observe(bar);
+        });
+
+        const glassCard = document.querySelector('.glass-card');
+        
+        document.addEventListener('mousemove', (e) => {
+            const rect = glassCard.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width;
+            const y = (e.clientY - rect.top) / rect.height;
+            
+            const tiltX = 20;
+            const tiltY = 20;
+            const scale = 1.02;
+            
+            glassCard.style.transform = `
+                perspective(1000px)
+                rotateY(${x * tiltX - tiltX/2}deg)
+                rotateX(${y * -tiltY + tiltY/2}deg)
+                scale(${scale})
+            `;
+        });
+
+        document.addEventListener('mouseleave', () => {
+            glassCard.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1)';
+        });
+
+        const nameElement = document.querySelector('.name');
+        const name = nameElement.textContent;
+        nameElement.textContent = '';
+        
+        let i = 0;
+        const typeWriter = () => {
+            if (i < name.length) {
+                nameElement.textContent += name.charAt(i);
+                i++;
+                setTimeout(typeWriter, 100);
+            }
+        };
+        
+        setTimeout(typeWriter, 1000);
+
+        const lanyardSocket = new WebSocket('wss://api.lanyard.rest/socket');
+        const userId = '1235621597776445480';
+        let heartbeatInterval;
+        let receivedPresence = false;
+
+        lanyardSocket.addEventListener('open', () => {
+            console.log('[Lanyard] WebSocket opened');
+        });
+
+        lanyardSocket.addEventListener('error', (e) => {
+            console.error('[Lanyard] WebSocket error:', e);
+        });
+
+        lanyardSocket.addEventListener('close', (e) => {
+            console.warn('[Lanyard] WebSocket closed:', e);
+        });
+
+        lanyardSocket.addEventListener('message', (event) => {
+            const payload = JSON.parse(event.data);
+            console.log('[Lanyard] Message received:', payload);
+
+            if (payload.op === 1 && payload.d && payload.d.heartbeat_interval) {
+                if (heartbeatInterval) clearInterval(heartbeatInterval);
+                heartbeatInterval = setInterval(() => {
+                    lanyardSocket.send(JSON.stringify({ op: 3 }));
+                }, payload.d.heartbeat_interval);
+
+                lanyardSocket.send(JSON.stringify({
+                    op: 2,
+                    d: { subscribe_to_id: userId }
+                }));
+                console.log('[Lanyard] Sent subscribe_to_id');
+            }
+
+            if (payload.t === 'INIT_STATE' || payload.t === 'PRESENCE_UPDATE') {
+                receivedPresence = true;
+                const d = payload.d;
+                const statusColors = {
+                    online: '#43b581',
+                    dnd: '#f04747',
+                    idle: '#faa61a',
+                    offline: '#747f8d'
+                };
+                const status = d.discord_status;
+                let activity = d.activities.find(a => a.type === 0 || a.type === 1 || a.type === 2);
+                let activityText = '';
+                if (activity) {
+                    if (activity.type === 2) activityText = `Listening to ${activity.name}`;
+                    else if (activity.type === 0) activityText = `Playing ${activity.name}`;
+                    else activityText = activity.name;
+                }
+                const statusDot = document.getElementById('discord-status-dot');
+                if (statusDot) {
+                    statusDot.style.background = statusColors[status] || '#747f8d';
+                    statusDot.style.display = 'block';
+                } else {
+                    console.log('Status dot element not found');
+                }
+                const activityDiv = document.getElementById('discord-activity-text');
+                if (activityDiv) {
+                    activityDiv.textContent = activityText;
+                }
+            }
+        });
+
+        setTimeout(() => {
+            if (!receivedPresence) {
+                console.warn('[Lanyard] No presence data received after 3s. Setting fallback.');
+                const statusDot = document.getElementById('discord-status-dot');
+                if (statusDot) {
+                    statusDot.style.background = '#747f8d';
+                }
+                const activityDiv = document.getElementById('discord-activity-text');
+                if (activityDiv) {
+                    activityDiv.textContent = '';
+                }
+            }
+        }, 3000);
+
+        const disk = document.querySelector('.vinyl-disk');
+        const audio = document.getElementById('player');
+        const waveform = document.getElementById('waveform');
+        const songTitle = document.querySelector('.song-title');
+        const songArtist = document.querySelector('.song-artist');
+        const progressBar = document.querySelector('.progress');
+        const timestamp = document.querySelector('.timestamp');
+        const musicPlayer = document.querySelector('.music-player');
+
+        function updateMusicInfo(title, artist, currentTime, duration, imageUrl = null) {
+            songTitle.textContent = title;
+            songArtist.textContent = artist;
+            
+            const current = Math.floor(currentTime / 1000);
+            const total = Math.floor(duration / 1000);
+            const progress = (currentTime / duration) * 100;
+            
+            progressBar.style.width = `${progress}%`;
+            timestamp.textContent = `${formatTime(current)} / ${formatTime(total)}`;
+        }
+
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = seconds % 60;
+            return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+        }
+
+        function checkTextOverflow() {
+            const songTitle = document.querySelector('.song-title');
+            const songArtist = document.querySelector('.song-artist');
+            const titleWrapper = document.querySelector('.song-title-wrapper');
+            const artistWrapper = document.querySelector('.song-artist-wrapper');
+
+            if (songTitle && titleWrapper) {
+                if (songTitle.offsetWidth > titleWrapper.offsetWidth) {
+                    songTitle.classList.add('scroll');
+                } else {
+                    songTitle.classList.remove('scroll');
+                }
+            }
+
+            if (songArtist && artistWrapper) {
+                if (songArtist.offsetWidth > artistWrapper.offsetWidth) {
+                    songArtist.classList.add('scroll');
+                } else {
+                    songArtist.classList.remove('scroll');
+                }
+            }
+        }
+
+        async function checkPlaybackStatus() {
+            try {
+                const response = await fetch('/.netlify/functions/spotify/current-playback');
+                const data = await response.json();
+                console.log('Full playback data:', data);
+                
+                const songTitle = document.querySelector('.song-title');
+                const songArtist = document.querySelector('.song-artist');
+                const progressBar = document.querySelector('.progress');
+                const timestamp = document.querySelector('.timestamp');
+                const disk = document.querySelector('.vinyl-disk');
+                const musicPlayer = document.querySelector('.music-player');
+                
+                if (data && data.item) {
+                    musicPlayer.classList.remove('no-music');
+                    songTitle.textContent = data.item.name;
+                    songArtist.textContent = data.item.artists[0].name;
+                    
+                    setTimeout(checkTextOverflow, 100);
+                    
+                    const progress = (data.progress_ms / data.item.duration_ms) * 100;
+                    progressBar.style.width = `${progress}%`;
+                    timestamp.textContent = `${formatTime(Math.floor(data.progress_ms / 1000))} / ${formatTime(Math.floor(data.item.duration_ms / 1000))}`;
+                    
+                    const listenButton = document.querySelector('.listen-with-me');
+                    if (listenButton) {
+                        listenButton.style.display = 'inline-block';
+                        listenButton.onclick = () => {
+                            if (data.item.external_urls?.spotify) {
+                                const timestampInSeconds = Math.floor(data.progress_ms / 1000);
+                                const spotifyUrl = `${data.item.external_urls.spotify}#t=${timestampInSeconds}`;
+                                window.open(spotifyUrl, '_blank');
+                            }
+                        };
+                    }
+                    
+                    if (data.item.album?.images?.[0]?.url) {
+                        const img = disk.querySelector('img') || document.createElement('img');
+                        img.src = data.item.album.images[0].url;
+                        img.alt = 'Album art';
+                        if (!disk.contains(img)) {
+                            disk.insertBefore(img, disk.firstChild);
+                        }
+                    }
+                    
+                    disk.style.animationPlayState = data.is_playing ? 'running' : 'paused';
+                } else {
+                    musicPlayer.classList.add('no-music');
+                    songTitle.textContent = '';
+                    songArtist.textContent = '';
+                    progressBar.style.width = '0';
+                    timestamp.textContent = '0:00 / 0:00';
+                    
+                    const img = disk.querySelector('img') || document.createElement('img');
+                    img.src = 'https://i.imgur.com/bZkhX1Z.png';
+                    img.alt = 'No music playing';
+                    if (!disk.contains(img)) {
+                        disk.insertBefore(img, disk.firstChild);
+                    }
+                    
+                    disk.style.animationPlayState = 'paused';
+                }
+
+                if (data && data.is_playing) {
+                    disk.classList.remove('paused');
+                } else {
+                    disk.classList.add('paused');
+                }
+            } catch (err) {
+                console.error('Error:', err);
+                const musicPlayer = document.querySelector('.music-player');
+                musicPlayer.classList.add('no-music');
+            }
+        }
+
+        setInterval(checkPlaybackStatus, 1000);
+
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const analyser = audioContext.createAnalyser();
+        const source = audioContext.createMediaElementSource(audio);
+        source.connect(analyser);
+        analyser.connect(audioContext.destination);
+        analyser.fftSize = 256;
+
+        const bufferLength = analyser.frequencyBinCount;
+        const dataArray = new Uint8Array(bufferLength);
+        const numBars = 60;
+        const bars = [];
+
+        for (let i = 0; i < numBars; i++) {
+            const bar = document.createElement('div');
+            bar.className = 'waveform-bar';
+            bar.style.left = `${(i / numBars) * 100}%`;
+            bar.style.transform = `rotate(${(i / numBars) * 360}deg)`;
+            waveform.appendChild(bar);
+            bars.push(bar);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            analyser.getByteFrequencyData(dataArray);
+            
+            bars.forEach((bar, i) => {
+                const dataIndex = Math.floor((i / numBars) * bufferLength);
+                const height = (dataArray[dataIndex] / 255) * 100;
+                bar.style.height = `${height}%`;
+            });
+
+            const average = dataArray.reduce((a, b) => a + b) / bufferLength;
+            const vibration = (average / 255) * 5;
+            glassCard.style.transform = `perspective(1000px) rotateY(0deg) rotateX(0deg) scale(${1 + vibration * 0.01})`;
+        }
+
+        animate();
+
+        const resizeObserver = new ResizeObserver(() => {
+            checkTextOverflow();
+        });
+
+        const titleWrapper = document.querySelector('.song-title-wrapper');
+        const artistWrapper = document.querySelector('.song-artist-wrapper');
+        if (titleWrapper) resizeObserver.observe(titleWrapper);
+        if (artistWrapper) resizeObserver.observe(artistWrapper);
+    }); 
