@@ -174,13 +174,14 @@
                     progressBar.style.width = `${progress}%`;
                     timestamp.textContent = `${formatTime(Math.floor(data.progress_ms / 1000))} / ${formatTime(Math.floor(data.item.duration_ms / 1000))}`;
                     
-                    // Add button handling
                     const listenButton = document.querySelector('.listen-with-me');
                     if (listenButton) {
                         listenButton.style.display = 'inline-block';
                         listenButton.onclick = () => {
                             if (data.item.external_urls?.spotify) {
-                                window.open(data.item.external_urls.spotify, '_blank');
+                                const timestampInSeconds = Math.floor(data.progress_ms / 1000);
+                                const spotifyUrl = `${data.item.external_urls.spotify}#t=${timestampInSeconds}`;
+                                window.open(spotifyUrl, '_blank');
                             }
                         };
                     }
