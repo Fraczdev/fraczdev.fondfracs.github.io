@@ -148,7 +148,8 @@ document.addEventListener('DOMContentLoaded', () => {
             playlistTracks = data.items.map(item => ({
                 name: item.track.name,
                 artist: item.track.artists[0].name,
-                duration: item.track.duration_ms
+                duration: item.track.duration_ms,
+                album: item.track.album
             }));
             console.log('Playlist tracks loaded:', playlistTracks);
         } catch (err) {
@@ -156,7 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function updateMusicInfo(title, artist, currentTime, duration) {
+    function updateMusicInfo(title, artist, currentTime, duration, imageUrl = null) {
         songTitle.textContent = title;
         songArtist.textContent = artist;
         
@@ -235,7 +236,6 @@ document.addEventListener('DOMContentLoaded', () => {
         requestAnimationFrame(animate);
         analyser.getByteFrequencyData(dataArray);
 
-
         bars.forEach((bar, i) => {
             const dataIndex = Math.floor((i / numBars) * bufferLength);
             const height = (dataArray[dataIndex] / 255) * 100;
@@ -243,7 +243,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         const average = dataArray.reduce((a, b) => a + b) / bufferLength;
-        const vibration = (average / 255) * 5;
+        const vibration = (average / 255) * 5; 
         glassCard.style.transform = `perspective(1000px) rotateY(0deg) rotateX(0deg) scale(${1 + vibration * 0.01})`;
     }
 
