@@ -146,6 +146,9 @@
         I'm not listening to music right now, come back later! 🎵
       </div>
       <audio id="player" src="song1.wav" loop></audio>
+      <div class="music-disclaimer" style="font-size: 0.7em; opacity: 0.6; margin-top: 5px; text-align: center;">
+        Music used for demonstration purposes only
+      </div>
     </div>
   </div>
 </div>
@@ -153,7 +156,7 @@
 <script src="script.js"></script>
 <script src="effects.js"></script>
 <script>
-  
+    
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -164,6 +167,7 @@
         threshold: 0.1
     });
 
+   
     document.querySelectorAll('[data-animate]').forEach(element => {
         observer.observe(element);
     });
