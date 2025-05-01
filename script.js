@@ -50,7 +50,7 @@
             const bar = document.createElement('div');
             bar.className = 'waveform-bar';
             bar.style.left = `${(i / numBars) * 100}%`;
-            bar.style.transform = `rotate(${(i / numBars) * 360}deg) translateY(-120px)`;
+            bar.style.transform = `rotate(${(i / numBars) * 360}deg) translateY(-180px) translateX(60px)`;
             waveform.appendChild(bar);
             bars.push(bar);
         }
@@ -251,7 +251,7 @@
             }
         }
 
-        
+
         async function checkPlaybackStatus() {
             try {
                 const response = await fetch('/.netlify/functions/spotify/current-playback');
@@ -266,7 +266,7 @@
                 
                 if (!data || !data.item) {
                     musicPlayer.classList.add('no-music');
-                  
+                
                     songTitle.textContent = "Here's a song I like! Wesley's Theory";
                     songArtist.textContent = "Kendrick Lamar";
                     progressBar.style.width = '0';
@@ -315,7 +315,7 @@
             }
         }
 
-
+    
         checkPlaybackStatus();
         setInterval(checkPlaybackStatus, 1000);
 
