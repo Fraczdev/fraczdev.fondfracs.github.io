@@ -20,7 +20,7 @@
         const glassCard = document.querySelector('.glass-card');
         const audio = document.getElementById('player');
         
-        // 3D tilt effect
+    
         document.addEventListener('mousemove', (e) => {
             const rect = glassCard.getBoundingClientRect();
             const x = (e.clientX - rect.left) / rect.width;
@@ -184,7 +184,6 @@
             }
         }
 
-    
         async function checkPlaybackStatus() {
             try {
                 const response = await fetch('/.netlify/functions/spotify/current-playback');
@@ -198,6 +197,11 @@
                 const disk = document.querySelector('.vinyl-disk');
                 
                 if (!data || !data.item) {
+                  
+                    songTitle.textContent = "Wesley's Theory";
+                    songArtist.textContent = "Kendrick Lamar";
+                    progressBar.style.width = '0';
+                    timestamp.textContent = '0:00 / 0:00';
                     
                     const img = disk.querySelector('img') || document.createElement('img');
                     img.src = 'https://i.imgur.com/HmxbLzY.png';
@@ -239,7 +243,6 @@
             }
         }
 
-    
         checkPlaybackStatus();
         setInterval(checkPlaybackStatus, 1000);
 
