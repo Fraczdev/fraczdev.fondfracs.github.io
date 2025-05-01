@@ -70,8 +70,8 @@ body {
 
 .waveform {
     position: absolute;
-    top: 0;
-    left: 0;
+    top: -20px;
+    right: -20px;
     width: 100%;
     height: 100%;
     pointer-events: none;
@@ -84,7 +84,7 @@ body {
     width: 2px;
     height: 5px;
     background: rgba(255, 255, 255, 0.7);
-    transform-origin: center 120px;
+    transform-origin: center 180px;
     transition: height 0.1s ease;
 }
 
