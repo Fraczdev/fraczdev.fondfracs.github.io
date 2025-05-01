@@ -216,40 +216,19 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const response = await fetch('/.netlify/functions/spotify/current-playback');
             const data = await response.json();
+            console.log('Received playback data:', data);
             
-            if (data.device) {
-                volumeSlider.value = data.device.volume_percent;
-                updateSliderProgress(data.device.volume_percent);
-            }
-            
-            const disk = document.querySelector('.vinyl-disk');
-            const songTitle = document.querySelector('.song-title');
-            const songArtist = document.querySelector('.song-artist');
-            const timestamp = document.querySelector('.timestamp');
-            const progressBar = document.querySelector('.progress');
-            
-            if (data.is_playing && data.item) {
+            if (data && data.item) {
+                document.querySelector('.song-title').textContent = data.item.name;
+                document.querySelector('.song-artist').textContent = data.item.artists[0].name;
                 
-                if (data.item.album.images[0]?.url) {
-                    const img = disk.querySelector('img') || document.createElement('img');
-                    img.src = data.item.album.images[0].url;
-                    if (!disk.contains(img)) disk.appendChild(img);
-                }
-                
-                songTitle.textContent = data.item.name;
-                songArtist.textContent = data.item.artists[0].name;
-                
-
                 const progress = (data.progress_ms / data.item.duration_ms) * 100;
-                progressBar.style.width = `${progress}%`;
+                document.querySelector('.progress').style.width = `${progress}%`;
                 
                 const current = Math.floor(data.progress_ms / 1000);
                 const total = Math.floor(data.item.duration_ms / 1000);
-                timestamp.textContent = `${formatTime(current)} / ${formatTime(total)}`;
-                
-                disk.style.animationPlayState = 'running';
-            } else {
-                disk.style.animationPlayState = 'paused';
+                document.querySelector('.timestamp').textContent = 
+                    `${formatTime(current)} / ${formatTime(total)}`;
             }
         } catch (err) {
             console.error('Error checking playback:', err);
@@ -280,25 +259,21 @@ document.addEventListener('DOMContentLoaded', () => {
         bars.push(bar);
     }
 
-  
     function animate() {
         requestAnimationFrame(animate);
         analyser.getByteFrequencyData(dataArray);
-
-       
+        
         bars.forEach((bar, i) => {
             const dataIndex = Math.floor((i / numBars) * bufferLength);
             const height = (dataArray[dataIndex] / 255) * 100;
             bar.style.height = `${height}%`;
         });
 
-       
         const average = dataArray.reduce((a, b) => a + b) / bufferLength;
-        const vibration = (average / 255) * 5; 
+        const vibration = (average / 255) * 5;
         glassCard.style.transform = `perspective(1000px) rotateY(0deg) rotateX(0deg) scale(${1 + vibration * 0.01})`;
     }
 
-   
     document.querySelector('.vinyl-disk').addEventListener('click', async () => {
         try {
             await fetch('/.netlify/functions/spotify/toggle-playback', { 
@@ -312,6 +287,5 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-  
     animate();
 }); 
