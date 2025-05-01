@@ -104,7 +104,8 @@ body {
     content: 'Music here!';
     position: absolute;
     top: 15px;
-    left: 15px;
+    left: 50%;
+    transform: translateX(-50%);
     font-family: 'Comic Sans MS', cursive;
     font-size: 24px;
     color: white;
