@@ -53,11 +53,12 @@ body {
     color: var(--text-primary-dark);
     animation: fadeIn 1s ease-in-out;
     overflow: hidden;
-    transition: all 0.3s ease;
+    transition: transform 0.3s ease;
+    transform-style: preserve-3d;
+    will-change: transform;
 }
 
 .glass-card:hover {
-    transform: translateY(-5px);
     box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.5);
 }
 
@@ -1041,7 +1042,7 @@ body::after {
     }
 }
 
-/* Add slide-up animation */
+/* slide animation!! */
 @keyframes slideUp {
     from {
         opacity: 0;
@@ -1053,7 +1054,7 @@ body::after {
     }
 }
 
-/* Add fade-in animation */
+
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -1063,7 +1064,7 @@ body::after {
     }
 }
 
-/* Add scale animation */
+
 @keyframes scaleIn {
     from {
         transform: scale(0.9);
@@ -1075,7 +1076,7 @@ body::after {
     }
 }
 
-/* Animation delays for cascade effect */
+/* Animation delays for cool kinda cascade effect idk*/
 .profile-section { animation: slideUp 1s ease-out; }
 .info-card:nth-child(1) { animation: slideUp 1s ease-out 0.2s both; }
 .info-card:nth-child(2) { animation: slideUp 1s ease-out 0.4s both; }
