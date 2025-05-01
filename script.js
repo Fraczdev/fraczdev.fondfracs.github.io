@@ -20,18 +20,24 @@
         const glassCard = document.querySelector('.glass-card');
         
         document.addEventListener('mousemove', (e) => {
-            const x = e.clientX / window.innerWidth;
-            const y = e.clientY / window.innerHeight;
+            const rect = glassCard.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width;
+            const y = (e.clientY - rect.top) / rect.height;
+            
+            const tiltX = 20;
+            const tiltY = 20;
+            const scale = 1.02;
             
             glassCard.style.transform = `
                 perspective(1000px)
-                rotateY(${x * 10 - 5}deg)
-                rotateX(${y * -10 + 5}deg)
+                rotateY(${x * tiltX - tiltX/2}deg)
+                rotateX(${y * -tiltY + tiltY/2}deg)
+                scale(${scale})
             `;
         });
 
         document.addEventListener('mouseleave', () => {
-            glassCard.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg)';
+            glassCard.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1)';
         });
 
         const nameElement = document.querySelector('.name');
