@@ -1050,7 +1050,7 @@ body::after {
     }
 }
 
-/* Add fade-in animation */
+
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -1060,7 +1060,7 @@ body::after {
     }
 }
 
-/* Add scale animation */
+
 @keyframes scaleIn {
     from {
         transform: scale(0.9);
@@ -1072,7 +1072,7 @@ body::after {
     }
 }
 
-/* Animation delays for cascade effect */
+
 .profile-section { animation: slideUp 1s ease-out; }
 .info-card:nth-child(1) { animation: slideUp 1s ease-out 0.2s both; }
 .info-card:nth-child(2) { animation: slideUp 1s ease-out 0.4s both; }
