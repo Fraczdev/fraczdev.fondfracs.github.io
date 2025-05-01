@@ -160,25 +160,23 @@
                 const data = await response.json();
                 console.log('Full playback data:', data);
                 
-                const disk = document.querySelector('.vinyl-disk');
-                const songTitle = document.querySelector('.song-title');
-                const songArtist = document.querySelector('.song-artist');
-                const progressBar = document.querySelector('.progress');
-                const timestamp = document.querySelector('.timestamp');
-                
                 if (data && data.item) {
+                    // Update song info
+                    const songTitle = document.querySelector('.song-title');
+                    const songArtist = document.querySelector('.song-artist');
+                    const progressBar = document.querySelector('.progress');
+                    const timestamp = document.querySelector('.timestamp');
+                    const disk = document.querySelector('.vinyl-disk');
+
+                    songTitle.textContent = data.item.name;
+                    songArtist.textContent = data.item.artists[0].name;
                     
-                    if (songTitle) songTitle.textContent = data.item.name;
-                    if (songArtist) songArtist.textContent = data.item.artists[0].name;
+                    // Update progress bar and timestamp
+                    const progress = (data.progress_ms / data.item.duration_ms) * 100;
+                    progressBar.style.width = `${progress}%`;
+                    timestamp.textContent = `${formatTime(Math.floor(data.progress_ms / 1000))} / ${formatTime(Math.floor(data.item.duration_ms / 1000))}`;
                     
-                    r
-                    if (progressBar && timestamp) {
-                        const progress = (data.progress_ms / data.item.duration_ms) * 100;
-                        progressBar.style.width = `${progress}%`;
-                        timestamp.textContent = `${formatTime(Math.floor(data.progress_ms / 1000))} / ${formatTime(Math.floor(data.item.duration_ms / 1000))}`;
-                    }
-                    
-                   
+                    // Update album art
                     if (data.item.album?.images?.[0]?.url) {
                         const img = disk.querySelector('img') || document.createElement('img');
                         img.src = data.item.album.images[0].url;
