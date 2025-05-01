@@ -68,26 +68,6 @@ body {
     box-shadow: 0 0 20px var(--accent-color);
 }
 
-.waveform {
-    position: absolute;
-    top: -20px;
-    right: -20px;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 2;
-}
-
-.waveform-bar {
-    position: absolute;
-    bottom: 50%;
-    width: 2px;
-    height: 5px;
-    background: rgba(255, 255, 255, 0.7);
-    transform-origin: center 180px;
-    transition: height 0.1s ease;
-}
-
 .music-player {
     position: absolute;
     top: 20px;
@@ -1235,6 +1215,6 @@ body::after {
 .music-player.no-music .music-info,
 .music-player.no-music .progress-bar,
 .music-player.no-music .listen-with-me {
-    opacity: 0;
-    pointer-events: none;
+    opacity: 1;
+    pointer-events: auto;
 }       
