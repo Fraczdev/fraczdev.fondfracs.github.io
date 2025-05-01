@@ -727,23 +727,36 @@ body::after {
     width: 100%;
 }
 
-.song-title {
-    font-size: 1.2em;
-    font-weight: 600;
-    color: white;
-    margin: 0;
-    white-space: nowrap;
+.song-title-wrapper, .song-artist-wrapper {
+    width: 100%;
     overflow: hidden;
-    text-overflow: ellipsis;
+    position: relative;
 }
 
-.song-artist {
-    font-size: 1em;
-    color: rgba(255, 255, 255, 0.7);
-    margin: 5px 0;
+.song-title, .song-artist {
     white-space: nowrap;
+    display: inline-block;
+    padding-left: 100%;
+    animation: none;
+}
+
+.song-title.scroll, .song-artist.scroll {
+    animation: scrollText 15s linear infinite;
+}
+
+@keyframes scrollText {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.now-playing {
+    width: 100%;
+    margin: 0 auto;
     overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 .progress-bar {
@@ -976,9 +989,9 @@ body::after {
         margin: 30px auto 15px;
     }
 
-    .song-title, .song-artist {
-        text-align: center;
-        margin: 5px auto;
+    .song-title-wrapper, .song-artist-wrapper {
+        width: 90%;
+        margin: 0 auto;
     }
 
     .contact-methods {
