@@ -175,10 +175,55 @@ document.addEventListener('DOMContentLoaded', () => {
         return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
     }
 
+    // Volume control setup
+    const volumeSlider = document.getElementById('volume-slider');
+    const sliderProgress = document.querySelector('.slider-progress');
+    let volumeTimeout;
+
+    function updateSliderProgress(value) {
+        sliderProgress.style.width = `${value}%`;
+    }
+
+    volumeSlider.addEventListener('input', (e) => {
+        const volume = parseInt(e.target.value);
+        updateSliderProgress(volume);
+        
+        // Update volume icon
+        const volumeIcon = document.querySelector('.volume-control i');
+        if (volume === 0) {
+            volumeIcon.className = 'fas fa-volume-mute';
+        } else if (volume < 50) {
+            volumeIcon.className = 'fas fa-volume-down';
+        } else {
+            volumeIcon.className = 'fas fa-volume-up';
+        }
+        
+        // Debounce volume changes
+        clearTimeout(volumeTimeout);
+        volumeTimeout = setTimeout(async () => {
+            try {
+                await fetch('/.netlify/functions/spotify/set-volume', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ volume })
+                });
+            } catch (err) {
+                console.error('Error setting volume:', err);
+            }
+        }, 200);
+    });
+
     async function checkPlaybackStatus() {
         try {
             const response = await fetch('/.netlify/functions/spotify/current-playback');
             const data = await response.json();
+            
+            if (data.device) {
+                volumeSlider.value = data.device.volume_percent;
+                updateSliderProgress(data.device.volume_percent);
+            }
             
             const disk = document.querySelector('.vinyl-disk');
             const songTitle = document.querySelector('.song-title');
