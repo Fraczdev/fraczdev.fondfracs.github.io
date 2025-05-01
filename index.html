@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -8,6 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+<div class="cursor-dot"></div>
 <div class="squiggle squiggle-top-left">
   <svg width="260" height="70" viewBox="0 0 260 70" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M10 60 Q 40 10, 70 40 T 130 40 T 190 40 T 250 20" stroke="white" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
@@ -19,21 +21,21 @@
   </svg>
 </div>
 <div class="container">
-  <div class="glass-card">
-    <div class="profile-section">
-      <div class="profile-image">
+  <div class="glass-card" data-animate>
+    <div class="profile-section" data-animate>
+      <div class="profile-image" data-animate>
         <img src="profile.png" alt="Profile picture of fondfracz" class="profile-pic" />
         <span id="discord-status-dot"></span>
       </div>
       <div id="discord-activity-text" style="margin-top: 10px;"></div>
-      <h1 class="name">fondfracz</h1>
-      <div class="bio-center">Hi! I'm fondfracz, a passionate coder who loves building cool things for communities. I enjoy coding because it makes me relax and I love collaborating with others depending on the project.</div>
-      <div class="location">
+      <h1 class="name" data-animate>fondfracz</h1>
+      <div class="bio-center" data-animate>Hi! I'm fondfracz, a passionate coder who loves building cool things for communities. I enjoy coding because it makes me relax and I love collaborating with others depending on the project.</div>
+      <div class="location" data-animate>
         <i class="fas fa-map-marker-alt"></i><span>Italy</span>
       </div>
     </div>
     <div class="info-section">
-      <div class="info-card">
+      <div class="info-card glass-effect" data-animate>
         <h2><i class="fas fa-user"></i> About Me</h2>
         <p>Age: <span class="highlight">15</span></p>
         <p>Residence: <span class="highlight">MidSouthern Italy</span></p>
@@ -50,7 +52,7 @@
           <p class="about-project" style="margin-top: 32px;">One of my greatest achievements was building a geode mod for the popular game "Geometry Dash", because it was my first actual public project. It was really rewarding and it taught me a lot about C++.</p>
         </div>
       </div>
-      <div class="info-card">
+      <div class="info-card glass-effect" data-animate>
         <h2><i class="fas fa-language"></i> Languages I Speak</h2>
         <div class="languages">
           <div class="language-item">
@@ -69,7 +71,7 @@
         </div>
         <p class="fun-fact" style="margin-top: 32px;"><span class="highlight">Fun fact:</span> I actually started coding when I was 10, and I've been learning ever since.</p>
       </div>
-      <div class="info-card">
+      <div class="info-card glass-effect" data-animate>
         <h2><i class="fas fa-code"></i> Technical Skills</h2>
         <div class="skills">
           <div class="skill">
@@ -104,7 +106,7 @@
         <div class="self-taught-note">I'm mostly self-taught and love learning from online communities, tutorials, and collaborating with others.</div>
       </div>
     </div>
-    <section class="get-in-touch">
+    <section class="get-in-touch glass-effect" data-animate>
       <h2>Get in Touch</h2>
       <div class="contact-methods">
         <a href="mailto:fraczdev@gmail.com" class="contact-icon email" title="Email">
@@ -121,7 +123,7 @@
       <div id="discord-live-status" style="margin-top: 12px;"></div>
     </section>
 
-    <div class="music-player">
+    <div class="music-player glass-effect" data-animate>
       <div class="waveform" id="waveform"></div>
       <div class="vinyl-disk">
         <img src="https://i.imgur.com/HmxbLzY.png" alt="No music playing" class="placeholder-art">
@@ -144,5 +146,23 @@
 </div>
 <script src="https://sdk.scdn.co/spotify-player.js"></script>
 <script src="script.js"></script>
+<script src="effects.js"></script>
+<script>
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate');
+            }
+        });
+    }, {
+        threshold: 0.1
+    });
+
+    
+    document.querySelectorAll('[data-animate]').forEach(element => {
+        observer.observe(element);
+    });
+</script>
 </body>
 </html> 
