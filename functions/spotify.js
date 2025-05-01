@@ -25,13 +25,14 @@ exports.handler = async function(event, context) {
   const path = event.path.split('/').pop();
 
   try {
-    
+    // Refresh the access token first
     const refreshData = await spotifyApi.refreshAccessToken();
     spotifyApi.setAccessToken(refreshData.body['access_token']);
 
     switch (path) {
       case 'current-playback':
         const playbackData = await spotifyApi.getMyCurrentPlaybackState();
+        console.log('Current playback state:', JSON.stringify(playbackData.body, null, 2));
         return {
           statusCode: 200,
           headers,
