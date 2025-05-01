@@ -216,22 +216,27 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const response = await fetch('/.netlify/functions/spotify/current-playback');
             const data = await response.json();
-            console.log('Received playback data:', data);
+            console.log('Full playback data:', data);
+            
+            const disk = document.querySelector('.vinyl-disk');
             
             if (data && data.item) {
-                document.querySelector('.song-title').textContent = data.item.name;
-                document.querySelector('.song-artist').textContent = data.item.artists[0].name;
+                console.log('Album images:', data.item.album?.images);
                 
-                const progress = (data.progress_ms / data.item.duration_ms) * 100;
-                document.querySelector('.progress').style.width = `${progress}%`;
-                
-                const current = Math.floor(data.progress_ms / 1000);
-                const total = Math.floor(data.item.duration_ms / 1000);
-                document.querySelector('.timestamp').textContent = 
-                    `${formatTime(current)} / ${formatTime(total)}`;
+                if (data.item.album?.images?.[0]?.url) {
+                    const img = disk.querySelector('img') || document.createElement('img');
+                    img.src = data.item.album.images[0].url;
+                    img.alt = 'Album art';
+                    if (!disk.contains(img)) {
+                        disk.insertBefore(img, disk.firstChild);
+                    }
+                    console.log('Updated image src to:', img.src);
+                }
+
+                disk.style.animationPlayState = data.is_playing ? 'running' : 'paused';
             }
         } catch (err) {
-            console.error('Error checking playback:', err);
+            console.error('Full error:', err);
         }
     }
 
