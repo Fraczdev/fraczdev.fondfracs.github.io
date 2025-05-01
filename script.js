@@ -19,74 +19,7 @@
 
         const glassCard = document.querySelector('.glass-card');
         const audio = document.getElementById('player');
-        const waveform = document.getElementById('waveform');
-        let audioContext, analyser, source;
-        let audioInitialized = false;
         
-        // Initialize audio context and analyzer
-        function initAudio() {
-            if (audioInitialized) return;
-            
-            try {
-                audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                analyser = audioContext.createAnalyser();
-                source = audioContext.createMediaElementSource(audio);
-                source.connect(analyser);
-                analyser.connect(audioContext.destination);
-                analyser.fftSize = 256;
-                audioInitialized = true;
-            } catch (e) {
-                console.error('Audio initialization failed:', e);
-            }
-        }
-
-        // Create waveform bars
-        const bufferLength = 256;
-        const dataArray = new Uint8Array(bufferLength);
-        const numBars = 60;
-        const bars = [];
-
-        for (let i = 0; i < numBars; i++) {
-            const bar = document.createElement('div');
-            bar.className = 'waveform-bar';
-            bar.style.left = `${(i / numBars) * 100}%`;
-            bar.style.transform = `rotate(${(i / numBars) * 360}deg) translateY(-180px) translateX(60px)`;
-            waveform.appendChild(bar);
-            bars.push(bar);
-        }
-
-        // Animation function for waveform and vibration
-        function animate() {
-            requestAnimationFrame(animate);
-            
-            if (analyser) {
-                analyser.getByteFrequencyData(dataArray);
-                
-                bars.forEach((bar, i) => {
-                    const dataIndex = Math.floor((i / numBars) * bufferLength);
-                    const height = (dataArray[dataIndex] / 255) * 100;
-                    bar.style.height = `${height}%`;
-                });
-
-                const average = dataArray.reduce((a, b) => a + b) / bufferLength;
-                const vibration = (average / 255) * 5;
-                glassCard.style.transform = `perspective(1000px) rotateY(0deg) rotateX(0deg) scale(${1 + vibration * 0.01})`;
-            }
-        }
-
-        // Start animation
-        animate();
-
-        // Add click handler to initialize audio
-        document.body.addEventListener('click', () => {
-            if (!audioInitialized) {
-                initAudio();
-                if (audio.paused) {
-                    audio.play().catch(e => console.log('Playback failed:', e));
-                }
-            }
-        }, { once: true });
-
         // 3D tilt effect
         document.addEventListener('mousemove', (e) => {
             const rect = glassCard.getBoundingClientRect();
@@ -251,7 +184,7 @@
             }
         }
 
-   
+    
         async function checkPlaybackStatus() {
             try {
                 const response = await fetch('/.netlify/functions/spotify/current-playback');
@@ -263,15 +196,8 @@
                 const progressBar = document.querySelector('.progress');
                 const timestamp = document.querySelector('.timestamp');
                 const disk = document.querySelector('.vinyl-disk');
-                const noMusicMessage = document.querySelector('.no-music-message');
                 
                 if (!data || !data.item) {
-                    musicPlayer.classList.add('no-music');
-                 
-                    songTitle.textContent = "Here's a song I like! Wesley's Theory";
-                    songArtist.textContent = "Kendrick Lamar";
-                    progressBar.style.width = '0';
-                    timestamp.textContent = '0:00 / 0:00';
                     
                     const img = disk.querySelector('img') || document.createElement('img');
                     img.src = 'https://i.imgur.com/HmxbLzY.png';
@@ -281,24 +207,9 @@
                     }
                     
                     disk.style.animationPlayState = 'running';
-                    
-                    if (noMusicMessage) {
-                        noMusicMessage.style.display = 'block';
-                        noMusicMessage.textContent = "I'm not listening to music right now, but here's a song I like! 🎵";
-                    }
                 } else {
-                    musicPlayer.classList.remove('no-music');
-                    if (audio && !audio.paused) {
-                        audio.pause();
-                        audioContext?.suspend(); 
-                    }
-                    
                     songTitle.textContent = data.item.name;
                     songArtist.textContent = data.item.artists[0].name;
-                    
-                    if (noMusicMessage) {
-                        noMusicMessage.style.display = 'none';
-                    }
                     
                     setTimeout(checkTextOverflow, 100);
                     
@@ -325,8 +236,6 @@
                 }
             } catch (err) {
                 console.error('Error:', err);
-                const musicPlayer = document.querySelector('.music-player');
-                musicPlayer.classList.add('no-music');
             }
         }
 
