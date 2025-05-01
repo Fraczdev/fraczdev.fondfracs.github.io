@@ -642,10 +642,9 @@
         }
 
         .vinyl-disk {
-            width: 60px;
-            height: 60px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
-            background: #333;
             position: relative;
             overflow: hidden;
             animation: spin 20s linear infinite;
@@ -672,8 +671,12 @@
         }
 
         @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         .music-info {
