@@ -719,6 +719,23 @@
             opacity: 0.8;
         }
 
+        .listen-with-me {
+            display: none;
+            background: #1DB954;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 4px 12px;
+            font-size: 0.8em;
+            cursor: pointer;
+            margin-left: 10px;
+            transition: background-color 0.2s;
+        }
+
+        .listen-with-me:hover {
+            background: #1ed760;
+        }
+
         .volume-control {
             display: flex;
             align-items: center;
@@ -911,6 +928,11 @@
             /* Remove the bottom margin from glass-card since player isn't fixed anymore */
             .glass-card {
                 margin-bottom: 20px;
+            }
+
+            .listen-with-me {
+                margin-top: 5px;
+                margin-left: 0;
             }
         }
 
