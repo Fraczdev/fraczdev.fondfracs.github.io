@@ -200,9 +200,8 @@
                 const disk = document.querySelector('.vinyl-disk');
                 
                 if (!data || !data.item) {
-                  
-                    songTitle.textContent = "Wesley's Theory";
-                    songArtist.textContent = "Kendrick Lamar";
+                    songTitle.textContent = "No song playing";
+                    songArtist.textContent = "";  
                     progressBar.style.width = '0';
                     timestamp.textContent = '0:00 / 0:00';
                     
@@ -215,13 +214,13 @@
                     
                     disk.style.animationPlayState = 'running';
 
-                 
+                    
                     if (lastPlayedSong && lastPlayedArtist) {
                         lastSongElement.textContent = `Last played: ${lastPlayedSong} - ${lastPlayedArtist}`;
                         lastSongElement.style.display = 'block';
                     }
                 } else {
-            
+                    
                     lastPlayedSong = data.item.name;
                     lastPlayedArtist = data.item.artists[0].name;
                     
