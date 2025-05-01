@@ -911,8 +911,12 @@ body::after {
 }
 
 @media screen and (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
     .container {
-        padding: 15px;
+        padding: 10px;
         width: 100%;
         display: flex;
         flex-direction: column;
@@ -920,31 +924,33 @@ body::after {
     }
 
     .glass-card {
-        width: 90%;
-        margin: 0 auto;
+        width: 95%;
+        margin: 10px auto;
+        padding: 20px;
         transform: none !important;
     }
 
     .info-card.glass-effect {
-        width: 90%;
+        width: 95%;
         margin: 10px auto;
     }
 
     .music-player {
         position: relative;
-        width: 90%;
-        height: 400px;
+        width: 95%;
+        height: auto;
+        min-height: 400px;
         margin: 20px auto;
-        padding: 25px;
+        padding: 20px;
         display: flex;
         flex-direction: column;
         align-items: center;
     }
 
     .vinyl-disk {
-        width: 150px;
-        height: 150px;
-        margin: 30px auto 20px;
+        width: 120px;
+        height: 120px;
+        margin: 20px auto 15px;
     }
 
     .music-info {
@@ -952,21 +958,32 @@ body::after {
         display: flex;
         flex-direction: column;
         align-items: center;
+        padding: 0 10px;
     }
 
     .song-title-wrapper, .song-artist-wrapper {
         width: 100%;
         text-align: center;
+        margin: 5px 0;
+    }
+
+    .song-title {
+        font-size: 1.1em;
+    }
+
+    .song-artist {
+        font-size: 0.9em;
     }
 
     .progress-bar {
         width: 100%;
-        margin: 15px auto;
+        margin: 10px auto;
     }
 
     .listen-with-me {
-        margin: 15px auto 5px;
-        padding: 8px 20px;
+        margin: 10px auto 5px;
+        padding: 8px 16px;
+        font-size: 0.85em;
     }
 
     .profile-section {
@@ -974,6 +991,17 @@ body::after {
         display: flex;
         flex-direction: column;
         align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .profile-image {
+        width: 120px;
+        height: 120px;
+        margin: 0 auto 15px;
+    }
+
+    .name {
+        font-size: 1.8rem;
     }
 
     .info-section {
@@ -981,30 +1009,109 @@ body::after {
         display: flex;
         flex-direction: column;
         align-items: center;
+        gap: 15px;
     }
 
     .contact-methods {
         width: 100%;
         display: flex;
         justify-content: center;
-        gap: 1.2rem;
+        gap: 1rem;
     }
 
     .contact-icon {
-        width: 40px;
-        height: 40px;
+        width: 36px;
+        height: 36px;
+    }
+
+    .contact-icon i {
+        font-size: 1.1rem;
     }
 
     .hobbies-icons {
         justify-content: center;
+        gap: 10px;
+    }
+
+    .hobbies-icons li {
+        font-size: 0.95rem;
+        padding: 6px 12px;
     }
 
     .language-item {
         justify-content: center;
+        margin-bottom: 15px;
+    }
+
+    .language-tag {
+        font-size: 1rem;
+        padding: 8px 16px;
+        min-width: 100px;
     }
 
     .skill {
         width: 100%;
+    }
+
+    .skill-bar {
+        height: 6px;
+    }
+
+    .about-extra {
+        margin-top: 20px;
+        font-size: 0.95rem;
+    }
+
+    .bio-center {
+        font-size: 1rem;
+        margin: 15px auto 0;
+    }
+
+    .lang-journey-bar {
+        width: 90%;
+        max-width: 200px;
+    }
+
+    .no-music-message {
+        font-size: 1.1em;
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .name {
+        font-size: 1.6rem;
+    }
+
+    .profile-image {
+        width: 100px;
+        height: 100px;
+    }
+
+    .vinyl-disk {
+        width: 100px;
+        height: 100px;
+    }
+
+    .hobbies-icons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hobbies-icons li {
+        width: 100%;
+        max-width: 200px;
+        justify-content: center;
+    }
+
+    .language-item {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .lang-bar {
+        margin: 5px 0;
     }
 }
 
@@ -1019,6 +1126,19 @@ body::after {
 
     .social-link:hover {
         color: inherit;
+    }
+
+    .glass-card:hover {
+        transform: none;
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    }
+
+    .info-card:hover {
+        transform: none;
+    }
+
+    .language-tag:hover {
+        background: rgba(255, 255, 255, 0.2);
     }
 }
 
