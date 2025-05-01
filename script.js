@@ -175,7 +175,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
     }
 
-    // Volume control setup
     const volumeSlider = document.getElementById('volume-slider');
     const sliderProgress = document.querySelector('.slider-progress');
     let volumeTimeout;
@@ -188,7 +187,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const volume = parseInt(e.target.value);
         updateSliderProgress(volume);
         
-        // Update volume icon
         const volumeIcon = document.querySelector('.volume-control i');
         if (volume === 0) {
             volumeIcon.className = 'fas fa-volume-mute';
@@ -198,7 +196,6 @@ document.addEventListener('DOMContentLoaded', () => {
             volumeIcon.className = 'fas fa-volume-up';
         }
         
-        // Debounce volume changes
         clearTimeout(volumeTimeout);
         volumeTimeout = setTimeout(async () => {
             try {
@@ -232,22 +229,20 @@ document.addEventListener('DOMContentLoaded', () => {
             const progressBar = document.querySelector('.progress');
             
             if (data.is_playing && data.item) {
-                // Update album art
+                
                 if (data.item.album.images[0]?.url) {
                     const img = disk.querySelector('img') || document.createElement('img');
                     img.src = data.item.album.images[0].url;
                     if (!disk.contains(img)) disk.appendChild(img);
                 }
                 
-                // Update song info
                 songTitle.textContent = data.item.name;
                 songArtist.textContent = data.item.artists[0].name;
                 
-                // Update progress
+
                 const progress = (data.progress_ms / data.item.duration_ms) * 100;
                 progressBar.style.width = `${progress}%`;
                 
-                // Update timestamp
                 const current = Math.floor(data.progress_ms / 1000);
                 const total = Math.floor(data.item.duration_ms / 1000);
                 timestamp.textContent = `${formatTime(current)} / ${formatTime(total)}`;
@@ -271,10 +266,9 @@ document.addEventListener('DOMContentLoaded', () => {
     analyser.connect(audioContext.destination);
     analyser.fftSize = 256;
 
-    // Create waveform bars
     const bufferLength = analyser.frequencyBinCount;
     const dataArray = new Uint8Array(bufferLength);
-    const numBars = 60; // Number of bars in the waveform
+    const numBars = 60;
     const bars = [];
 
     for (let i = 0; i < numBars; i++) {
@@ -286,25 +280,25 @@ document.addEventListener('DOMContentLoaded', () => {
         bars.push(bar);
     }
 
-    // Animation function
+  
     function animate() {
         requestAnimationFrame(animate);
         analyser.getByteFrequencyData(dataArray);
 
-        // Update waveform bars
+       
         bars.forEach((bar, i) => {
             const dataIndex = Math.floor((i / numBars) * bufferLength);
             const height = (dataArray[dataIndex] / 255) * 100;
             bar.style.height = `${height}%`;
         });
 
-        // Calculate average volume for page vibration
+       
         const average = dataArray.reduce((a, b) => a + b) / bufferLength;
-        const vibration = (average / 255) * 5; // Adjust multiplier for intensity
+        const vibration = (average / 255) * 5; 
         glassCard.style.transform = `perspective(1000px) rotateY(0deg) rotateX(0deg) scale(${1 + vibration * 0.01})`;
     }
 
-    // Add click handler for the vinyl disk
+   
     document.querySelector('.vinyl-disk').addEventListener('click', async () => {
         try {
             await fetch('/.netlify/functions/spotify/toggle-playback', { 
@@ -318,6 +312,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Start animation
+  
     animate();
 }); 
