@@ -18,7 +18,76 @@
         });
 
         const glassCard = document.querySelector('.glass-card');
+        const audio = document.getElementById('player');
+        const waveform = document.getElementById('waveform');
+        let audioContext, analyser, source;
+        let audioInitialized = false;
         
+        // Initialize audio context and analyzer
+        function initAudio() {
+            if (audioInitialized) return;
+            
+            try {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                analyser = audioContext.createAnalyser();
+                source = audioContext.createMediaElementSource(audio);
+                source.connect(analyser);
+                analyser.connect(audioContext.destination);
+                analyser.fftSize = 256;
+                audioInitialized = true;
+            } catch (e) {
+                console.error('Audio initialization failed:', e);
+            }
+        }
+
+        // Create waveform bars
+        const bufferLength = 256;
+        const dataArray = new Uint8Array(bufferLength);
+        const numBars = 60;
+        const bars = [];
+
+        for (let i = 0; i < numBars; i++) {
+            const bar = document.createElement('div');
+            bar.className = 'waveform-bar';
+            bar.style.left = `${(i / numBars) * 100}%`;
+            bar.style.transform = `rotate(${(i / numBars) * 360}deg)`;
+            waveform.appendChild(bar);
+            bars.push(bar);
+        }
+
+        // Animation function for waveform and vibration
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            if (analyser) {
+                analyser.getByteFrequencyData(dataArray);
+                
+                bars.forEach((bar, i) => {
+                    const dataIndex = Math.floor((i / numBars) * bufferLength);
+                    const height = (dataArray[dataIndex] / 255) * 100;
+                    bar.style.height = `${height}%`;
+                });
+
+                const average = dataArray.reduce((a, b) => a + b) / bufferLength;
+                const vibration = (average / 255) * 5;
+                glassCard.style.transform = `perspective(1000px) rotateY(0deg) rotateX(0deg) scale(${1 + vibration * 0.01})`;
+            }
+        }
+
+        // Start animation
+        animate();
+
+        // Add click handler to initialize audio
+        document.body.addEventListener('click', () => {
+            if (!audioInitialized) {
+                initAudio();
+                if (audio.paused) {
+                    audio.play().catch(e => console.log('Playback failed:', e));
+                }
+            }
+        }, { once: true });
+
+        // 3D tilt effect
         document.addEventListener('mousemove', (e) => {
             const rect = glassCard.getBoundingClientRect();
             const x = (e.clientX - rect.left) / rect.width;
@@ -135,62 +204,12 @@
         }, 3000);
 
         const disk = document.querySelector('.vinyl-disk');
-        const audio = document.getElementById('player');
-        const waveform = document.getElementById('waveform');
         const songTitle = document.querySelector('.song-title');
         const songArtist = document.querySelector('.song-artist');
         const progressBar = document.querySelector('.progress');
         const timestamp = document.querySelector('.timestamp');
         const musicPlayer = document.querySelector('.music-player');
-        let audioContext, analyser, source;
         
-       
-        function initAudio() {
-            audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            analyser = audioContext.createAnalyser();
-            source = audioContext.createMediaElementSource(audio);
-            source.connect(analyser);
-            analyser.connect(audioContext.destination);
-            analyser.fftSize = 256;
-        }
-
-       
-        const bufferLength = analyser ? analyser.frequencyBinCount : 256;
-        const dataArray = new Uint8Array(bufferLength);
-        const numBars = 60;
-        const bars = [];
-
-        for (let i = 0; i < numBars; i++) {
-            const bar = document.createElement('div');
-            bar.className = 'waveform-bar';
-            bar.style.left = `${(i / numBars) * 100}%`;
-            bar.style.transform = `rotate(${(i / numBars) * 360}deg)`;
-            waveform.appendChild(bar);
-            bars.push(bar);
-        }
-
-        
-        function animate() {
-            requestAnimationFrame(animate);
-            
-            if (analyser) {
-                analyser.getByteFrequencyData(dataArray);
-                
-                bars.forEach((bar, i) => {
-                    const dataIndex = Math.floor((i / numBars) * bufferLength);
-                    const height = (dataArray[dataIndex] / 255) * 100;
-                    bar.style.height = `${height}%`;
-                });
-
-                const average = dataArray.reduce((a, b) => a + b) / bufferLength;
-                const vibration = (average / 255) * 5;
-                glassCard.style.transform = `perspective(1000px) rotateY(0deg) rotateX(0deg) scale(${1 + vibration * 0.01})`;
-            }
-        }
-
-        
-        animate();
-
         function updateMusicInfo(title, artist, currentTime, duration, imageUrl = null) {
             songTitle.textContent = title;
             songArtist.textContent = artist;
@@ -232,6 +251,7 @@
             }
         }
 
+       
         async function checkPlaybackStatus() {
             try {
                 const response = await fetch('/.netlify/functions/spotify/current-playback');
@@ -246,11 +266,7 @@
                 
                 if (!data || !data.item) {
                     musicPlayer.classList.add('no-music');
-                    if (audio.paused) {
-                        audio.play().catch(e => console.log('Playback failed:', e));
-                        initAudio();
-                    }
-                    // Display default song info
+             
                     songTitle.textContent = "Wesley's Theory";
                     songArtist.textContent = "Kendrick Lamar";
                     progressBar.style.width = '0';
@@ -296,14 +312,10 @@
                 console.error('Error:', err);
                 const musicPlayer = document.querySelector('.music-player');
                 musicPlayer.classList.add('no-music');
-                if (audio.paused) {
-                    audio.play().catch(e => console.log('Playback failed:', e));
-                    initAudio();
-                }
             }
         }
 
-        
+
         checkPlaybackStatus();
         setInterval(checkPlaybackStatus, 1000);
 
