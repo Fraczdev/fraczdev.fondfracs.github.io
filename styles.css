@@ -23,26 +23,6 @@ body {
     animation: gradient 15s ease infinite;
     padding: 20px;
     position: relative;
-    cursor: none;
-}
-
-
-* {
-    cursor: none !important;
-}
-
-
-.cursor-dot {
-    width: 10px;
-    height: 10px;
-    background-color: #fff;
-    position: fixed;
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 999999;
-    mix-blend-mode: difference;
-    top: 0;
-    left: 0;
 }
 
 .glass-card {
