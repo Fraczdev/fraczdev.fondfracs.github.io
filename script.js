@@ -180,28 +180,18 @@ document.addEventListener('DOMContentLoaded', () => {
             const response = await fetch('/.netlify/functions/spotify/current-playback');
             const data = await response.json();
             
+            const disk = document.querySelector('.vinyl-disk');
+            
             if (data.is_playing) {
-                updateMusicInfo(
-                    data.item.name,
-                    data.item.artists[0].name,
-                    data.progress_ms,
-                    data.item.duration_ms
-                );
-                disk.style.animationPlayState = 'running';
-                isPlayingSpotifyPlaylist = true;
-            } else {
-                const discordActivity = document.getElementById('discord-activity-text');
-                if (discordActivity && discordActivity.textContent.startsWith('Listening to')) {
-                    disk.style.animationPlayState = 'running';
-                    isPlayingSpotifyPlaylist = false;
-                } else {
-                    if (!isPlayingSpotifyPlaylist) {
-                        currentTrackIndex = Math.floor(Math.random() * playlistTracks.length);
-                        const track = playlistTracks[currentTrackIndex];
-                        updateMusicInfo(track.name, track.artist, 0, track.duration);
-                        disk.style.animationPlayState = 'paused';
-                    }
+                // Update album art
+                if (data.item.album.images[0]?.url) {
+                    const img = disk.querySelector('img') || document.createElement('img');
+                    img.src = data.item.album.images[0].url;
+                    if (!disk.contains(img)) disk.appendChild(img);
                 }
+                disk.style.animationPlayState = 'running';
+            } else {
+                disk.style.animationPlayState = 'paused';
             }
         } catch (err) {
             console.error('Error checking playback:', err);
@@ -218,9 +208,10 @@ document.addEventListener('DOMContentLoaded', () => {
     analyser.connect(audioContext.destination);
     analyser.fftSize = 256;
 
+    // Create waveform bars
     const bufferLength = analyser.frequencyBinCount;
     const dataArray = new Uint8Array(bufferLength);
-    const numBars = 60;
+    const numBars = 60; // Number of bars in the waveform
     const bars = [];
 
     for (let i = 0; i < numBars; i++) {
@@ -232,25 +223,28 @@ document.addEventListener('DOMContentLoaded', () => {
         bars.push(bar);
     }
 
+    // Animation function
     function animate() {
         requestAnimationFrame(animate);
         analyser.getByteFrequencyData(dataArray);
 
+        // Update waveform bars
         bars.forEach((bar, i) => {
             const dataIndex = Math.floor((i / numBars) * bufferLength);
             const height = (dataArray[dataIndex] / 255) * 100;
             bar.style.height = `${height}%`;
         });
 
+        // Calculate average volume for page vibration
         const average = dataArray.reduce((a, b) => a + b) / bufferLength;
-        const vibration = (average / 255) * 5;
+        const vibration = (average / 255) * 5; // Adjust multiplier for intensity
         glassCard.style.transform = `perspective(1000px) rotateY(0deg) rotateX(0deg) scale(${1 + vibration * 0.01})`;
     }
 
     disk.addEventListener('click', () => {
         if (audio.paused) {
             audio.play();
-            audioContext.resume();
+            audioContext.resume(); // Required for Chrome autoplay policy
             disk.style.animationPlayState = 'running';
         } else {
             audio.pause();
@@ -258,5 +252,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Start animation
     animate();
 }); 
