@@ -153,7 +153,6 @@
 <script src="script.js"></script>
 <script src="effects.js"></script>
 <script>
-    
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -164,7 +163,6 @@
         threshold: 0.1
     });
 
-   
     document.querySelectorAll('[data-animate]').forEach(element => {
         observer.observe(element);
     });
