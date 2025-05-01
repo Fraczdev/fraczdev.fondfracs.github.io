@@ -24,14 +24,14 @@ exports.handler = async function(event, context) {
   const path = event.path.split('/').pop();
 
   try {
-    
+    // Refresh the access token first
     const refreshData = await spotifyApi.refreshAccessToken();
     spotifyApi.setAccessToken(refreshData.body['access_token']);
 
     switch (path) {
       case 'current-playback':
         const playbackData = await spotifyApi.getMyCurrentPlaybackState();
-        console.log('API response:', playbackData.body);
+        console.log('API response:', playbackData.body); // Debug log
         return {
           statusCode: 200,
           headers,
@@ -39,12 +39,21 @@ exports.handler = async function(event, context) {
         };
 
       case 'playlist-tracks':
-        const playlistData = await spotifyApi.getPlaylistTracks('37i9dQZF1EQp9BVPsNVof1');
-        return {
-          statusCode: 200,
-          headers,
-          body: JSON.stringify(playlistData.body)
-        };
+        try {
+          const playlistData = await spotifyApi.getPlaylistTracks('37i9dQZF1EQp9BVPsNVof1');
+          return {
+            statusCode: 200,
+            headers,
+            body: JSON.stringify(playlistData.body)
+          };
+        } catch (error) {
+          console.error('Playlist error:', error);
+          return {
+            statusCode: 500,
+            headers,
+            body: JSON.stringify({ error: 'Failed to fetch playlist' })
+          };
+        }
 
       case 'toggle-playback':
         const currentPlayback = await spotifyApi.getMyCurrentPlaybackState();
@@ -60,13 +69,25 @@ exports.handler = async function(event, context) {
         };
 
       case 'set-volume':
-        const { volume } = JSON.parse(event.body);
-        await spotifyApi.setVolume(volume);
-        return {
-          statusCode: 200,
-          headers,
-          body: JSON.stringify({ success: true })
-        };
+        try {
+          const { volume } = JSON.parse(event.body || '{}');
+          if (typeof volume !== 'number') {
+            throw new Error('Invalid volume value');
+          }
+          await spotifyApi.setVolume(volume);
+          return {
+            statusCode: 200,
+            headers,
+            body: JSON.stringify({ success: true })
+          };
+        } catch (error) {
+          console.error('Volume error:', error);
+          return {
+            statusCode: 500,
+            headers,
+            body: JSON.stringify({ error: 'Failed to set volume' })
+          };
+        }
 
       default:
         return {
