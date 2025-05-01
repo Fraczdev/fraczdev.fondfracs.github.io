@@ -586,7 +586,7 @@
             transform: translate(30px, 10px) scaleX(-1) rotate(-8deg);
         }
 
-        /* Music Player Styles */
+      
         .music-player {
             position: absolute;
             width: 120px;
@@ -596,7 +596,7 @@
             z-index: 10;
         }
 
-        /* Hand-drawn decoration */
+      
         .music-player::after {
             content: 'Music here!';
             position: absolute;
@@ -824,7 +824,7 @@
             }
         }
 
-        /* Mobile Responsive Design */
+    
         @media screen and (max-width: 768px) {
             .container {
                 padding: 10px;
@@ -834,7 +834,7 @@
                 width: 100%;
                 margin: 0;
                 padding: 15px;
-                transform: none !important; /* Disable 3D effect on mobile */
+                transform: none !important; 
             }
 
             .profile-section {
@@ -863,22 +863,22 @@
                 gap: 10px;
             }
 
-            /* Update Music Player for mobile */
+          
             .music-player {
-                position: relative;  /* Change from fixed to relative */
+                position: relative; 
                 top: auto;
                 right: auto;
                 bottom: auto;
                 left: auto;
                 width: 100%;
                 height: auto;
-                margin-top: 20px;  /* Add space between content and player */
+                margin-top: 20px; 
                 background: rgba(0, 0, 0, 0.2);
                 backdrop-filter: blur(10px);
                 padding: 15px;
                 display: flex;
                 align-items: center;
-                border-radius: 15px;  /* Add rounded corners */
+                border-radius: 15px;  
             }
 
             .vinyl-disk {
@@ -909,13 +909,13 @@
                 margin: 5px 0;
             }
 
-            /* Hide decorative elements on mobile */
+          
             .music-player::before,
             .music-player::after {
                 display: none;
             }
 
-            /* Adjust contact section for mobile */
+          
             .contact-methods {
                 gap: 0.8rem;
             }
@@ -925,7 +925,7 @@
                 height: 36px;
             }
 
-            /* Remove the bottom margin from glass-card since player isn't fixed anymore */
+         
             .glass-card {
                 margin-bottom: 20px;
             }
@@ -936,7 +936,7 @@
             }
         }
 
-        /* Touch device optimizations */
+     
         @media (hover: none) {
             .contact-icon:hover {
                 transform: none;
