@@ -174,6 +174,7 @@
                     progressBar.style.width = `${progress}%`;
                     timestamp.textContent = `${formatTime(Math.floor(data.progress_ms / 1000))} / ${formatTime(Math.floor(data.item.duration_ms / 1000))}`;
                     
+                    // Add button handling
                     const listenButton = document.querySelector('.listen-with-me');
                     if (listenButton) {
                         listenButton.style.display = 'inline-block';
@@ -211,6 +212,12 @@
                     
                     disk.style.animationPlayState = 'paused';
                 }
+
+                if (data && data.is_playing) {
+                    disk.classList.remove('paused');
+                } else {
+                    disk.classList.add('paused');
+                }
             } catch (err) {
                 console.error('Error:', err);
                 const songTitle = document.querySelector('.song-title');
@@ -232,6 +239,7 @@
                 }
                 
                 disk.style.animationPlayState = 'paused';
+                disk.classList.add('paused');
             }
         }
 
