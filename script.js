@@ -19,6 +19,8 @@
 
         const glassCard = document.querySelector('.glass-card');
         const audio = document.getElementById('player');
+        let lastPlayedSong = null;
+        let lastPlayedArtist = null;
         
     
         document.addEventListener('mousemove', (e) => {
@@ -142,6 +144,7 @@
         const progressBar = document.querySelector('.progress');
         const timestamp = document.querySelector('.timestamp');
         const musicPlayer = document.querySelector('.music-player');
+        const lastSongElement = document.querySelector('.last-song');
         
         function updateMusicInfo(title, artist, currentTime, duration, imageUrl = null) {
             songTitle.textContent = title;
@@ -211,9 +214,20 @@
                     }
                     
                     disk.style.animationPlayState = 'running';
+
+                 
+                    if (lastPlayedSong && lastPlayedArtist) {
+                        lastSongElement.textContent = `Last played: ${lastPlayedSong} - ${lastPlayedArtist}`;
+                        lastSongElement.style.display = 'block';
+                    }
                 } else {
+            
+                    lastPlayedSong = data.item.name;
+                    lastPlayedArtist = data.item.artists[0].name;
+                    
                     songTitle.textContent = data.item.name;
                     songArtist.textContent = data.item.artists[0].name;
+                    lastSongElement.style.display = 'none';
                     
                     setTimeout(checkTextOverflow, 100);
                     
