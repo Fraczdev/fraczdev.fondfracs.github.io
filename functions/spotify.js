@@ -1,10 +1,21 @@
 const SpotifyWebApi = require('spotify-web-api-node');
 const spotifyApi = new SpotifyWebApi({
   clientId: process.env.SPOTIFY_CLIENT_ID,
-  clientSecret: process.env.SPOTIFY_CLIENT_SECRET
+  clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
+  redirectUri: process.env.REDIRECT_URI
 });
 
 spotifyApi.setRefreshToken(process.env.SPOTIFY_REFRESH_TOKEN);
+
+const scopes = [
+  'user-read-playback-state',
+  'playlist-read-private',
+  'user-modify-playback-state',
+  'streaming',
+  'user-read-email',
+  'user-read-private',
+  'app-remote-control'
+];
 
 exports.handler = async function(event, context) {
   const headers = {
@@ -24,11 +35,28 @@ exports.handler = async function(event, context) {
   const path = event.path.split('/').pop();
 
   try {
-    // Refresh the access token first
     const refreshData = await spotifyApi.refreshAccessToken();
     spotifyApi.setAccessToken(refreshData.body['access_token']);
 
     switch (path) {
+      case 'callback':
+        const { code } = event.queryStringParameters || {};
+        if (!code) {
+          const authorizeURL = spotifyApi.createAuthorizeURL(scopes);
+          return {
+            statusCode: 302,
+            headers: { ...headers, Location: authorizeURL },
+            body: ''
+          };
+        }
+        const data = await spotifyApi.authorizationCodeGrant(code);
+        console.log('Refresh token:', data.body['refresh_token']);
+        return {
+          statusCode: 200,
+          headers,
+          body: JSON.stringify({ message: 'Check your Netlify function logs for the refresh token!' })
+        };
+
       case 'current-playback':
         const playbackData = await spotifyApi.getMyCurrentPlaybackState();
         console.log('API response:', playbackData.body); // Debug log
@@ -88,6 +116,23 @@ exports.handler = async function(event, context) {
             body: JSON.stringify({ error: 'Failed to set volume' })
           };
         }
+
+      case 'get-token':
+        const tokenData = await spotifyApi.refreshAccessToken();
+        return {
+          statusCode: 200,
+          headers,
+          body: JSON.stringify({ access_token: tokenData.body.access_token })
+        };
+
+      case 'transfer-playback':
+        const { device_id } = JSON.parse(event.body);
+        await spotifyApi.transferMyPlayback([device_id]);
+        return {
+          statusCode: 200,
+          headers,
+          body: JSON.stringify({ success: true })
+        };
 
       default:
         return {
