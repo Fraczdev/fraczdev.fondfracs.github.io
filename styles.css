@@ -708,7 +708,7 @@ body::after {
     border-radius: 50%;
     overflow: hidden;
     position: relative;
-    margin: 20px auto;
+    margin: 45px auto 20px;
     background: transparent;
 }
 
