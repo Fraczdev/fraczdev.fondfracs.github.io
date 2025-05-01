@@ -68,23 +68,43 @@ class CursorTrail {
     }
 }
 
+class CardTilt {
+    constructor() {
+        this.card = document.querySelector('.glass-card');
+        this.boundMouseMove = this.handleMouseMove.bind(this);
+        this.boundMouseLeave = this.handleMouseLeave.bind(this);
+        this.init();
+    }
+
+    init() {
+        if (this.card) {
+            window.addEventListener('mousemove', this.boundMouseMove);
+            this.card.addEventListener('mouseleave', this.boundMouseLeave);
+        }
+    }
+
+    handleMouseMove(e) {
+        const rect = this.card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width;
+        const y = (e.clientY - rect.top) / rect.height;
+        
+        this.card.style.transform = `
+            perspective(1000px)
+            rotateY(${(x * 2 - 1) * 10}deg)
+            rotateX(${(y * 2 - 1) * -10}deg)
+        `;
+    }
+
+    handleMouseLeave() {
+        this.card.style.transform = `
+            perspective(1000px)
+            rotateY(0deg)
+            rotateX(0deg)
+        `;
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     new CursorTrail();
-
-    const glassCard = document.querySelector('.glass-card');
-    
-    document.addEventListener('mousemove', (e) => {
-        const x = e.clientX / window.innerWidth;
-        const y = e.clientY / window.innerHeight;
-        
-        glassCard.style.transform = `
-            perspective(1000px)
-            rotateY(${x * 10 - 5}deg)
-            rotateX(${y * -10 + 5}deg)
-        `;
-    });
-
-    document.addEventListener('mouseleave', () => {
-        glassCard.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg)';
-    });
+    new CardTilt();
 }); 
