@@ -1,3 +1,14 @@
+:root {
+    --bg-dark: #121212;
+    --card-bg-dark: rgba(30, 30, 30, 0.3);
+    --text-primary-dark: #ffffff;
+    --text-secondary-dark: rgba(255, 255, 255, 0.7);
+    --accent-color: #C850C0;
+    --gradient-1: #4158D0;
+    --gradient-2: #C850C0;
+    --gradient-3: #FFCC70;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -7,11 +18,96 @@
 
 body {
     min-height: 100vh;
-    background: linear-gradient(45deg, #4158D0, #C850C0, #FFCC70);
+    background: linear-gradient(45deg, var(--gradient-1), var(--gradient-2), var(--gradient-3));
     background-size: 400% 400%;
     animation: gradient 15s ease infinite;
     padding: 20px;
     position: relative;
+    cursor: none;
+}
+
+/* Hides the default cursor */
+* {
+    cursor: none !important;
+}
+
+/* Custom cursor (pls don't remove this) */
+.cursor-dot {
+    width: 5px;
+    height: 5px;
+    background-color: white;
+    position: fixed;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.glass-card {
+    position: relative;
+    background: var(--card-bg-dark);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: var(--text-primary-dark);
+    animation: fadeIn 1s ease-in-out;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.5);
+}
+
+/* Fade in animation for elements */
+[data-animate] {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+[data-animate].animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Hover effects for interactive elements */
+.contact-icon, .info-card, .skill {
+    transition: all 0.3s ease;
+}
+
+.contact-icon:hover, .info-card:hover {
+    transform: translateY(-5px) scale(1.02);
+}
+
+.skill:hover .skill-bar {
+    box-shadow: 0 0 20px var(--accent-color);
+}
+
+/* Music player enhancements */
+.music-player {
+    background: var(--card-bg-dark);
+    transition: all 0.3s ease;
+}
+
+.music-player:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.5);
+}
+
+/* Smooth transitions for all interactive elements */
+a, button, .skill-level, .lang-level {
+    transition: all 0.3s ease;
+}
+
+/* Enhanced glassmorphism */
+.glass-effect {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
 }
 
 body::before {
@@ -83,20 +179,6 @@ body::after {
     z-index: 1;
 }
 
-.glass-card {
-    position: relative;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border-radius: 20px;
-    padding: 40px;
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    color: white;
-    animation: fadeIn 1s ease-in-out;
-    overflow: hidden;
-    transition: transform 0.1s ease;
-}
-
 .glass-card::before {
     content: '';
     position: absolute;
@@ -125,6 +207,7 @@ body::after {
 .profile-section {
     text-align: center;
     margin-bottom: 40px;
+    animation: slideUp 1s ease-out;
 }
 
 .profile-image {
@@ -172,6 +255,7 @@ body::after {
     padding: 25px;
     border-radius: 15px;
     transition: transform 0.3s ease;
+    animation: slideUp 1s ease-out 0.2s both;
 }
 
 .info-card:hover {
@@ -955,4 +1039,44 @@ body::after {
     .social-link:hover {
         color: inherit;
     }
-}       
+}
+
+/* Add slide-up animation */
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Add fade-in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Add scale animation */
+@keyframes scaleIn {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Animation delays for cascade effect */
+.profile-section { animation: slideUp 1s ease-out; }
+.info-card:nth-child(1) { animation: slideUp 1s ease-out 0.2s both; }
+.info-card:nth-child(2) { animation: slideUp 1s ease-out 0.4s both; }
+.info-card:nth-child(3) { animation: slideUp 1s ease-out 0.6s both; }       
