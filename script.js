@@ -136,27 +136,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const progressBar = document.querySelector('.progress');
     const timestamp = document.querySelector('.timestamp');
 
-    let playlistTracks = [];
-    let currentTrackIndex = 0;
-    let isPlayingSpotifyPlaylist = false;
-
-    
-    async function fetchPlaylistTracks() {
-        try {
-            const response = await fetch('/.netlify/functions/spotify/playlist-tracks');
-            const data = await response.json();
-            playlistTracks = data.items.map(item => ({
-                name: item.track.name,
-                artist: item.track.artists[0].name,
-                duration: item.track.duration_ms,
-                album: item.track.album
-            }));
-            console.log('Playlist tracks loaded:', playlistTracks);
-        } catch (err) {
-            console.error('Error fetching playlist:', err);
-        }
-    }
-
     function updateMusicInfo(title, artist, currentTime, duration, imageUrl = null) {
         songTitle.textContent = title;
         songArtist.textContent = artist;
@@ -240,7 +219,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    fetchPlaylistTracks();
     setInterval(checkPlaybackStatus, 1000);
 
     const audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -279,56 +257,5 @@ document.addEventListener('DOMContentLoaded', () => {
         glassCard.style.transform = `perspective(1000px) rotateY(0deg) rotateX(0deg) scale(${1 + vibration * 0.01})`;
     }
 
-    document.querySelector('.vinyl-disk').addEventListener('click', async () => {
-        try {
-            await fetch('/.netlify/functions/spotify/toggle-playback', { 
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-        } catch (err) {
-            console.error('Error toggling playback:', err);
-        }
-    });
-
     animate();
-
-    window.onSpotifyWebPlaybackSDKReady = () => {
-        const token = '';
-        const player = new Spotify.Player({
-            name: 'Web Playback SDK Player',
-            getOAuthToken: cb => {
-                fetch('/.netlify/functions/spotify/get-token')
-                    .then(response => response.json())
-                    .then(data => cb(data.access_token));
-            }
-        });
-
-        
-        player.addListener('initialization_error', ({ message }) => { console.error(message); });
-        player.addListener('authentication_error', ({ message }) => { console.error(message); });
-        player.addListener('account_error', ({ message }) => { console.error(message); });
-        player.addListener('playback_error', ({ message }) => { console.error(message); });
-
-        
-        player.addListener('player_state_changed', state => {
-            console.log(state);
-        });
-
-        
-        player.addListener('ready', ({ device_id }) => {
-            console.log('Ready with Device ID', device_id);
-            
-            fetch('/.netlify/functions/spotify/transfer-playback', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ device_id })
-            });
-        });
-      
-        player.connect();
-    };
 }); 
