@@ -69,14 +69,30 @@ body {
 }
 
 .music-player {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 120px;
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
     border-radius: 20px;
     padding: 20px;
-    margin-top: 30px;
-    position: relative;
     overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 10;
+}
+
+.music-player::after {
+    content: 'Music here!';
+    position: absolute;
+    top: -15px;
+    right: 130px;
+    font-family: 'Comic Sans MS', cursive;
+    font-size: 24px;
+    color: white;
+    transform: rotate(-5deg);
+    text-shadow: 2px 2px 0 rgba(0,0,0,0.2);
+    white-space: nowrap;
 }
 
 .music-player:hover {
@@ -665,11 +681,26 @@ body::after {
     background: transparent;
 }
 
+.vinyl-disk::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 12px;
+    height: 12px;
+    background: white;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    border: 2px solid rgba(0, 0, 0, 0.3);
+}
+
 .vinyl-disk img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     border-radius: 50%;
+    animation: spin 20s linear infinite;
 }
 
 .music-info {
@@ -823,6 +854,11 @@ body::after {
     }
 }
 
+/* Pause spinning when no music is playing */
+.vinyl-disk.paused img {
+    animation-play-state: paused;
+}
+
 @media screen and (max-width: 768px) {
     .container {
         padding: 10px;
@@ -953,7 +989,6 @@ body::after {
         color: inherit;
     }
 }
-
 
 @keyframes slideUp {
     from {
