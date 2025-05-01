@@ -23,15 +23,21 @@ class CursorTrail {
         this.resize();
 
         window.addEventListener('mousemove', (e) => {
-            this.addPoint(e.clientX, e.clientY);
+            const rect = this.canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const scaleX = this.canvas.width / rect.width;
+            const scaleY = this.canvas.height / rect.height;
+            this.addPoint(x * scaleX, y * scaleY);
         });
 
         this.animate();
     }
 
     resize() {
-        this.canvas.width = window.innerWidth;
-        this.canvas.height = window.innerHeight;
+        const rect = this.canvas.getBoundingClientRect();
+        this.canvas.width = rect.width;
+        this.canvas.height = rect.height;
     }
 
     addPoint(x, y) {
@@ -68,43 +74,6 @@ class CursorTrail {
     }
 }
 
-class CardTilt {
-    constructor() {
-        this.card = document.querySelector('.glass-card');
-        this.boundMouseMove = this.handleMouseMove.bind(this);
-        this.boundMouseLeave = this.handleMouseLeave.bind(this);
-        this.init();
-    }
-
-    init() {
-        if (this.card) {
-            window.addEventListener('mousemove', this.boundMouseMove);
-            this.card.addEventListener('mouseleave', this.boundMouseLeave);
-        }
-    }
-
-    handleMouseMove(e) {
-        const rect = this.card.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / rect.width;
-        const y = (e.clientY - rect.top) / rect.height;
-        
-        this.card.style.transform = `
-            perspective(1000px)
-            rotateY(${(x * 2 - 1) * 10}deg)
-            rotateX(${(y * 2 - 1) * -10}deg)
-        `;
-    }
-
-    handleMouseLeave() {
-        this.card.style.transform = `
-            perspective(1000px)
-            rotateY(0deg)
-            rotateX(0deg)
-        `;
-    }
-}
-
 document.addEventListener('DOMContentLoaded', () => {
     new CursorTrail();
-    new CardTilt();
 }); 
