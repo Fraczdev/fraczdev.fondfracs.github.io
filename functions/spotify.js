@@ -1,5 +1,4 @@
 const SpotifyWebApi = require('spotify-web-api-node');
-
 const spotifyApi = new SpotifyWebApi({
   clientId: process.env.SPOTIFY_CLIENT_ID,
   clientSecret: process.env.SPOTIFY_CLIENT_SECRET
@@ -25,13 +24,14 @@ exports.handler = async function(event, context) {
   const path = event.path.split('/').pop();
 
   try {
-    // Refresh the access token first
+    
     const refreshData = await spotifyApi.refreshAccessToken();
     spotifyApi.setAccessToken(refreshData.body['access_token']);
 
     switch (path) {
       case 'current-playback':
         const playbackData = await spotifyApi.getMyCurrentPlaybackState();
+        console.log('API response:', playbackData.body);
         return {
           statusCode: 200,
           headers,
