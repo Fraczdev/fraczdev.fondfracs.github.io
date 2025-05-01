@@ -293,4 +293,45 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     animate();
+
+    window.onSpotifyWebPlaybackSDKReady = () => {
+        const token = 'YOUR_ACCESS_TOKEN'; // We'll get this from our backend
+        const player = new Spotify.Player({
+            name: 'Fracz\'s Portfolio Player',
+            getOAuthToken: cb => { 
+                fetch('/.netlify/functions/spotify/get-token')
+                    .then(response => response.json())
+                    .then(data => cb(data.access_token));
+            }
+        });
+
+        // Error handling
+        player.addListener('initialization_error', ({ message }) => { console.error(message); });
+        player.addListener('authentication_error', ({ message }) => { console.error(message); });
+        player.addListener('account_error', ({ message }) => { console.error(message); });
+        player.addListener('playback_error', ({ message }) => { console.error(message); });
+
+        // Playback status updates
+        player.addListener('player_state_changed', state => {
+            if (state) {
+                updatePlayerState(state);
+            }
+        });
+
+        // Ready
+        player.addListener('ready', ({ device_id }) => {
+            console.log('Ready with Device ID', device_id);
+            // Transfer playback to our player
+            fetch('/.netlify/functions/spotify/transfer-playback', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ device_id })
+            });
+        });
+
+        // Connect to the player!
+        player.connect();
+    };
 }); 
