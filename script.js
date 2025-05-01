@@ -238,12 +238,32 @@
                 const data = await response.json();
                 
                 const musicPlayer = document.querySelector('.music-player');
+                const songTitle = document.querySelector('.song-title');
+                const songArtist = document.querySelector('.song-artist');
+                const progressBar = document.querySelector('.progress');
+                const timestamp = document.querySelector('.timestamp');
+                const disk = document.querySelector('.vinyl-disk');
+                
                 if (!data || !data.item) {
                     musicPlayer.classList.add('no-music');
                     if (audio.paused) {
                         audio.play().catch(e => console.log('Playback failed:', e));
                         initAudio();
                     }
+                    // Display default song info
+                    songTitle.textContent = "Wesley's Theory";
+                    songArtist.textContent = "Kendrick Lamar";
+                    progressBar.style.width = '0';
+                    timestamp.textContent = '0:00 / 0:00';
+                    
+                    const img = disk.querySelector('img') || document.createElement('img');
+                    img.src = 'https://i.imgur.com/HmxbLzY.png';
+                    img.alt = 'No music playing';
+                    if (!disk.contains(img)) {
+                        disk.insertBefore(img, disk.firstChild);
+                    }
+                    
+                    disk.style.animationPlayState = 'running';
                 } else {
                     musicPlayer.classList.remove('no-music');
                     songTitle.textContent = data.item.name;
@@ -254,18 +274,6 @@
                     const progress = (data.progress_ms / data.item.duration_ms) * 100;
                     progressBar.style.width = `${progress}%`;
                     timestamp.textContent = `${formatTime(Math.floor(data.progress_ms / 1000))} / ${formatTime(Math.floor(data.item.duration_ms / 1000))}`;
-                    
-                    const listenButton = document.querySelector('.listen-with-me');
-                    if (listenButton) {
-                        listenButton.style.display = 'inline-block';
-                        listenButton.onclick = () => {
-                            if (data.item.external_urls?.spotify) {
-                                const timestampInSeconds = Math.floor(data.progress_ms / 1000);
-                                const spotifyUrl = `${data.item.external_urls.spotify}#t=${timestampInSeconds}`;
-                                window.open(spotifyUrl, '_blank');
-                            }
-                        };
-                    }
                     
                     if (data.item.album?.images?.[0]?.url) {
                         const img = disk.querySelector('img') || document.createElement('img');
