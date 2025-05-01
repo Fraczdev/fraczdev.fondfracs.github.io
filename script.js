@@ -142,6 +142,54 @@
         const progressBar = document.querySelector('.progress');
         const timestamp = document.querySelector('.timestamp');
         const musicPlayer = document.querySelector('.music-player');
+        let audioContext, analyser, source;
+        
+       
+        function initAudio() {
+            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            analyser = audioContext.createAnalyser();
+            source = audioContext.createMediaElementSource(audio);
+            source.connect(analyser);
+            analyser.connect(audioContext.destination);
+            analyser.fftSize = 256;
+        }
+
+       
+        const bufferLength = analyser ? analyser.frequencyBinCount : 256;
+        const dataArray = new Uint8Array(bufferLength);
+        const numBars = 60;
+        const bars = [];
+
+        for (let i = 0; i < numBars; i++) {
+            const bar = document.createElement('div');
+            bar.className = 'waveform-bar';
+            bar.style.left = `${(i / numBars) * 100}%`;
+            bar.style.transform = `rotate(${(i / numBars) * 360}deg)`;
+            waveform.appendChild(bar);
+            bars.push(bar);
+        }
+
+        
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            if (analyser) {
+                analyser.getByteFrequencyData(dataArray);
+                
+                bars.forEach((bar, i) => {
+                    const dataIndex = Math.floor((i / numBars) * bufferLength);
+                    const height = (dataArray[dataIndex] / 255) * 100;
+                    bar.style.height = `${height}%`;
+                });
+
+                const average = dataArray.reduce((a, b) => a + b) / bufferLength;
+                const vibration = (average / 255) * 5;
+                glassCard.style.transform = `perspective(1000px) rotateY(0deg) rotateX(0deg) scale(${1 + vibration * 0.01})`;
+            }
+        }
+
+        
+        animate();
 
         function updateMusicInfo(title, artist, currentTime, duration, imageUrl = null) {
             songTitle.textContent = title;
@@ -161,23 +209,47 @@
             return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
         }
 
+        function checkTextOverflow() {
+            const songTitle = document.querySelector('.song-title');
+            const songArtist = document.querySelector('.song-artist');
+            const titleWrapper = document.querySelector('.song-title-wrapper');
+            const artistWrapper = document.querySelector('.song-artist-wrapper');
+
+            if (songTitle && titleWrapper) {
+                if (songTitle.offsetWidth > titleWrapper.offsetWidth) {
+                    songTitle.classList.add('scroll');
+                } else {
+                    songTitle.classList.remove('scroll');
+                }
+            }
+
+            if (songArtist && artistWrapper) {
+                if (songArtist.offsetWidth > artistWrapper.offsetWidth) {
+                    songArtist.classList.add('scroll');
+                } else {
+                    songArtist.classList.remove('scroll');
+                }
+            }
+        }
+
         async function checkPlaybackStatus() {
             try {
                 const response = await fetch('/.netlify/functions/spotify/current-playback');
                 const data = await response.json();
-                console.log('Full playback data:', data);
                 
-                const songTitle = document.querySelector('.song-title');
-                const songArtist = document.querySelector('.song-artist');
-                const progressBar = document.querySelector('.progress');
-                const timestamp = document.querySelector('.timestamp');
-                const disk = document.querySelector('.vinyl-disk');
                 const musicPlayer = document.querySelector('.music-player');
-                
-                if (data && data.item) {
+                if (!data || !data.item) {
+                    musicPlayer.classList.add('no-music');
+                    if (audio.paused) {
+                        audio.play().catch(e => console.log('Playback failed:', e));
+                        initAudio();
+                    }
+                } else {
                     musicPlayer.classList.remove('no-music');
                     songTitle.textContent = data.item.name;
                     songArtist.textContent = data.item.artists[0].name;
+                    
+                    setTimeout(checkTextOverflow, 100);
                     
                     const progress = (data.progress_ms / data.item.duration_ms) * 100;
                     progressBar.style.width = `${progress}%`;
@@ -205,21 +277,6 @@
                     }
                     
                     disk.style.animationPlayState = data.is_playing ? 'running' : 'paused';
-                } else {
-                    musicPlayer.classList.add('no-music');
-                    songTitle.textContent = '';
-                    songArtist.textContent = '';
-                    progressBar.style.width = '0';
-                    timestamp.textContent = '0:00 / 0:00';
-                    
-                    const img = disk.querySelector('img') || document.createElement('img');
-                    img.src = 'https://i.imgur.com/bZkhX1Z.png';
-                    img.alt = 'No music playing';
-                    if (!disk.contains(img)) {
-                        disk.insertBefore(img, disk.firstChild);
-                    }
-                    
-                    disk.style.animationPlayState = 'paused';
                 }
 
                 if (data && data.is_playing) {
@@ -231,46 +288,23 @@
                 console.error('Error:', err);
                 const musicPlayer = document.querySelector('.music-player');
                 musicPlayer.classList.add('no-music');
+                if (audio.paused) {
+                    audio.play().catch(e => console.log('Playback failed:', e));
+                    initAudio();
+                }
             }
         }
 
+        
+        checkPlaybackStatus();
         setInterval(checkPlaybackStatus, 1000);
 
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        const analyser = audioContext.createAnalyser();
-        const source = audioContext.createMediaElementSource(audio);
-        source.connect(analyser);
-        analyser.connect(audioContext.destination);
-        analyser.fftSize = 256;
+        const resizeObserver = new ResizeObserver(() => {
+            checkTextOverflow();
+        });
 
-        const bufferLength = analyser.frequencyBinCount;
-        const dataArray = new Uint8Array(bufferLength);
-        const numBars = 60;
-        const bars = [];
-
-        for (let i = 0; i < numBars; i++) {
-            const bar = document.createElement('div');
-            bar.className = 'waveform-bar';
-            bar.style.left = `${(i / numBars) * 100}%`;
-            bar.style.transform = `rotate(${(i / numBars) * 360}deg)`;
-            waveform.appendChild(bar);
-            bars.push(bar);
-        }
-
-        function animate() {
-            requestAnimationFrame(animate);
-            analyser.getByteFrequencyData(dataArray);
-            
-            bars.forEach((bar, i) => {
-                const dataIndex = Math.floor((i / numBars) * bufferLength);
-                const height = (dataArray[dataIndex] / 255) * 100;
-                bar.style.height = `${height}%`;
-            });
-
-            const average = dataArray.reduce((a, b) => a + b) / bufferLength;
-            const vibration = (average / 255) * 5;
-            glassCard.style.transform = `perspective(1000px) rotateY(0deg) rotateX(0deg) scale(${1 + vibration * 0.01})`;
-        }
-
-        animate();
+        const titleWrapper = document.querySelector('.song-title-wrapper');
+        const artistWrapper = document.querySelector('.song-artist-wrapper');
+        if (titleWrapper) resizeObserver.observe(titleWrapper);
+        if (artistWrapper) resizeObserver.observe(artistWrapper);
     }); 
