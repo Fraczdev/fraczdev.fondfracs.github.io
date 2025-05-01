@@ -105,7 +105,7 @@
         <div class="self-taught-note">I'm mostly self-taught and love learning from online communities, tutorials, and collaborating with others.</div>
       </div>
     </div>
-    <section class="get-in-touch glass-effect" data-animate>
+    <section class="get-in-touch">
       <h2>Get in Touch</h2>
       <div class="contact-methods">
         <a href="mailto:fraczdev@gmail.com" class="contact-icon email" title="Email">
@@ -122,11 +122,10 @@
       <div id="discord-live-status" style="margin-top: 12px;"></div>
     </section>
 
-    <div class="music-player glass-effect" data-animate>
+    <div class="music-player">
       <div class="waveform" id="waveform"></div>
       <div class="vinyl-disk">
         <img src="https://i.imgur.com/HmxbLzY.png" alt="No music playing" class="placeholder-art">
-        <div class="disk-center"></div>
       </div>
       <div class="music-info">
         <div class="now-playing">
@@ -147,6 +146,7 @@
 <script src="script.js"></script>
 <script src="effects.js"></script>
 <script>
+
   
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
