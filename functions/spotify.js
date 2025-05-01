@@ -68,6 +68,21 @@ exports.handler = async function(event, context) {
           body: JSON.stringify({ success: true })
         };
 
+      case 'get-token':
+        const scopes = [
+          'user-read-playback-state',
+          'playlist-read-private',
+          'user-modify-playback-state',
+          'user-modify-playback-state'  // This is needed for volume control
+        ];
+        const authorizeURL = spotifyApi.createAuthorizeURL(scopes, 'state', 'code');
+        return {
+          statusCode: 302,
+          headers: {
+            Location: authorizeURL
+          }
+        };
+
       default:
         return {
           statusCode: 404,
