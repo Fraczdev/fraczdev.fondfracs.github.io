@@ -241,14 +241,11 @@ document.addEventListener('DOMContentLoaded', () => {
         glassCard.style.transform = `perspective(1000px) rotateY(0deg) rotateX(0deg) scale(${1 + vibration * 0.01})`;
     }
 
-    disk.addEventListener('click', () => {
-        if (audio.paused) {
-            audio.play();
-            audioContext.resume(); // Required for Chrome autoplay policy
-            disk.style.animationPlayState = 'running';
-        } else {
-            audio.pause();
-            disk.style.animationPlayState = 'paused';
+    disk.addEventListener('click', async () => {
+        try {
+            await fetch('/.netlify/functions/spotify/toggle-playback', { method: 'POST' });
+        } catch (err) {
+            console.error('Error toggling playback:', err);
         }
     });
 
