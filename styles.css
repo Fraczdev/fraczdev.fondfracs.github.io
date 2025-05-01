@@ -833,7 +833,7 @@ body::after {
     .glass-card {
         width: 100%;
         margin: 0;
-        padding: 15px;
+        padding: 20px;
         transform: none !important;
     }
 
@@ -891,6 +891,7 @@ body::after {
         text-align: left;
         margin-top: 0;
         margin-left: 10px;
+        padding-right: 5px;
     }
 
     .song-title {
@@ -906,10 +907,11 @@ body::after {
 
     .progress-bar {
         margin: 5px 0;
-        padding-right: 10px;
+        padding-right: 0;
         display: flex;
         flex-wrap: wrap;
         gap: 5px;
+        width: 100%;
     }
 
     .listen-with-me {
@@ -917,6 +919,8 @@ body::after {
         margin-left: 0;
         padding: 6px 12px;
         white-space: nowrap;
+        display: inline-block;
+        width: auto;
     }
 
     .music-player::before,
