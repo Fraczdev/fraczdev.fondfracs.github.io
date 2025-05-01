@@ -25,7 +25,7 @@ exports.handler = async function(event, context) {
   const path = event.path.split('/').pop();
 
   try {
-    // Refresh the access token first
+    
     const refreshData = await spotifyApi.refreshAccessToken();
     spotifyApi.setAccessToken(refreshData.body['access_token']);
 
