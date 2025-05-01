@@ -2,7 +2,8 @@ const SpotifyWebApi = require('spotify-web-api-node');
 
 const spotifyApi = new SpotifyWebApi({
   clientId: process.env.SPOTIFY_CLIENT_ID,
-  clientSecret: process.env.SPOTIFY_CLIENT_SECRET
+  clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
+  redirectUri: process.env.REDIRECT_URI
 });
 
 spotifyApi.setRefreshToken(process.env.SPOTIFY_REFRESH_TOKEN);
@@ -73,7 +74,7 @@ exports.handler = async function(event, context) {
           'user-read-playback-state',
           'playlist-read-private',
           'user-modify-playback-state',
-          'user-modify-playback-state'  // This is needed for volume control
+          'user-modify-playback-state'
         ];
         const authorizeURL = spotifyApi.createAuthorizeURL(scopes, 'state', 'code');
         return {
@@ -81,6 +82,16 @@ exports.handler = async function(event, context) {
           headers: {
             Location: authorizeURL
           }
+        };
+
+      case 'callback':
+        const { code } = event.queryStringParameters;
+        const data = await spotifyApi.authorizationCodeGrant(code);
+        console.log('Refresh token:', data.body['refresh_token']);
+        return {
+          statusCode: 200,
+          headers,
+          body: JSON.stringify({ message: 'Check your Netlify function logs for the refresh token!' })
         };
 
       default:
