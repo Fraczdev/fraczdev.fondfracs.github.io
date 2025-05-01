@@ -161,10 +161,24 @@
                 console.log('Full playback data:', data);
                 
                 const disk = document.querySelector('.vinyl-disk');
+                const songTitle = document.querySelector('.song-title');
+                const songArtist = document.querySelector('.song-artist');
+                const progressBar = document.querySelector('.progress');
+                const timestamp = document.querySelector('.timestamp');
                 
                 if (data && data.item) {
-                    console.log('Album images:', data.item.album?.images);
                     
+                    if (songTitle) songTitle.textContent = data.item.name;
+                    if (songArtist) songArtist.textContent = data.item.artists[0].name;
+                    
+                    r
+                    if (progressBar && timestamp) {
+                        const progress = (data.progress_ms / data.item.duration_ms) * 100;
+                        progressBar.style.width = `${progress}%`;
+                        timestamp.textContent = `${formatTime(Math.floor(data.progress_ms / 1000))} / ${formatTime(Math.floor(data.item.duration_ms / 1000))}`;
+                    }
+                    
+                   
                     if (data.item.album?.images?.[0]?.url) {
                         const img = disk.querySelector('img') || document.createElement('img');
                         img.src = data.item.album.images[0].url;
@@ -172,13 +186,12 @@
                         if (!disk.contains(img)) {
                             disk.insertBefore(img, disk.firstChild);
                         }
-                        console.log('Updated image src to:', img.src);
                     }
 
                     disk.style.animationPlayState = data.is_playing ? 'running' : 'paused';
                 }
             } catch (err) {
-                console.error('Full error:', err);
+                console.error('Error:', err);
             }
         }
 
