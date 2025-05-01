@@ -141,6 +141,7 @@
         const songArtist = document.querySelector('.song-artist');
         const progressBar = document.querySelector('.progress');
         const timestamp = document.querySelector('.timestamp');
+        const musicPlayer = document.querySelector('.music-player');
 
         function updateMusicInfo(title, artist, currentTime, duration, imageUrl = null) {
             songTitle.textContent = title;
@@ -171,8 +172,10 @@
                 const progressBar = document.querySelector('.progress');
                 const timestamp = document.querySelector('.timestamp');
                 const disk = document.querySelector('.vinyl-disk');
+                const musicPlayer = document.querySelector('.music-player');
                 
                 if (data && data.item) {
+                    musicPlayer.classList.remove('no-music');
                     songTitle.textContent = data.item.name;
                     songArtist.textContent = data.item.artists[0].name;
                     
@@ -180,7 +183,6 @@
                     progressBar.style.width = `${progress}%`;
                     timestamp.textContent = `${formatTime(Math.floor(data.progress_ms / 1000))} / ${formatTime(Math.floor(data.item.duration_ms / 1000))}`;
                     
-                    // Add button handling
                     const listenButton = document.querySelector('.listen-with-me');
                     if (listenButton) {
                         listenButton.style.display = 'inline-block';
@@ -204,8 +206,9 @@
                     
                     disk.style.animationPlayState = data.is_playing ? 'running' : 'paused';
                 } else {
-                    songTitle.textContent = 'Not Playing';
-                    songArtist.textContent = 'No music playing';
+                    musicPlayer.classList.add('no-music');
+                    songTitle.textContent = '';
+                    songArtist.textContent = '';
                     progressBar.style.width = '0';
                     timestamp.textContent = '0:00 / 0:00';
                     
@@ -226,26 +229,8 @@
                 }
             } catch (err) {
                 console.error('Error:', err);
-                const songTitle = document.querySelector('.song-title');
-                const songArtist = document.querySelector('.song-artist');
-                const progressBar = document.querySelector('.progress');
-                const timestamp = document.querySelector('.timestamp');
-                const disk = document.querySelector('.vinyl-disk');
-                
-                songTitle.textContent = 'Not Available';
-                songArtist.textContent = 'Check your connection';
-                progressBar.style.width = '0';
-                timestamp.textContent = '0:00 / 0:00';
-                
-                const img = disk.querySelector('img') || document.createElement('img');
-                img.src = 'https://i.imgur.com/bZkhX1Z.png';
-                img.alt = 'No music playing';
-                if (!disk.contains(img)) {
-                    disk.insertBefore(img, disk.firstChild);
-                }
-                
-                disk.style.animationPlayState = 'paused';
-                disk.classList.add('paused');
+                const musicPlayer = document.querySelector('.music-player');
+                musicPlayer.classList.add('no-music');
             }
         }
 
