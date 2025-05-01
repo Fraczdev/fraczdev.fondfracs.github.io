@@ -885,13 +885,56 @@ body::after {
         padding: 15px;
         margin: 0 auto;
         width: 100%;
+        max-width: 100%;
     }
 
     .glass-card {
-        width: 100%;
+        width: calc(100% - 30px);
         margin: 0 auto;
         padding: 20px;
         transform: none !important;
+    }
+
+    .info-card.glass-effect {
+        width: 100%;
+        margin: 10px auto;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+    .music-player {
+        position: relative;
+        top: auto;
+        right: auto;
+        width: calc(100% - 30px);
+        min-height: 280px;
+        margin: 20px auto;
+        padding: 20px;
+        flex-direction: column;
+        align-items: center;
+        border-radius: 15px;
+        box-sizing: border-box;
+    }
+
+    .music-info {
+        width: 100%;
+        text-align: center;
+        margin: 10px auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .progress-bar {
+        width: 90%;
+        margin: 15px auto;
+    }
+
+    .listen-with-me {
+        margin: 15px auto 5px;
+        display: inline-block;
+        padding: 8px 20px;
+        min-width: 120px;
     }
 
     .profile-section {
@@ -927,44 +970,15 @@ body::after {
         justify-content: center;
     }
 
-    .music-player {
-        position: relative;
-        top: auto;
-        right: auto;
-        width: 100%;
-        height: auto;
-        margin: 20px auto;
-        padding: 20px;
-        flex-direction: column;
-        align-items: center;
-        border-radius: 15px;
-    }
-
     .vinyl-disk {
         width: 120px;
         height: 120px;
         margin: 30px auto 15px;
     }
 
-    .music-info {
-        width: 100%;
-        text-align: center;
-        margin: 10px auto;
-    }
-
     .song-title, .song-artist {
         text-align: center;
         margin: 5px auto;
-    }
-
-    .progress-bar {
-        width: 90%;
-        margin: 15px auto;
-    }
-
-    .listen-with-me {
-        margin: 10px auto;
-        display: block;
     }
 
     .contact-methods {
@@ -989,6 +1003,12 @@ body::after {
 
     .skill {
         padding: 0 10px;
+    }
+
+    .no-music-message {
+        font-size: 1.1em;
+        width: 90%;
+        padding: 0 15px;
     }
 }
 
@@ -1040,4 +1060,32 @@ body::after {
 .profile-section { animation: slideUp 1s ease-out; }
 .info-card:nth-child(1) { animation: slideUp 1s ease-out 0.2s both; }
 .info-card:nth-child(2) { animation: slideUp 1s ease-out 0.4s both; }
-.info-card:nth-child(3) { animation: slideUp 1s ease-out 0.6s both; }       
+.info-card:nth-child(3) { animation: slideUp 1s ease-out 0.6s both; }
+
+.no-music-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    font-size: 1.2em;
+    font-family: 'Comic Sans MS', cursive;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    width: 80%;
+    display: none;
+}
+
+.music-player.no-music .no-music-message {
+    opacity: 1;
+    display: block;
+}
+
+.music-player.no-music .vinyl-disk,
+.music-player.no-music .music-info,
+.music-player.no-music .progress-bar,
+.music-player.no-music .listen-with-me {
+    opacity: 0;
+    pointer-events: none;
+}       
