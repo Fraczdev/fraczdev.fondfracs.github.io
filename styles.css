@@ -882,32 +882,40 @@ body::after {
 
 @media screen and (max-width: 768px) {
     .container {
-        padding: 10px;
+        padding: 15px;
+        margin: 0 auto;
+        width: 100%;
     }
 
     .glass-card {
         width: 100%;
-        margin: 0;
+        margin: 0 auto;
         padding: 20px;
         transform: none !important;
     }
 
     .profile-section {
         padding: 15px;
+        width: 100%;
+        margin: 0 auto;
     }
 
     .profile-image {
         width: 100px;
         height: 100px;
+        margin: 0 auto;
     }
 
     .info-section {
         flex-direction: column;
+        width: 100%;
+        padding: 0;
     }
 
     .info-card {
         width: 100%;
-        margin: 10px 0;
+        margin: 10px auto;
+        padding: 20px;
     }
 
     .hobbies-list {
@@ -916,6 +924,7 @@ body::after {
 
     .hobbies-icons {
         gap: 10px;
+        justify-content: center;
     }
 
     .music-player {
@@ -924,69 +933,62 @@ body::after {
         right: auto;
         width: 100%;
         height: auto;
-        margin-top: 20px;
-        padding: 15px;
-        flex-direction: row;
+        margin: 20px auto;
+        padding: 20px;
+        flex-direction: column;
         align-items: center;
         border-radius: 15px;
     }
 
     .vinyl-disk {
-        width: 60px;
-        height: 60px;
-        margin: 0 15px 0 0;
+        width: 120px;
+        height: 120px;
+        margin: 30px auto 15px;
     }
 
     .music-info {
-        flex: 1;
-        text-align: left;
-        margin-top: 0;
+        width: 100%;
+        text-align: center;
+        margin: 10px auto;
     }
 
-    .song-title {
-        font-size: 1em;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    .song-artist {
-        font-size: 0.8em;
+    .song-title, .song-artist {
+        text-align: center;
+        margin: 5px auto;
     }
 
     .progress-bar {
-        margin: 5px 0;
-        padding-right: 0;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 5px;
-        width: 100%;
+        width: 90%;
+        margin: 15px auto;
     }
 
     .listen-with-me {
-        margin-top: 5px;
-        margin-left: 0;
-        padding: 6px 12px;
-        white-space: nowrap;
-        display: inline-block;
-        width: auto;
-    }
-
-    .music-player::after {
-        display: none;
+        margin: 10px auto;
+        display: block;
     }
 
     .contact-methods {
-        gap: 0.8rem;
+        gap: 1.2rem;
+        justify-content: center;
+        margin: 0 auto;
     }
 
     .contact-icon {
-        width: 36px;
-        height: 36px;
+        width: 40px;
+        height: 40px;
     }
 
-    .glass-card {
-        margin-bottom: 20px;
+    .bio-center {
+        padding: 0 15px;
+        margin: 18px auto;
+    }
+
+    .language-item {
+        justify-content: center;
+    }
+
+    .skill {
+        padding: 0 10px;
     }
 }
 
