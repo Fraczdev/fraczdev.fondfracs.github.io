@@ -2,9 +2,10 @@ const SpotifyWebApi = require('spotify-web-api-node');
 
 const spotifyApi = new SpotifyWebApi({
   clientId: process.env.SPOTIFY_CLIENT_ID,
-  clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
-  redirectUri: process.env.REDIRECT_URI
+  clientSecret: process.env.SPOTIFY_CLIENT_SECRET
 });
+
+spotifyApi.setRefreshToken(process.env.SPOTIFY_REFRESH_TOKEN);
 
 exports.handler = async function(event, context) {
   const headers = {
@@ -24,29 +25,47 @@ exports.handler = async function(event, context) {
   const path = event.path.split('/').pop();
 
   try {
-    switch (path) {
-      case 'get-token':
-        const scopes = [
-          'user-read-playback-state',
-          'playlist-read-private',
-          'user-modify-playback-state'
-        ];
-        const authorizeURL = spotifyApi.createAuthorizeURL(scopes, 'state', 'code');
-        return {
-          statusCode: 302,
-          headers: {
-            Location: authorizeURL
-          }
-        };
+    // Refresh the access token first
+    const refreshData = await spotifyApi.refreshAccessToken();
+    spotifyApi.setAccessToken(refreshData.body['access_token']);
 
-      case 'callback':
-        const { code } = event.queryStringParameters;
-        const data = await spotifyApi.authorizationCodeGrant(code);
-        console.log('Refresh token:', data.body['refresh_token']);
+    switch (path) {
+      case 'current-playback':
+        const playbackData = await spotifyApi.getMyCurrentPlaybackState();
         return {
           statusCode: 200,
           headers,
-          body: JSON.stringify({ message: 'Check your Netlify function logs for the refresh token!' })
+          body: JSON.stringify(playbackData.body)
+        };
+
+      case 'playlist-tracks':
+        const playlistData = await spotifyApi.getPlaylistTracks('37i9dQZF1EQp9BVPsNVof1');
+        return {
+          statusCode: 200,
+          headers,
+          body: JSON.stringify(playlistData.body)
+        };
+
+      case 'toggle-playback':
+        const currentPlayback = await spotifyApi.getMyCurrentPlaybackState();
+        if (currentPlayback.body.is_playing) {
+          await spotifyApi.pause();
+        } else {
+          await spotifyApi.play();
+        }
+        return {
+          statusCode: 200,
+          headers,
+          body: JSON.stringify({ success: true })
+        };
+
+      case 'set-volume':
+        const { volume } = JSON.parse(event.body);
+        await spotifyApi.setVolume(volume);
+        return {
+          statusCode: 200,
+          headers,
+          body: JSON.stringify({ success: true })
         };
 
       default:
