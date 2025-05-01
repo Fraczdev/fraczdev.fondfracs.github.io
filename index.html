@@ -55,12 +55,12 @@
         <h2><i class="fas fa-language"></i> Languages I Speak</h2>
         <div class="languages">
           <div class="language-item">
-            <span class="flag">🇮🇹</span><span class="language-tag">Italian</span>
-            <div class="lang-bar"><div class="lang-level" style="width: 100%"></div></div>
-          </div>
-          <div class="language-item">
             <span class="flag">🇺🇸</span><span class="language-tag">English</span>
             <div class="lang-bar"><div class="lang-level" style="width: 90%"></div></div>
+          </div>
+          <div class="language-item">
+            <span class="flag">🇮🇹</span><span class="language-tag">Italian</span>
+            <div class="lang-bar"><div class="lang-level" style="width: 100%"></div></div>
           </div>
         </div>
         <div class="language-extra">
@@ -138,6 +138,9 @@
           <button class="listen-with-me">Listen with me</button>
         </div>
       </div>
+      <div class="no-music-message">
+        I'm not listening to music right now, come back later! 🎵
+      </div>
       <audio id="player" src="song1.wav" loop></audio>
     </div>
   </div>
@@ -146,8 +149,7 @@
 <script src="script.js"></script>
 <script src="effects.js"></script>
 <script>
-
-  
+    
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -158,7 +160,7 @@
         threshold: 0.1
     });
 
-    
+   
     document.querySelectorAll('[data-animate]').forEach(element => {
         observer.observe(element);
     });
