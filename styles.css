@@ -26,20 +26,20 @@ body {
     cursor: none;
 }
 
-/* Hides the default cursor */
 * {
     cursor: none !important;
 }
 
 /* Custom cursor (pls don't remove this) */
 .cursor-dot {
-    width: 5px;
-    height: 5px;
+    width: 8px;
+    height: 8px;
     background-color: white;
     position: fixed;
     border-radius: 50%;
     pointer-events: none;
     z-index: 9999;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
 
 .glass-card {
@@ -733,7 +733,6 @@ body::after {
     overflow: hidden;
     position: relative;
     margin: 0 auto;
-    animation: spin 20s linear infinite;
     background: #000;
 }
 
@@ -756,7 +755,8 @@ body::after {
     height: 100%;
     object-fit: cover;
     border-radius: 50%;
-    opacity: 0.8;
+    animation: spin 20s linear infinite;
+    animation-play-state: paused;
 }
 
 .music-info {
@@ -1042,7 +1042,7 @@ body::after {
     }
 }
 
-/* slide animation!! */
+/* Add slide-up animation */
 @keyframes slideUp {
     from {
         opacity: 0;
@@ -1076,7 +1076,7 @@ body::after {
     }
 }
 
-/* Animation delays for cool kinda cascade effect idk*/
+
 .profile-section { animation: slideUp 1s ease-out; }
 .info-card:nth-child(1) { animation: slideUp 1s ease-out 0.2s both; }
 .info-card:nth-child(2) { animation: slideUp 1s ease-out 0.4s both; }
