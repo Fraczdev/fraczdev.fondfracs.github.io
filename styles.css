@@ -90,7 +90,7 @@ body {
     content: '';
     position: absolute;
     top: 18px;
-    left: 125px;
+    left: 120px;
     width: 30px;
     height: 15px;
     background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 15'%3E%3Cpath d='M0 10 Q 15 10, 25 0' stroke='white' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
@@ -104,7 +104,7 @@ body {
     content: 'Music here!';
     position: absolute;
     top: 15px;
-    left: 20px;
+    left: 15px;
     font-family: 'Comic Sans MS', cursive;
     font-size: 24px;
     color: white;
