@@ -243,7 +243,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         const average = dataArray.reduce((a, b) => a + b) / bufferLength;
-        const vibration = (average / 255) * 5; 
+        const vibration = (average / 255) * 5;
         glassCard.style.transform = `perspective(1000px) rotateY(0deg) rotateX(0deg) scale(${1 + vibration * 0.01})`;
     }
 
