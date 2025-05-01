@@ -251,7 +251,7 @@
             }
         }
 
-
+   
         async function checkPlaybackStatus() {
             try {
                 const response = await fetch('/.netlify/functions/spotify/current-playback');
@@ -263,10 +263,11 @@
                 const progressBar = document.querySelector('.progress');
                 const timestamp = document.querySelector('.timestamp');
                 const disk = document.querySelector('.vinyl-disk');
+                const noMusicMessage = document.querySelector('.no-music-message');
                 
                 if (!data || !data.item) {
                     musicPlayer.classList.add('no-music');
-                
+                 
                     songTitle.textContent = "Here's a song I like! Wesley's Theory";
                     songArtist.textContent = "Kendrick Lamar";
                     progressBar.style.width = '0';
@@ -280,10 +281,24 @@
                     }
                     
                     disk.style.animationPlayState = 'running';
+                    
+                    if (noMusicMessage) {
+                        noMusicMessage.style.display = 'block';
+                        noMusicMessage.textContent = "I'm not listening to music right now, but here's a song I like! 🎵";
+                    }
                 } else {
                     musicPlayer.classList.remove('no-music');
+                    if (audio && !audio.paused) {
+                        audio.pause();
+                        audioContext?.suspend(); 
+                    }
+                    
                     songTitle.textContent = data.item.name;
                     songArtist.textContent = data.item.artists[0].name;
+                    
+                    if (noMusicMessage) {
+                        noMusicMessage.style.display = 'none';
+                    }
                     
                     setTimeout(checkTextOverflow, 100);
                     
