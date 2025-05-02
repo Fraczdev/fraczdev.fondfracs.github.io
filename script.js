@@ -279,12 +279,32 @@
                 }
                 const trackId = data.item.id;
                 const progressMs = data.progress_ms || 0;
-                // Since the spotify web player supports t=seconds for podcasts but not for songs, I'm going to use the URI for the song.
-                // However, the Spotify URI can be opened at a specific time using the Spotify app with a deep link, although it's not reliable on web. I tried my best to make it work.
+                
                 const url = `https://open.spotify.com/track/${trackId}?si=listenwithme&t=${Math.floor(progressMs/1000)}`;
                 window.open(url, '_blank');
             } catch (err) {
                 alert('Could not get current song info.');
             }
         });
+
+        const themes = ['gradient', 'light', 'dark'];
+        let currentTheme = localStorage.getItem('theme') || 'gradient';
+
+        function applyTheme(theme) {
+            document.body.classList.remove('theme-light', 'theme-dark');
+            if (theme === 'light') document.body.classList.add('theme-light');
+            else if (theme === 'dark') document.body.classList.add('theme-dark');
+            localStorage.setItem('theme', theme);
+        }
+
+        applyTheme(currentTheme);
+
+        const btn = document.getElementById('theme-toggle-btn');
+        if (btn) {
+            btn.addEventListener('click', () => {
+                let idx = themes.indexOf(currentTheme);
+                currentTheme = themes[(idx + 1) % themes.length];
+                applyTheme(currentTheme);
+            });
+        }
     }); 
