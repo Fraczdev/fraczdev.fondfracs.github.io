@@ -1271,14 +1271,12 @@ body.theme-dark {
 }
 
 body.theme-vinyl {
-    --background: #181818;
-    --foreground: #fff;
+    background: var(--background, #181818);
+    color: var(--foreground, #fff);
     --card-bg: #232323;
-    --accent-color: #fff;
+    --accent-color: var(--accent-color, #fff);
     --gradient-1: #232526;
     --gradient-2: #181818;
-    background: radial-gradient(circle at 60% 40%, #232323 0%, #181818 100%);
-    color: var(--foreground);
 }
 
 body:not(.theme-light):not(.theme-dark) {
