@@ -267,4 +267,24 @@
         const artistWrapper = document.querySelector('.song-artist-wrapper');
         if (titleWrapper) resizeObserver.observe(titleWrapper);
         if (artistWrapper) resizeObserver.observe(artistWrapper);
+
+        const listenWithMeBtn = document.querySelector('.listen-with-me');
+        listenWithMeBtn.addEventListener('click', async () => {
+            try {
+                const response = await fetch('/.netlify/functions/spotify/current-playback');
+                const data = await response.json();
+                if (!data || !data.item) {
+                    alert('No song is currently playing!');
+                    return;
+                }
+                const trackId = data.item.id;
+                const progressMs = data.progress_ms || 0;
+                // Since the spotify web player supports t=seconds for podcasts but not for songs, I'm going to use the URI for the song.
+                // However, the Spotify URI can be opened at a specific time using the Spotify app with a deep link, although it's not reliable on web. I tried my best to make it work.
+                const url = `https://open.spotify.com/track/${trackId}?si=listenwithme&t=${Math.floor(progressMs/1000)}`;
+                window.open(url, '_blank');
+            } catch (err) {
+                alert('Could not get current song info.');
+            }
+        });
     }); 
