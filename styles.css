@@ -1286,4 +1286,26 @@ body.theme-vinyl {
 
 body:not(.theme-light):not(.theme-dark) {
   
+}
+
+
+.theme-popup {
+    position: fixed;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(30,30,30,0.92);
+    color: #fff;
+    padding: 10px 28px;
+    border-radius: 18px;
+    font-size: 1.1em;
+    font-family: inherit;
+    z-index: 2000;
+    opacity: 1;
+    pointer-events: none;
+    transition: opacity 0.3s, top 0.3s;
+}
+.theme-popup.hide {
+    opacity: 0;
+    top: 40px;
 }       
