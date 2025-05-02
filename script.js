@@ -235,8 +235,10 @@
                     timestamp.textContent = `${formatTime(Math.floor(data.progress_ms / 1000))} / ${formatTime(Math.floor(data.item.duration_ms / 1000))}`;
                     
                     if (data.item.album?.images?.[0]?.url) {
+                        const originalUrl = data.item.album.images[0].url;
+                        const proxiedUrl = `/.netlify/functions/proxy-image?url=${encodeURIComponent(originalUrl)}`;
                         const img = disk.querySelector('img') || document.createElement('img');
-                        img.src = data.item.album.images[0].url;
+                        img.src = proxiedUrl;
                         img.alt = 'Album art';
                         if (!disk.contains(img)) {
                             disk.insertBefore(img, disk.firstChild);
@@ -332,12 +334,12 @@
                 try {
                     const colorThief = new ColorThief();
                     const rgb = colorThief.getColor(img);
-                 
-                    document.body.style.setProperty('--background', `rgb(${rgb[0]},${rgb[1]},${rgb[2]})`);
                 
+                    document.body.style.setProperty('--background', `rgb(${rgb[0]},${rgb[1]},${rgb[2]})`);
+                   
                     document.body.style.setProperty('--accent-color', `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.8)`);
                 } catch (e) {
-            
+              
                     document.body.style.removeProperty('--background');
                     document.body.style.removeProperty('--accent-color');
                 }
