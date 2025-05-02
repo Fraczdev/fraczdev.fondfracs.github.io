@@ -66,6 +66,15 @@ class CursorTrail {
         }
         
         this.points = this.points.filter(point => point.age < 50);
+
+                
+        if (this.points.length > 0) {
+            const tail = this.points[0];
+            this.ctx.beginPath();
+            this.ctx.arc(tail.x, tail.y, 6, 0, 2 * Math.PI);
+            this.ctx.fillStyle = 'rgba(255,255,255,0.7)';
+            this.ctx.fill();
+        }
     }
 
     animate() {
