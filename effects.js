@@ -3,6 +3,8 @@ class CursorTrail {
         this.points = [];
         this.maxPoints = 20;
         this.trailColor = '#ffffff';
+        this.delayQueue = [];
+        this.delayFrames = 8; // delay, set it as you please
         this.init();
     }
 
