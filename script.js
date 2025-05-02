@@ -279,7 +279,7 @@
                 }
                 const trackId = data.item.id;
                 const progressMs = data.progress_ms || 0;
-                
+
                 const url = `https://open.spotify.com/track/${trackId}?si=listenwithme&t=${Math.floor(progressMs/1000)}`;
                 window.open(url, '_blank');
             } catch (err) {
@@ -295,8 +295,11 @@
             if (theme === 'light') document.body.classList.add('theme-light');
             else if (theme === 'dark') document.body.classList.add('theme-dark');
             else if (theme === 'vinyl') document.body.classList.add('theme-vinyl');
-          
             else document.body.classList.remove('theme-light', 'theme-dark', 'theme-vinyl');
+            if (theme !== 'vinyl') {
+                document.body.style.removeProperty('--background');
+                document.body.style.removeProperty('--accent-color');
+            }
             localStorage.setItem('theme', theme);
         }
 
@@ -309,5 +312,30 @@
                 currentTheme = themes[(idx + 1) % themes.length];
                 applyTheme(currentTheme);
             });
+        }
+
+        function setVinylThemeFromImage(img) {
+            if (window.ColorThief && img.complete) {
+                try {
+                    const colorThief = new ColorThief();
+                    const rgb = colorThief.getColor(img);
+                
+                    document.body.style.setProperty('--background', `rgb(${rgb[0]},${rgb[1]},${rgb[2]})`);
+                
+                    document.body.style.setProperty('--accent-color', `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.8)`);
+                } catch (e) {
+            
+                    document.body.style.removeProperty('--background');
+                    document.body.style.removeProperty('--accent-color');
+                }
+            }
+        }
+
+        if (currentTheme === 'vinyl' && img) {
+            if (img.complete) {
+                setVinylThemeFromImage(img);
+            } else {
+                img.onload = () => setVinylThemeFromImage(img);
+            }
         }
     }); 
