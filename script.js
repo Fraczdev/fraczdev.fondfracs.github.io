@@ -287,13 +287,16 @@
             }
         });
 
-        const themes = ['gradient', 'light', 'dark'];
+        const themes = ['gradient', 'light', 'dark', 'vinyl'];
         let currentTheme = localStorage.getItem('theme') || 'gradient';
 
         function applyTheme(theme) {
-            document.body.classList.remove('theme-light', 'theme-dark');
+            document.body.classList.remove('theme-light', 'theme-dark', 'theme-vinyl');
             if (theme === 'light') document.body.classList.add('theme-light');
             else if (theme === 'dark') document.body.classList.add('theme-dark');
+            else if (theme === 'vinyl') document.body.classList.add('theme-vinyl');
+          
+            else document.body.classList.remove('theme-light', 'theme-dark', 'theme-vinyl');
             localStorage.setItem('theme', theme);
         }
 
