@@ -241,6 +241,13 @@
                         if (!disk.contains(img)) {
                             disk.insertBefore(img, disk.firstChild);
                         }
+                        if (currentTheme === 'vinyl') {
+                            if (img.complete) {
+                                setVinylThemeFromImage(img);
+                            } else {
+                                img.onload = () => setVinylThemeFromImage(img);
+                            }
+                        }
                     }
                     
                     disk.style.animationPlayState = data.is_playing ? 'running' : 'paused';
@@ -250,6 +257,11 @@
                     disk.classList.remove('paused');
                 } else {
                     disk.classList.add('paused');
+                }
+
+                if (currentTheme === 'vinyl' && !data.item) {
+                    document.body.style.removeProperty('--background');
+                    document.body.style.removeProperty('--accent-color');
                 }
             } catch (err) {
                 console.error('Error:', err);
@@ -279,7 +291,8 @@
                 }
                 const trackId = data.item.id;
                 const progressMs = data.progress_ms || 0;
-
+                // Since the spotify web player supports t=seconds for podcasts but not for songs, I'm going to use the URI for the song.
+                // However, the Spotify URI can be opened at a specific time using the Spotify app with a deep link, although it's not reliable on web. I tried my best to make it work.
                 const url = `https://open.spotify.com/track/${trackId}?si=listenwithme&t=${Math.floor(progressMs/1000)}`;
                 window.open(url, '_blank');
             } catch (err) {
@@ -319,7 +332,7 @@
                 try {
                     const colorThief = new ColorThief();
                     const rgb = colorThief.getColor(img);
-                
+                 
                     document.body.style.setProperty('--background', `rgb(${rgb[0]},${rgb[1]},${rgb[2]})`);
                 
                     document.body.style.setProperty('--accent-color', `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.8)`);
@@ -328,14 +341,6 @@
                     document.body.style.removeProperty('--background');
                     document.body.style.removeProperty('--accent-color');
                 }
-            }
-        }
-
-        if (currentTheme === 'vinyl' && img) {
-            if (img.complete) {
-                setVinylThemeFromImage(img);
-            } else {
-                img.onload = () => setVinylThemeFromImage(img);
             }
         }
     }); 
