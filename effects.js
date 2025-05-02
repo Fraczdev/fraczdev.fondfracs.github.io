@@ -1,7 +1,7 @@
 class CursorTrail {
     constructor() {
         this.points = [];
-        this.maxPoints = 50;
+        this.maxPoints = 20;
         this.trailColor = '#ffffff';
         this.init();
     }
@@ -50,13 +50,16 @@ class CursorTrail {
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         
+        this.ctx.save();
+        this.ctx.shadowColor = 'rgba(255,255,255,0.5)';
+        this.ctx.shadowBlur = 8;
         for (let i = 0; i < this.points.length - 1; i++) {
             const point = this.points[i];
             const nextPoint = this.points[i + 1];
             const alpha = 1 - (i / this.points.length);
             
-            this.ctx.strokeStyle = `rgba(255, 255, 255, ${alpha * 0.5})`;
-            this.ctx.lineWidth = 2;
+            this.ctx.strokeStyle = `rgba(255, 255, 255, ${alpha * 0.35})`;
+            this.ctx.lineWidth = 1.3 + (1.2 * alpha);
             this.ctx.beginPath();
             this.ctx.moveTo(point.x, point.y);
             this.ctx.lineTo(nextPoint.x, nextPoint.y);
@@ -64,17 +67,9 @@ class CursorTrail {
             
             point.age++;
         }
+        this.ctx.restore();
         
-        this.points = this.points.filter(point => point.age < 50);
-
-                
-        if (this.points.length > 0) {
-            const tail = this.points[0];
-            this.ctx.beginPath();
-            this.ctx.arc(tail.x, tail.y, 6, 0, 2 * Math.PI);
-            this.ctx.fillStyle = 'rgba(255,255,255,0.7)';
-            this.ctx.fill();
-        }
+        this.points = this.points.filter(point => point.age < 20);
     }
 
     animate() {
