@@ -326,6 +326,7 @@
                 let idx = themes.indexOf(currentTheme);
                 currentTheme = themes[(idx + 1) % themes.length];
                 applyTheme(currentTheme);
+                showThemePopup(currentTheme);
             });
         }
 
@@ -334,15 +335,31 @@
                 try {
                     const colorThief = new ColorThief();
                     const rgb = colorThief.getColor(img);
-                
+                  
                     document.body.style.setProperty('--background', `rgb(${rgb[0]},${rgb[1]},${rgb[2]})`);
-                   
+                
                     document.body.style.setProperty('--accent-color', `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.8)`);
                 } catch (e) {
-              
+                    // fallback to gradient bruh
                     document.body.style.removeProperty('--background');
                     document.body.style.removeProperty('--accent-color');
                 }
             }
+        }
+
+        function showThemePopup(theme) {
+            let name = '';
+            if (theme === 'light') name = 'Light';
+            else if (theme === 'dark') name = 'Dark';
+            else if (theme === 'vinyl') name = 'Song';
+            else name = 'Gradient';
+            let popup = document.createElement('div');
+            popup.className = 'theme-popup';
+            popup.textContent = `Theme: ${name}`;
+            document.body.appendChild(popup);
+            setTimeout(() => {
+                popup.classList.add('hide');
+                setTimeout(() => popup.remove(), 300);
+            }, 1200);
         }
     }); 
