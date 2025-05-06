@@ -23,6 +23,16 @@ body {
     animation: gradient 15s ease infinite;
     padding: 20px;
     position: relative;
+    transition: transform 0.1s ease-out, filter 0.1s ease-out;
+    transform-origin: center center;
+}
+
+.glass-card, .info-card, .profile-image, .contact-icon, .skill-bar, .language-tag, .hobbies-icons li {
+    transition: transform 0.1s ease-out;
+}
+
+.skill-level {
+    transition: width 0.1s ease-out;
 }
 
 .glass-card {
