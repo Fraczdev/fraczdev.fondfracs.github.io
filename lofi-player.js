@@ -24,7 +24,15 @@ document.addEventListener('DOMContentLoaded', () => {
     let isPlaying = false;
     let animationFrame;
 
-    const elements = document.querySelectorAll('.glass-card, .info-card, .profile-image, .contact-icon, .skill-bar, .language-tag, .hobbies-icons li');
+    
+    const elements = document.querySelectorAll('.glass-card, .info-card, .profile-image, .contact-icon, .language-tag, .hobbies-icons li');
+    
+    
+    const skillBars = {};
+    document.querySelectorAll('.skill-bar .skill-level').forEach(bar => {
+        const skillName = bar.closest('.skill').querySelector('span').textContent;
+        skillBars[skillName] = bar.style.width;
+    });
 
     function startVibe() {
         function updateVibe() {
@@ -35,26 +43,29 @@ document.addEventListener('DOMContentLoaded', () => {
             
             elements.forEach((element, index) => {
                 if (element.classList.contains('glass-card')) {
-                    element.style.transform = `scale(${1 + (bassFreq / 10240)})`;
+                    element.style.transform = `scale(${1 + (bassFreq / 1024)})`; 
                 } else if (element.classList.contains('info-card')) {
-                    const rotation = (midFreq - 128) / 256;
-                    element.style.transform = `scale(${1 + (bassFreq / 15360)}) rotate(${rotation}deg)`;
+                    const rotation = (midFreq - 128) / 64; 
+                    element.style.transform = `scale(${1 + (bassFreq / 2048)}) rotate(${rotation}deg)`;
                 } else if (element.classList.contains('profile-image')) {   
-                    element.style.transform = `scale(${1 + (bassFreq / 20480)})`;
+                    element.style.transform = `scale(${1 + (bassFreq / 2048)})`;
                 } else if (element.classList.contains('contact-icon')) {
-                    const bounce = Math.sin(Date.now() / 200) * (bassFreq / 5120);
+                    const bounce = Math.sin(Date.now() / 100) * (bassFreq / 512); 
                     element.style.transform = `translateY(${bounce}px)`;
-                } else if (element.classList.contains('skill-bar')) {
-                    const width = element.querySelector('.skill-level').style.width;
-                    const baseWidth = parseFloat(width);
-                    const pulse = (bassFreq / 10240);
-                    element.querySelector('.skill-level').style.width = `${baseWidth * (1 + pulse)}%`;
                 } else if (element.classList.contains('language-tag')) {
-                    const float = Math.sin(Date.now() / 300 + index) * (bassFreq / 10240);
+                    const float = Math.sin(Date.now() / 150 + index) * (bassFreq / 1024); 
                     element.style.transform = `translateY(${float}px)`;
                 } else if (element.classList.contains('hobbies-icons')) {
-                    const rotation = Math.sin(Date.now() / 400 + index) * (midFreq / 5120);
+                    const rotation = Math.sin(Date.now() / 200 + index) * (midFreq / 512); 
                     element.style.transform = `rotate(${rotation}deg)`;
+                }
+            });
+
+            
+            Object.entries(skillBars).forEach(([skillName, originalWidth]) => {
+                const skillBar = document.querySelector(`.skill span:contains('${skillName}')`).closest('.skill').querySelector('.skill-level');
+                if (skillBar) {
+                    skillBar.style.width = originalWidth;
                 }
             });
 
@@ -68,18 +79,18 @@ document.addEventListener('DOMContentLoaded', () => {
         if (animationFrame) {
             cancelAnimationFrame(animationFrame);
         }
+        
         elements.forEach(element => {
             element.style.transform = '';
-            if (element.classList.contains('skill-bar')) {
-                const baseWidth = element.getAttribute('data-original-width') || '100%';
-                element.querySelector('.skill-level').style.width = baseWidth;
+        });
+       
+        Object.entries(skillBars).forEach(([skillName, width]) => {
+            const skillBar = document.querySelector(`.skill span:contains('${skillName}')`).closest('.skill').querySelector('.skill-level');
+            if (skillBar) {
+                skillBar.style.width = width;
             }
         });
     }
-
-    document.querySelectorAll('.skill-bar .skill-level').forEach(bar => {
-        bar.setAttribute('data-original-width', bar.style.width);
-    });
 
     lofiButton.addEventListener('click', () => {
         if (isPlaying) {
@@ -111,4 +122,4 @@ document.addEventListener('DOMContentLoaded', () => {
             isPlaying = false;
         }
     });
-}); 
+});
