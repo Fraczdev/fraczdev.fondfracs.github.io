@@ -1365,6 +1365,7 @@ body:not(.theme-light):not(.theme-dark) {
     }
 }
 
+
 @keyframes vibrate {
     0% { transform: translate(0); }
     25% { transform: translate(-1px, 1px); }
