@@ -1298,7 +1298,6 @@ body:not(.theme-light):not(.theme-dark) {
   
 }
 
-
 .theme-popup {
     position: fixed;
     top: 60px;
@@ -1365,7 +1364,6 @@ body:not(.theme-light):not(.theme-dark) {
         transform: scale(1);
     }
 }
-
 
 @keyframes vibrate {
     0% { transform: translate(0); }
