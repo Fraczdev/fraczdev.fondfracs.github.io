@@ -430,7 +430,12 @@
 
         // === GSAP TEXT REVEAL & STAGGER ANIMATIONS (RESTORED) ===
         if (typeof gsap !== 'undefined') {
+            // Quicker for title and bio
+            gsap.fromTo('.name.gsap-text-reveal', { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 0.5, delay: 0.5, ease: 'power2.out' });
+            gsap.fromTo('.bio-center.gsap-text-reveal', { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 0.5, delay: 0.7, ease: 'power2.out' });
+            // Others as before
             gsap.utils.toArray('.gsap-text-reveal').forEach((el, i) => {
+                if (el.classList.contains('name') || el.classList.contains('bio-center')) return;
                 gsap.fromTo(el, { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 1.1, delay: 1 + i * 0.2, ease: 'power2.out' });
             });
             gsap.utils.toArray('.gsap-stagger-list').forEach((list, i) => {
