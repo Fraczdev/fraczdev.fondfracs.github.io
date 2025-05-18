@@ -131,34 +131,34 @@
       </div>
       <div id="discord-live-status" style="margin-top: 12px;"></div>
     </section>
-  </div>
-</div>
-<!-- Music player moved outside main container -->
-<div class="music-player">
-  <div class="waveform" id="waveform"></div>
-  <div class="vinyl-disk">
-    <img src="https://i.imgur.com/HmxbLzY.png" alt="No music playing" class="placeholder-art">
-  </div>
-  <div class="music-info">
-    <div class="now-playing">
-      <div class="song-title-wrapper">
-      <span class="song-title"></span>
+    <!-- Music player now inside glass-card -->
+    <div class="music-player">
+      <div class="waveform" id="waveform"></div>
+      <div class="vinyl-disk">
+        <img src="https://i.imgur.com/HmxbLzY.png" alt="No music playing" class="placeholder-art">
       </div>
-      <div class="song-artist-wrapper">
-      <span class="song-artist"></span>
+      <div class="music-info">
+        <div class="now-playing">
+          <div class="song-title-wrapper">
+          <span class="song-title"></span>
+          </div>
+          <div class="song-artist-wrapper">
+          <span class="song-artist"></span>
+          </div>
+          <div class="last-song"></div>
+        </div>
+        <div class="progress-bar">
+          <div class="progress"></div>
+          <span class="timestamp">0:00 / 0:00</span>
+          <button class="listen-with-me">Listen with me</button>
+        </div>
       </div>
-      <div class="last-song"></div>
-    </div>
-    <div class="progress-bar">
-      <div class="progress"></div>
-      <span class="timestamp">0:00 / 0:00</span>
-      <button class="listen-with-me">Listen with me</button>
+      <div class="no-music-message">
+        I'm not listening to music right now, come back later! 🎵
+      </div>
+      <audio id="player" src="song1.wav" loop></audio>
     </div>
   </div>
-  <div class="no-music-message">
-    I'm not listening to music right now, come back later! 🎵
-  </div>
-  <audio id="player" src="song1.wav" loop></audio>
 </div>
 <div class="theme-toggle">
   <button id="theme-toggle-btn" title="Toggle theme">
