@@ -363,14 +363,14 @@
             }, 1200);
         }
 
-        // === GSAP ENHANCEMENTS ===
+        // === GSAP ENHANCEMENTS (Test) ===
         gsap.set(['.glass-card', '.info-card', '.profile-image', '.contact-icon'], { opacity: 0, y: 40 });
         gsap.to('.profile-image', { opacity: 1, y: 0, duration: 1, ease: 'power3.out', delay: 0.1 });
         gsap.to('.glass-card', { opacity: 1, y: 0, duration: 1, ease: 'power3.out', delay: 0.2 });
         gsap.to('.info-card', { opacity: 1, y: 0, duration: 1, ease: 'power3.out', stagger: 0.15, delay: 0.4 });
         gsap.to('.contact-icon', { opacity: 1, y: 0, duration: 1, ease: 'back.out(1.7)', stagger: 0.1, delay: 0.8 });
 
-      
+       
         const profileImage = document.querySelector('.profile-image');
         if (profileImage) {
             window.addEventListener('scroll', () => {
@@ -381,7 +381,7 @@
             });
         }
 
-     
+       
         document.querySelectorAll('.language-tag').forEach((el, i) => {
             gsap.set(el, { opacity: 0, x: -30 });
             const trigger = el.closest('.language-item') || el;
@@ -394,5 +394,43 @@
             };
             window.addEventListener('scroll', onScroll);
             onScroll();
+        });
+
+        // === GSAP INTERACTIVE SPIN EFFECTS FOR NO REASON AT ALL===
+       
+        const contactIcons = document.querySelectorAll('.contact-icon');
+        contactIcons.forEach(icon => {
+            icon.addEventListener('click', e => {
+                e.preventDefault();
+                gsap.to(icon, {
+                    rotate: 360,
+                    scale: 1.3,
+                    duration: 0.7,
+                    ease: 'expo.inOut',
+                    yoyo: true,
+                    repeat: 1,
+                    onComplete: () => { icon.style.transform = ''; }
+                });
+               
+                const href = icon.getAttribute('href');
+                if (href && href !== '#') {
+                    setTimeout(() => { window.open(href, '_blank'); }, 700);
+                }
+            });
+        });
+        
+        const langTags = document.querySelectorAll('.language-tag');
+        langTags.forEach(tag => {
+            tag.addEventListener('click', () => {
+                gsap.to(tag, {
+                    rotate: 360,
+                    scale: 1.3,
+                    duration: 0.7,
+                    ease: 'expo.inOut',
+                    yoyo: true,
+                    repeat: 1,
+                    onComplete: () => { tag.style.transform = ''; }
+                });
+            });
         });
     }); 
