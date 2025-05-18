@@ -3,10 +3,10 @@
     --card-bg-dark: rgba(30, 30, 30, 0.3);
     --text-primary-dark: #ffffff;
     --text-secondary-dark: rgba(255, 255, 255, 0.7);
-    --accent-color: #C850C0;
-    --gradient-1: #4158D0;
-    --gradient-2: #C850C0;
-    --gradient-3: #FFCC70;
+    --accent-color: #e0b873;
+    --gradient-1: #23272a;
+    --gradient-2: #181a1b;
+    --gradient-3: #23272a;
 }
 
 * {
@@ -18,13 +18,16 @@
 
 body {
     min-height: 100vh;
-    background: linear-gradient(45deg, var(--gradient-1), var(--gradient-2), var(--gradient-3));
-    background-size: 400% 400%;
-    animation: gradient 15s ease infinite;
+    background: radial-gradient(ellipse at 60% 20%, #23272a 60%, #181a1b 100%);
+    background-color: #181a1b;
     padding: 20px;
     position: relative;
     transition: transform 0.1s ease-out, filter 0.1s ease-out;
     transform-origin: center center;
+}
+
+body::before, body::after {
+    display: none !important;
 }
 
 .glass-card, .info-card, .profile-image, .contact-icon, .skill-bar, .language-tag, .hobbies-icons li {
@@ -150,36 +153,6 @@ a, button, .skill-level, .lang-level {
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-}
-
-body::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 0 L100 50 L50 100 L0 50 Z' fill='rgba(255,255,255,0.15)'/%3E%3C/svg%3E");
-    background-size: 60px 60px;
-    background-repeat: repeat;
-    animation: float 20s linear infinite;
-    z-index: -1;
-}
-
-body::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='50' cy='50' r='40' fill='rgba(255,255,255,0.12)'/%3E%3C/svg%3E");
-    background-size: 60px 60px;
-    background-repeat: repeat;
-    animation: float 20s linear infinite;
-    z-index: -1;
 }
 
 @keyframes float {
@@ -313,7 +286,7 @@ body::after {
 }
 
 .highlight {
-    color: #FFCC70;
+    color: #e0b873;
     font-weight: 500;
 }
 
