@@ -133,18 +133,7 @@ body::before, body::after {
     pointer-events: none;
 }
 
-.music-player::after {
-    content: 'Music here!';
-    position: absolute;
-    top: 15px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-family: 'Comic Sans MS', cursive;
-    font-size: 24px;
-    color: white;
-    text-shadow: 2px 2px 0 rgba(0,0,0,0.2);
-    white-space: nowrap;
-}
+.music-player::after { display: none !important; }
 
 a, button, .skill-level, .lang-level {
     transition: all 0.3s ease;
