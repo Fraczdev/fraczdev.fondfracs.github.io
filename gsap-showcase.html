@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GSAP Animation Showcase</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: #181a1b;
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    .back-link {
+      position: fixed;
+      top: 24px;
+      left: 24px;
+      background: #232323;
+      color: #fff;
+      padding: 10px 22px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      transition: background 0.2s;
+      z-index: 2000;
+    }
+    .back-link:hover {
+      background: #333;
+    }
+    h1 {
+      margin-top: 80px;
+      font-size: 2.5rem;
+      letter-spacing: 1px;
+      text-align: center;
+    }
+    .gsap-demo-area {
+      margin-top: 40px;
+      width: 90vw;
+      max-width: 900px;
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+      align-items: center;
+    }
+    .gsap-card {
+      background: #232323;
+      border-radius: 18px;
+      padding: 36px 32px;
+      box-shadow: 0 4px 24px 0 rgba(0,0,0,0.25);
+      margin: 0 auto;
+      width: 100%;
+      max-width: 600px;
+      text-align: center;
+      font-size: 1.3rem;
+      color: #fff;
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    .gsap-icon-row {
+      display: flex;
+      gap: 32px;
+      justify-content: center;
+      margin-top: 24px;
+    }
+    .gsap-icon {
+      font-size: 2.5rem;
+      background: #232323;
+      border-radius: 50%;
+      width: 70px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+      color: #FFCC70;
+      opacity: 0;
+      transform: scale(0.7);
+    }
+    .gsap-svg-demo {
+      margin-top: 32px;
+      width: 120px;
+      height: 120px;
+      opacity: 0;
+      transform: scale(0.7);
+      display: block;
+    }
+    .gsap-btn {
+      margin-top: 32px;
+      padding: 14px 36px;
+      background: linear-gradient(90deg,#4158D0,#C850C0,#FFCC70);
+      color: #232323;
+      border: none;
+      border-radius: 24px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+      transition: background 0.2s, color 0.2s;
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    .gsap-btn:hover {
+      background: linear-gradient(90deg,#FFCC70,#C850C0,#4158D0);
+      color: #fff;
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <a href="index.html" class="back-link">← Back to Portfolio</a>
+  <h1>GSAP Animation Showcase</h1>
+  <div class="gsap-demo-area">
+    <div class="gsap-card">This card will fade and slide in with GSAP.</div>
+    <div class="gsap-icon-row">
+      <div class="gsap-icon"><i class="fas fa-star"></i></div>
+      <div class="gsap-icon"><i class="fas fa-meteor"></i></div>
+      <div class="gsap-icon"><i class="fas fa-bolt"></i></div>
+      <div class="gsap-icon"><i class="fas fa-rocket"></i></div>
+    </div>
+    <svg class="gsap-svg-demo" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="40" fill="#4158D0" />
+      <rect x="30" y="30" width="40" height="40" fill="#FFCC70" rx="8" />
+    </svg>
+    <button class="gsap-btn">Click Me for Animation</button>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="gsap-showcase.js"></script>
+</body>
+</html> 
