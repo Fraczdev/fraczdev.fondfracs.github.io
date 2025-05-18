@@ -428,14 +428,16 @@
             });
         });
 
-        // === GSAP TEXT REVEAL & STAGGER ANIMATIONS ===
-        gsap.utils.toArray('.gsap-text-reveal').forEach((el, i) => {
-            gsap.fromTo(el, { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 1.1, delay: 1 + i * 0.2, ease: 'power2.out' });
-        });
-        gsap.utils.toArray('.gsap-stagger-list').forEach((list, i) => {
-            const children = list.children;
-            gsap.fromTo(children, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.9, stagger: 0.13, delay: 1.5 + i * 0.2, ease: 'back.out(1.7)' });
-        });
+        // === GSAP TEXT REVEAL & STAGGER ANIMATIONS (RESTORED) ===
+        if (typeof gsap !== 'undefined') {
+            gsap.utils.toArray('.gsap-text-reveal').forEach((el, i) => {
+                gsap.fromTo(el, { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 1.1, delay: 1 + i * 0.2, ease: 'power2.out' });
+            });
+            gsap.utils.toArray('.gsap-stagger-list').forEach((list, i) => {
+                const children = list.children;
+                gsap.fromTo(children, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.9, stagger: 0.13, delay: 1.5 + i * 0.2, ease: 'back.out(1.7)' });
+            });
+        }
 
         // === SOLID THEME COLOR PICKER ===
         function createSolidColorPicker() {
