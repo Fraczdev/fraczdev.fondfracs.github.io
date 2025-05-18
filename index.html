@@ -122,34 +122,40 @@
       </div>
       <div id="discord-live-status" style="margin-top: 12px;"></div>
     </section>
-
-    <div class="music-player">
-      <div class="waveform" id="waveform"></div>
-      <div class="vinyl-disk">
-        <img src="https://i.imgur.com/HmxbLzY.png" alt="No music playing" class="placeholder-art">
+  </div>
+</div>
+<!-- Music player moved outside main container -->
+<div class="music-player">
+  <div class="waveform" id="waveform"></div>
+  <div class="vinyl-disk">
+    <img src="https://i.imgur.com/HmxbLzY.png" alt="No music playing" class="placeholder-art">
+  </div>
+  <div class="music-info">
+    <div class="now-playing">
+      <div class="song-title-wrapper">
+      <span class="song-title"></span>
       </div>
-      <div class="music-info">
-        <div class="now-playing">
-          <div class="song-title-wrapper">
-          <span class="song-title"></span>
-          </div>
-          <div class="song-artist-wrapper">
-          <span class="song-artist"></span>
-          </div>
-          <div class="last-song"></div>
-        </div>
-        <div class="progress-bar">
-          <div class="progress"></div>
-          <span class="timestamp">0:00 / 0:00</span>
-          <button class="listen-with-me">Listen with me</button>
-        </div>
+      <div class="song-artist-wrapper">
+      <span class="song-artist"></span>
       </div>
-      <div class="no-music-message">
-        I'm not listening to music right now, come back later! 🎵
-      </div>
-      <audio id="player" src="song1.wav" loop></audio>
+      <div class="last-song"></div>
+    </div>
+    <div class="progress-bar">
+      <div class="progress"></div>
+      <span class="timestamp">0:00 / 0:00</span>
+      <button class="listen-with-me">Listen with me</button>
     </div>
   </div>
+  <div class="no-music-message">
+    I'm not listening to music right now, come back later! 🎵
+  </div>
+  <audio id="player" src="song1.wav" loop></audio>
+</div>
+<!-- Decorative SVG for upper left corner cause idk what to put -->
+<div class="main-squiggle-upper-left" style="position:absolute;top:0;left:0;z-index:10;">
+  <svg width="120" height="60" viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M10 50 Q 40 10, 70 40 T 110 20" stroke="#e0b873" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
 </div>
 <div class="theme-toggle">
   <button id="theme-toggle-btn" title="Toggle theme">
