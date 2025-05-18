@@ -363,25 +363,14 @@
             }, 1200);
         }
 
-        // === GSAP ENHANCEMENTS (Test) ===
+        // === GSAP ENHANCEMENTS ===
         gsap.set(['.glass-card', '.info-card', '.profile-image', '.contact-icon'], { opacity: 0, y: 40 });
         gsap.to('.profile-image', { opacity: 1, y: 0, duration: 1, ease: 'power3.out', delay: 0.1 });
         gsap.to('.glass-card', { opacity: 1, y: 0, duration: 1, ease: 'power3.out', delay: 0.2 });
         gsap.to('.info-card', { opacity: 1, y: 0, duration: 1, ease: 'power3.out', stagger: 0.15, delay: 0.4 });
         gsap.to('.contact-icon', { opacity: 1, y: 0, duration: 1, ease: 'back.out(1.7)', stagger: 0.1, delay: 0.8 });
 
-       
-        const profileImage = document.querySelector('.profile-image');
-        if (profileImage) {
-            window.addEventListener('scroll', () => {
-                const scrollY = window.scrollY || window.pageYOffset;
-                const scale = 1 + Math.min(scrollY / 800, 0.2);
-                const rotate = Math.min(scrollY / 8, 20);
-                gsap.to(profileImage, { scale: scale, rotate: rotate, duration: 0.5, overwrite: 'auto' });
-            });
-        }
-
-       
+        // GSAP scroll-triggered animation for .language-tag (float in as you scroll)
         document.querySelectorAll('.language-tag').forEach((el, i) => {
             gsap.set(el, { opacity: 0, x: -30 });
             const trigger = el.closest('.language-item') || el;
@@ -396,8 +385,8 @@
             onScroll();
         });
 
-        // === GSAP INTERACTIVE SPIN EFFECTS FOR NO REASON AT ALL===
-       
+    
+    
         const contactIcons = document.querySelectorAll('.contact-icon');
         contactIcons.forEach(icon => {
             icon.addEventListener('click', e => {
@@ -418,7 +407,7 @@
                 }
             });
         });
-        
+       
         const langTags = document.querySelectorAll('.language-tag');
         langTags.forEach(tag => {
             tag.addEventListener('click', () => {
@@ -432,5 +421,14 @@
                     onComplete: () => { tag.style.transform = ''; }
                 });
             });
+        });
+
+     
+        gsap.utils.toArray('.gsap-text-reveal').forEach((el, i) => {
+            gsap.fromTo(el, { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 1.1, delay: 1 + i * 0.2, ease: 'power2.out' });
+        });
+        gsap.utils.toArray('.gsap-stagger-list').forEach((list, i) => {
+            const children = list.children;
+            gsap.fromTo(children, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.9, stagger: 0.13, delay: 1.5 + i * 0.2, ease: 'back.out(1.7)' });
         });
     }); 
