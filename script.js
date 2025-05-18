@@ -316,6 +316,11 @@
                 document.body.style.removeProperty('--accent-color');
             }
             localStorage.setItem('theme', theme);
+            if (!['light','dark','vinyl'].includes(theme)) {
+                createSolidColorPicker();
+            } else {
+                removeSolidColorPicker();
+            }
         }
 
         applyTheme(currentTheme);
@@ -385,8 +390,8 @@
             onScroll();
         });
 
-    
-    
+        // === GSAP INTERACTIVE SPIN EFFECTS ===
+        // Contact icons spin+scale on click
         const contactIcons = document.querySelectorAll('.contact-icon');
         contactIcons.forEach(icon => {
             icon.addEventListener('click', e => {
@@ -400,14 +405,14 @@
                     repeat: 1,
                     onComplete: () => { icon.style.transform = ''; }
                 });
-               
+                // If it's a link, follow after animation
                 const href = icon.getAttribute('href');
                 if (href && href !== '#') {
                     setTimeout(() => { window.open(href, '_blank'); }, 700);
                 }
             });
         });
-       
+        // Language tags spin+scale on click
         const langTags = document.querySelectorAll('.language-tag');
         langTags.forEach(tag => {
             tag.addEventListener('click', () => {
@@ -423,7 +428,7 @@
             });
         });
 
-     
+        // === GSAP TEXT REVEAL & STAGGER ANIMATIONS ===
         gsap.utils.toArray('.gsap-text-reveal').forEach((el, i) => {
             gsap.fromTo(el, { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 1.1, delay: 1 + i * 0.2, ease: 'power2.out' });
         });
@@ -431,4 +436,48 @@
             const children = list.children;
             gsap.fromTo(children, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.9, stagger: 0.13, delay: 1.5 + i * 0.2, ease: 'back.out(1.7)' });
         });
+
+        // === SOLID THEME COLOR PICKER ===
+        function createSolidColorPicker() {
+            let picker = document.getElementById('solid-bg-picker');
+            if (!picker) {
+                picker = document.createElement('input');
+                picker.type = 'color';
+                picker.id = 'solid-bg-picker';
+                picker.value = '#101014';
+                picker.title = 'Pick background color';
+                picker.style.position = 'fixed';
+                picker.style.top = '18px';
+                picker.style.left = '72px';
+                picker.style.zIndex = 1001;
+                picker.style.width = '44px';
+                picker.style.height = '44px';
+                picker.style.border = 'none';
+                picker.style.background = 'none';
+                picker.style.cursor = 'pointer';
+                picker.style.boxShadow = '0 2px 8px rgba(0,0,0,0.08)';
+                document.body.appendChild(picker);
+                picker.addEventListener('input', (e) => {
+                    document.body.style.setProperty('--solid-bg', picker.value);
+                    localStorage.setItem('solid-bg', picker.value);
+                });
+            }
+            picker.style.display = 'block';
+            // Restore last color
+            const saved = localStorage.getItem('solid-bg');
+            if (saved) {
+                picker.value = saved;
+                document.body.style.setProperty('--solid-bg', saved);
+            } else {
+                document.body.style.setProperty('--solid-bg', picker.value);
+            }
+        }
+        function removeSolidColorPicker() {
+            const picker = document.getElementById('solid-bg-picker');
+            if (picker) picker.style.display = 'none';
+        }
+        // On load, if solid theme, show picker
+        if (!['light','dark','vinyl'].includes(localStorage.getItem('theme'))) {
+            createSolidColorPicker();
+        }
     }); 
