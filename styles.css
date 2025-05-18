@@ -1239,7 +1239,7 @@ a, button, .skill-level, .lang-level {
 }
 
 body.theme-light {
-    --background: #f7f7f7;
+    --background: #ededed;
     --foreground: #23272a;
     --card-bg: #fff;
     --accent-color: #4f8cff;
@@ -1247,6 +1247,10 @@ body.theme-light {
     --gradient-2: #cfdef3;
     --text-primary-dark: #23272a;
     --text-secondary-dark: rgba(30, 30, 30, 0.7);
+}
+
+body.theme-light, body.theme-light .glass-card, body.theme-light .info-card, body.theme-light .bio-center, body.theme-light .name, body.theme-light .self-taught-note, body.theme-light .highlight, body.theme-light .about-extra, body.theme-light .fun-fact, body.theme-light .location, body.theme-light .language-tag, body.theme-light .hobbies-icons li, body.theme-light .contact-icon, body.theme-light .get-in-touch, body.theme-light .song-title, body.theme-light .song-artist, body.theme-light .lang-quote {
+    color: #23272a !important;
 }
 
 body.theme-dark {
