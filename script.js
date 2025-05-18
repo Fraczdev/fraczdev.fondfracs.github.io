@@ -362,4 +362,37 @@
                 setTimeout(() => popup.remove(), 300);
             }, 1200);
         }
+
+        // === GSAP ENHANCEMENTS ===
+        gsap.set(['.glass-card', '.info-card', '.profile-image', '.contact-icon'], { opacity: 0, y: 40 });
+        gsap.to('.profile-image', { opacity: 1, y: 0, duration: 1, ease: 'power3.out', delay: 0.1 });
+        gsap.to('.glass-card', { opacity: 1, y: 0, duration: 1, ease: 'power3.out', delay: 0.2 });
+        gsap.to('.info-card', { opacity: 1, y: 0, duration: 1, ease: 'power3.out', stagger: 0.15, delay: 0.4 });
+        gsap.to('.contact-icon', { opacity: 1, y: 0, duration: 1, ease: 'back.out(1.7)', stagger: 0.1, delay: 0.8 });
+
+      
+        const profileImage = document.querySelector('.profile-image');
+        if (profileImage) {
+            window.addEventListener('scroll', () => {
+                const scrollY = window.scrollY || window.pageYOffset;
+                const scale = 1 + Math.min(scrollY / 800, 0.2);
+                const rotate = Math.min(scrollY / 8, 20);
+                gsap.to(profileImage, { scale: scale, rotate: rotate, duration: 0.5, overwrite: 'auto' });
+            });
+        }
+
+     
+        document.querySelectorAll('.language-tag').forEach((el, i) => {
+            gsap.set(el, { opacity: 0, x: -30 });
+            const trigger = el.closest('.language-item') || el;
+            const onScroll = () => {
+                const rect = trigger.getBoundingClientRect();
+                if (rect.top < window.innerHeight - 60) {
+                    gsap.to(el, { opacity: 1, x: 0, duration: 0.7, ease: 'power2.out', delay: i * 0.1 });
+                    window.removeEventListener('scroll', onScroll);
+                }
+            };
+            window.addEventListener('scroll', onScroll);
+            onScroll();
+        });
     }); 
