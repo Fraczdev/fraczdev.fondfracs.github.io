@@ -18,11 +18,11 @@
 
 body {
     min-height: 100vh;
-    background: radial-gradient(ellipse at 60% 20%, #23272a 60%, #181a1b 100%);
-    background-color: #181a1b;
+    background: var(--background, #181a1b);
+    background-color: var(--background, #181a1b);
     padding: 20px;
     position: relative;
-    transition: transform 0.1s ease-out, filter 0.1s ease-out;
+    transition: transform 0.1s ease-out, filter 0.1s ease-out, background 0.3s;
     transform-origin: center center;
 }
 
@@ -40,7 +40,7 @@ body::before, body::after {
 
 .glass-card {
     position: relative;
-    background: var(--card-bg-dark);
+    background: var(--card-bg, rgba(30, 30, 30, 0.3));
     backdrop-filter: blur(10px);
     border-radius: 20px;
     padding: 40px;
