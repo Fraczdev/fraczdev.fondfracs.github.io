@@ -1238,7 +1238,6 @@ a, button, .skill-level, .lang-level {
     background: rgba(255,255,255,0.3);
 }
 
-
 body.theme-light {
     --background: #f7f7f7;
     --foreground: #23272a;
@@ -1246,8 +1245,9 @@ body.theme-light {
     --accent-color: #4f8cff;
     --gradient-1: #e0eafc;
     --gradient-2: #cfdef3;
+    --text-primary-dark: #23272a;
+    --text-secondary-dark: rgba(30, 30, 30, 0.7);
 }
-
 
 body.theme-dark {
     --background: #181a1b;
@@ -1256,6 +1256,8 @@ body.theme-dark {
     --accent-color: #ffcc70;
     --gradient-1: #232526;
     --gradient-2: #414345;
+    --text-primary-dark: #ffffff;
+    --text-secondary-dark: rgba(255, 255, 255, 0.7);
 }
 
 body.theme-vinyl {
@@ -1265,10 +1267,39 @@ body.theme-vinyl {
     --accent-color: var(--accent-color, #fff);
     --gradient-1: #232526;
     --gradient-2: #181818;
+    --text-primary-dark: #ffffff;
+    --text-secondary-dark: rgba(255, 255, 255, 0.7);
 }
 
-body:not(.theme-light):not(.theme-dark) {
-  
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.18;
+    background-repeat: repeat;
+    background-size: 60px 60px;
+    display: block !important;
+}
+body.theme-light::before {
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='0' y='0' width='60' height='60' fill='white'/%3E%3Cpath d='M0 0L60 60ZM60 0L0 60Z' stroke='%23e0eafc' stroke-width='1.5'/%3E%3C/svg%3E");
+}
+body.theme-dark::before, body.theme-vinyl::before, body:not(.theme-light):not(.theme-dark):not(.theme-vinyl)::before {
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='0' y='0' width='60' height='60' fill='black'/%3E%3Cpath d='M0 0L60 60ZM60 0L0 60Z' stroke='%23323232' stroke-width='1.5'/%3E%3C/svg%3E");
+}
+
+body:not(.theme-light):not(.theme-dark):not(.theme-vinyl) {
+    --solid-bg: #101014;
+    --background: var(--solid-bg, #101014);
+    --foreground: #f7f7f7;
+    --card-bg: #23272a;
+    --accent-color: #e0b873;
+    --text-primary-dark: #ffffff;
+    --text-secondary-dark: rgba(255, 255, 255, 0.7);
 }
 
 .theme-popup {
