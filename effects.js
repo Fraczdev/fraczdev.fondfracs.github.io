@@ -81,5 +81,5 @@ class CursorTrail {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    new CursorTrail();
+     // new CursorTrail()
 }); 
