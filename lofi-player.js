@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { file: 'song3.mp3', title: 'Fancy Clown by MF DOOM' }
     ];
     let currentSongIndex = 0;
-    const audio = new Audio(songs[currentSongIndex].file);
+    const audio = new Audio();
     const source = audioContext.createMediaElementSource(audio);
     source.connect(analyser);
     analyser.connect(audioContext.destination);
@@ -118,6 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function playNextSong() {
         currentSongIndex = (currentSongIndex + 1) % songs.length;
         audio.src = songs[currentSongIndex].file;
+        audio.load();
         nowPlaying.textContent = `Now Playing: ${songs[currentSongIndex].title}`;
         if (isPlaying) {
             audio.play().catch(error => {
@@ -140,6 +141,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (audioContext.state === 'suspended') {
                 audioContext.resume();
             }
+            audio.src = songs[currentSongIndex].file;
+            audio.load();
             audio.play().catch(error => {
                 console.error('Error playing audio:', error);
                 isPlaying = false;
