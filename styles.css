@@ -4,9 +4,9 @@
     --text-primary-dark: #ffffff;
     --text-secondary-dark: rgba(255, 255, 255, 0.7);
     --accent-color: #e0b873;
-    --default-bg-1: #d0d0d0;
-    --default-bg-2: #c0c0c0;
-    --default-bg-3: #d0d0d0;
+    --default-bg-1: #282828;
+    --default-bg-2: #1c1c1c;
+    --default-bg-3: #282828;
 }
 
 * {
@@ -18,8 +18,8 @@
 
 body {
     min-height: 100vh;
-    background: var(--background, linear-gradient(-45deg, var(--default-bg-1), var(--default-bg-2), var(--default-bg-3)));
-    background-color: initial;
+    background: var(--background);
+    background-color: transparent;
     padding: 20px;
     position: relative;
     transition: transform 0.1s ease-out, filter 0.1s ease-out, background 0.3s;
