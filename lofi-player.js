@@ -44,7 +44,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const skillName = skill.querySelector('span').textContent;
         const skillLevel = skill.querySelector('.skill-level');
         if (skillLevel) {
-            skillBars.set(skillName, skillLevel.style.width);
+            const originalWidth = window.getComputedStyle(skillLevel).width;
+            skillBars.set(skillName, originalWidth);
+            // Set initial width to ensure it's displayed
+            skillLevel.style.width = originalWidth;
         }
     });
 
@@ -75,18 +78,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-            // Restore original skill bar widths
-            skillBars.forEach((originalWidth, skillName) => {
-                const skill = Array.from(document.querySelectorAll('.skill')).find(s => 
-                    s.querySelector('span').textContent === skillName
-                );
-                if (skill) {
-                    const skillLevel = skill.querySelector('.skill-level');
-                    if (skillLevel) {
-                        skillLevel.style.width = originalWidth;
-                    }
-                }
-            });
+            // Skill bar widths are not restored here, as they are now handled by stopVibe and initial load
+            // They will only be affected by the vibe animation when playing
 
             animationFrame = requestAnimationFrame(updateVibe);
         }
@@ -103,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
             element.style.transform = '';
         });
        
-        // Restore original skill bar widths
+        // Restore original skill bar widths when vibe stops
         skillBars.forEach((originalWidth, skillName) => {
             const skill = Array.from(document.querySelectorAll('.skill')).find(s => 
                 s.querySelector('span').textContent === skillName

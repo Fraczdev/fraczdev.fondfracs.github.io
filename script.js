@@ -1,22 +1,6 @@
-    document.addEventListener('DOMContentLoaded', () => {
-        const skillBars = document.querySelectorAll('.skill-level');
+document.addEventListener('DOMContentLoaded', () => {
+        // Removed skill bar initialization and IntersectionObserver from here
         
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.width = entry.target.parentElement.getAttribute('data-level');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.5 });
-
-        skillBars.forEach(bar => {
-            const level = bar.style.width;
-            bar.style.width = '0';
-            bar.parentElement.setAttribute('data-level', level);
-            observer.observe(bar);
-        });
-
         const glassCard = document.querySelector('.glass-card');
         const audio = document.getElementById('player');
         let lastPlayedSong = null;
@@ -304,35 +288,25 @@
 
         const themes = ['gradient', 'light', 'dark', 'vinyl'];
         let currentTheme = localStorage.getItem('theme') || 'gradient';
+        applyTheme(currentTheme);
+
+        document.getElementById('theme-toggle-btn').addEventListener('click', () => {
+            const currentIndex = themes.indexOf(currentTheme);
+            const nextIndex = (currentIndex + 1) % themes.length;
+            currentTheme = themes[nextIndex];
+            localStorage.setItem('theme', currentTheme);
+            applyTheme(currentTheme);
+            showThemePopup(currentTheme);
+        });
 
         function applyTheme(theme) {
-            document.body.classList.remove('theme-light', 'theme-dark', 'theme-vinyl');
-            if (theme === 'light') document.body.classList.add('theme-light');
-            else if (theme === 'dark') document.body.classList.add('theme-dark');
-            else if (theme === 'vinyl') document.body.classList.add('theme-vinyl');
-            else document.body.classList.remove('theme-light', 'theme-dark', 'theme-vinyl');
-            if (theme !== 'vinyl') {
+            document.body.className = `theme-${theme}`;
+            if (theme === 'vinyl') {
+                checkPlaybackStatus();
+            } else {
                 document.body.style.removeProperty('--background');
                 document.body.style.removeProperty('--accent-color');
             }
-            localStorage.setItem('theme', theme);
-            if (!['light','dark','vinyl'].includes(theme)) {
-                createSolidColorPicker();
-            } else {
-                removeSolidColorPicker();
-            }
-        }
-
-        applyTheme(currentTheme);
-
-        const btn = document.getElementById('theme-toggle-btn');
-        if (btn) {
-            btn.addEventListener('click', () => {
-                let idx = themes.indexOf(currentTheme);
-                currentTheme = themes[(idx + 1) % themes.length];
-                applyTheme(currentTheme);
-                showThemePopup(currentTheme);
-            });
         }
 
         function setVinylThemeFromImage(img) {
@@ -375,76 +349,49 @@
         gsap.to('.info-card', { opacity: 1, y: 0, duration: 1, ease: 'power3.out', stagger: 0.15, delay: 0.4 });
         gsap.to('.contact-icon', { opacity: 1, y: 0, duration: 1, ease: 'back.out(1.7)', stagger: 0.1, delay: 0.8 });
 
-        // GSAP scroll-triggered animation for .language-tag (float in as you scroll)
-        document.querySelectorAll('.language-tag').forEach((el, i) => {
-            gsap.set(el, { opacity: 0, x: -30 });
-            const trigger = el.closest('.language-item') || el;
-            const onScroll = () => {
-                const rect = trigger.getBoundingClientRect();
-                if (rect.top < window.innerHeight - 60) {
-                    gsap.to(el, { opacity: 1, x: 0, duration: 0.7, ease: 'power2.out', delay: i * 0.1 });
-                    window.removeEventListener('scroll', onScroll);
+        // Typing effect for the bio
+        const bioElement = document.querySelector('.bio-center');
+        const originalBio = bioElement.textContent;
+        bioElement.textContent = '';
+        let bioIndex = 0;
+        const typeBio = () => {
+            if (bioIndex < originalBio.length) {
+                bioElement.textContent += originalBio.charAt(bioIndex);
+                bioIndex++;
+                setTimeout(typeBio, 50);
+            }
+        };
+        
+        // GSAP ScrollTrigger for elements with data-animate
+        const onScroll = () => {
+            document.querySelectorAll('[data-animate]').forEach(element => {
+                if (element.getBoundingClientRect().top < window.innerHeight) {
+                    element.classList.add('animate');
                 }
-            };
-            window.addEventListener('scroll', onScroll);
-            onScroll();
-        });
+            });
+        };
 
-        // === GSAP INTERACTIVE SPIN EFFECTS ===
-        // Contact icons spin+scale on click
-        const contactIcons = document.querySelectorAll('.contact-icon');
-        contactIcons.forEach(icon => {
-            icon.addEventListener('click', e => {
+        // Run once on load
+        onScroll();
+
+        // Attach scroll event listener
+        window.addEventListener('scroll', onScroll);
+
+        // Optional: Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                gsap.to(icon, {
-                    rotate: 360,
-                    scale: 1.3,
-                    duration: 0.7,
-                    ease: 'expo.inOut',
-                    yoyo: true,
-                    repeat: 1,
-                    onComplete: () => { icon.style.transform = ''; }
-                });
-                // If it's a link, follow after animation
-                const href = icon.getAttribute('href');
-                if (href && href !== '#') {
-                    setTimeout(() => { window.open(href, '_blank'); }, 700);
-                }
-            });
-        });
-        // Language tags spin+scale on click
-        const langTags = document.querySelectorAll('.language-tag');
-        langTags.forEach(tag => {
-            tag.addEventListener('click', () => {
-                gsap.to(tag, {
-                    rotate: 360,
-                    scale: 1.3,
-                    duration: 0.7,
-                    ease: 'expo.inOut',
-                    yoyo: true,
-                    repeat: 1,
-                    onComplete: () => { tag.style.transform = ''; }
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
                 });
             });
         });
 
-        // === GSAP TEXT REVEAL & STAGGER ANIMATIONS (RESTORED) ===
-        if (typeof gsap !== 'undefined') {
-            // Quicker for title and bio
-            gsap.fromTo('.name.gsap-text-reveal', { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 0.5, delay: 0.5, ease: 'power2.out' });
-            gsap.fromTo('.bio-center.gsap-text-reveal', { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 0.5, delay: 0.7, ease: 'power2.out' });
-            // Others as before
-            gsap.utils.toArray('.gsap-text-reveal').forEach((el, i) => {
-                if (el.classList.contains('name') || el.classList.contains('bio-center')) return;
-                gsap.fromTo(el, { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 1.1, delay: 1 + i * 0.2, ease: 'power2.out' });
-            });
-            gsap.utils.toArray('.gsap-stagger-list').forEach((list, i) => {
-                const children = list.children;
-                gsap.fromTo(children, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.9, stagger: 0.13, delay: 1.5 + i * 0.2, ease: 'back.out(1.7)' });
-            });
-        }
+        // Waveform visualization (moved to lofi-player.js)
+        // createWaveform();
 
-        // === SOLID THEME COLOR PICKER ===
+        // Handle solid color picker for theme
         function createSolidColorPicker() {
             let picker = document.getElementById('solid-bg-picker');
             if (!picker) {
@@ -479,12 +426,19 @@
                 document.body.style.setProperty('--solid-bg', picker.value);
             }
         }
+
         function removeSolidColorPicker() {
             const picker = document.getElementById('solid-bg-picker');
             if (picker) picker.style.display = 'none';
         }
-        // On load, if solid theme, show picker
-        if (!['light','dark','vinyl'].includes(localStorage.getItem('theme'))) {
-            createSolidColorPicker();
+
+        // Initial check for hash and theme
+        if (window.location.hash) {
+            const themeFromHash = window.location.hash.substring(1);
+            if (themes.includes(themeFromHash)) {
+                currentTheme = themeFromHash;
+                localStorage.setItem('theme', currentTheme);
+                applyTheme(currentTheme);
+            }
         }
     }); 
