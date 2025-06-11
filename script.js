@@ -300,11 +300,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         function applyTheme(theme) {
+            console.log(`Applying theme: ${theme}`);
+            console.log('Body inline style BEFORE clearing:', document.body.style.cssText);
+
             // Always remove inline background/accent colors first
             document.body.style.removeProperty('--background');
             document.body.style.removeProperty('--accent-color');
             
+            console.log('Body inline style AFTER clearing:', document.body.style.cssText);
+
             document.body.className = `theme-${theme}`;
+            console.log('Body className after applying theme:', document.body.className);
+
             if (theme === 'vinyl') {
                 checkPlaybackStatus();
             } 
