@@ -52,8 +52,8 @@ body::before {
     opacity: 0.3;
     pointer-events: none;
     background-color: transparent;
-    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
-    background-size: 10px 10px; /* Small, highly repeated pattern */
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.1) 25%, transparent 25%), linear-gradient(-45deg, rgba(255, 255, 255, 0.1) 25%, transparent 25%);
+    background-size: 20px 20px; /* Small, highly repeated line pattern */
 }
 
 body.theme-default::after {
@@ -80,18 +80,18 @@ body.theme-vinyl::after {
 body.theme-default::before,
 body.theme-dark::before,
 body.theme-vinyl::before {
-    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
-    background-size: 10px 10px; /* Small, highly repeated pattern */
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.1) 25%, transparent 25%), linear-gradient(-45deg, rgba(255, 255, 255, 0.1) 25%, transparent 25%);
+    background-size: 20px 20px; /* Small, highly repeated line pattern */
 }
 
 body.theme-light::before {
-    background-image: radial-gradient(circle, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
-    background-size: 10px 10px; /* Small, highly repeated pattern */
+    background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.05) 25%, transparent 25%), linear-gradient(-45deg, rgba(0, 0, 0, 0.05) 25%, transparent 25%);
+    background-size: 20px 20px; /* Small, highly repeated line pattern */
 }
 
 body.theme-default {
     --background: linear-gradient(-45deg, var(--default-bg-1), var(--default-bg-2), var(--default-bg-3));
-    background-color: transparent; /* Ensure main body is transparent */
+    background-color: transparent;
 }
 
 body.theme-light {
@@ -102,7 +102,7 @@ body.theme-light {
     --gradient-2: #cfdef3;
     --text-primary-dark: #23272a;
     --text-secondary-dark: rgba(30, 30, 30, 0.7);
-    background-color: transparent; /* Ensure main body is transparent */
+    background-color: transparent;
 }
 
 body.theme-dark {
@@ -110,7 +110,7 @@ body.theme-dark {
     --card-bg: rgba(30, 30, 30, 0.3);
     --text-primary-dark: #ffffff;
     --text-secondary-dark: rgba(255, 255, 255, 0.7);
-    background-color: transparent; /* Ensure main body is transparent */
+    background-color: transparent;
 }
 
 body.theme-vinyl {
@@ -118,7 +118,7 @@ body.theme-vinyl {
     --card-bg: rgba(30, 30, 30, 0.3);
     --text-primary-dark: #ffffff;
     --text-secondary-dark: rgba(255, 255, 255, 0.7);
-    background-color: transparent; /* Ensure main body is transparent */
+    background-color: transparent;
 }
 
 body.theme-default, body.theme-default .glass-card, body.theme-default .info-card, body.theme-default .bio-center, body.theme-default .name, body.theme-default .self-taught-note, body.theme-default .highlight, body.theme-default .about-extra, body.theme-default .fun-fact, body.theme-default .location, body.theme-default .language-tag, body.theme-default .hobbies-icons li, body.theme-default .contact-icon, body.theme-default .get-in-touch, body.theme-default .song-title, body.theme-default .song-artist, body.theme-default .lang-quote {
