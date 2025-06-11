@@ -4,7 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const nowPlaying = document.createElement('div');
     nowPlaying.className = 'now-playing-text';
-    nowPlaying.textContent = 'Now Playing: None';
+    const nowPlayingInnerSpan = document.createElement('span');
+    nowPlayingInnerSpan.textContent = 'Now Playing: None';
+    nowPlaying.appendChild(nowPlayingInnerSpan);
     lofiPlayer.appendChild(nowPlaying);
     
     const lofiButton = document.createElement('button');
@@ -116,11 +118,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function checkNowPlayingTextOverflow() {
-        if (nowPlaying) {
-            if (nowPlaying.scrollWidth > nowPlaying.clientWidth) {
-                nowPlaying.classList.add('scroll');
+        if (nowPlayingInnerSpan && nowPlaying) {
+            // Compare inner span's scrollWidth with container's clientWidth
+            if (nowPlayingInnerSpan.scrollWidth > nowPlaying.clientWidth) {
+                nowPlayingInnerSpan.classList.add('scroll');
             } else {
-                nowPlaying.classList.remove('scroll');
+                nowPlayingInnerSpan.classList.remove('scroll');
             }
         }
     }
@@ -128,16 +131,16 @@ document.addEventListener('DOMContentLoaded', () => {
     function playNextSong() {
         currentSongIndex = (currentSongIndex + 1) % songs.length;
         audio.src = songs[currentSongIndex].file;
-        audio.load();
-        nowPlaying.textContent = `Now Playing: ${songs[currentSongIndex].title}`;
-        checkNowPlayingTextOverflow();
+        audio.load(); // Explicitly load the new song
+        nowPlayingInnerSpan.textContent = `Now Playing: ${songs[currentSongIndex].title}`;
+        checkNowPlayingTextOverflow(); // Check overflow when song changes
         if (isPlaying) {
             audio.play().catch(error => {
                 console.error('Error playing audio:', error);
                 isPlaying = false;
                 lofiButton.classList.remove('playing');
                 stopVibe();
-                nowPlaying.textContent = 'Now Playing: None';
+                nowPlayingInnerSpan.textContent = 'Now Playing: None'; // Update inner span
             });
         }
     }
@@ -147,25 +150,25 @@ document.addEventListener('DOMContentLoaded', () => {
             audio.pause();
             lofiButton.classList.remove('playing');
             stopVibe();
-            nowPlaying.textContent = 'Now Playing: None';
-            checkNowPlayingTextOverflow();
+            nowPlayingInnerSpan.textContent = 'Now Playing: None'; // Update inner span
+            checkNowPlayingTextOverflow(); // Check overflow when stopped
         } else {
             if (audioContext.state === 'suspended') {
                 audioContext.resume();
             }
-            audio.src = songs[currentSongIndex].file;
-            audio.load();
+            audio.src = songs[currentSongIndex].file; // Set src here for initial play
+            audio.load(); // Explicitly load the initial song
             audio.play().catch(error => {
                 console.error('Error playing audio:', error);
                 isPlaying = false;
                 lofiButton.classList.remove('playing');
                 stopVibe();
-                nowPlaying.textContent = 'Now Playing: None';
+                nowPlayingInnerSpan.textContent = 'Now Playing: None'; // Update inner span
             });
             lofiButton.classList.add('playing');
             startVibe();
-            nowPlaying.textContent = `Now Playing: ${songs[currentSongIndex].title}`;
-            checkNowPlayingTextOverflow();
+            nowPlayingInnerSpan.textContent = `Now Playing: ${songs[currentSongIndex].title}`;
+            checkNowPlayingTextOverflow(); // Check overflow when playing
         }
         isPlaying = !isPlaying;
     });
@@ -179,7 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
             audio.pause();
             stopVibe();
             lofiButton.classList.remove('playing');
-            nowPlaying.textContent = 'Now Playing: None';
+            nowPlayingInnerSpan.textContent = 'Now Playing: None'; // Update inner span
             isPlaying = false;
         }
     });

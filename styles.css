@@ -1395,7 +1395,12 @@ body.vibrating {
     position: relative;
 }
 
-.now-playing-text.scroll {
+.now-playing-text span {
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.now-playing-text span.scroll {
     padding-left: 100%;
     animation: scrollText 15s linear infinite;
 }
