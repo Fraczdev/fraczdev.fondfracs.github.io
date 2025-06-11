@@ -300,14 +300,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         function applyTheme(theme) {
+            // Always remove inline background/accent colors first
+            document.body.style.removeProperty('--background');
+            document.body.style.removeProperty('--accent-color');
+            
             document.body.className = `theme-${theme}`;
             if (theme === 'vinyl') {
                 checkPlaybackStatus();
-            } else {
-                // These properties are managed by CSS classes and should not be removed here
-                // document.body.style.removeProperty('--background');
-                // document.body.style.removeProperty('--accent-color');
-            }
+            } 
         }
 
         function setVinylThemeFromImage(img) {
