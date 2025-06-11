@@ -21,9 +21,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const dataArray = new Uint8Array(bufferLength);
 
     const songs = [
-        { file: 'song1.mp3', title: 'Sogno Americano by Artie 5ive' },
-        { file: 'song2.mp3', title: 'FW/SS25 Freestyle by Artie 5ive' },
-        { file: 'song3.mp3', title: 'Fancy Clown by MF DOOM' }
+        { file: 'song1.wav', title: 'Sogno Americano by Artie 5ive' },
+        { file: 'song2.wav', title: 'FW/SS25 Freestyle by Artie 5ive' },
+        { file: 'song3.wav', title: 'Fancy Clown by MF DOOM' }
     ];
     let currentSongIndex = 0;
     const audio = new Audio();
