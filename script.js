@@ -286,8 +286,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        const themes = ['gradient', 'light', 'dark', 'vinyl'];
-        let currentTheme = localStorage.getItem('theme') || 'gradient';
+        const themes = ['default', 'light', 'dark', 'vinyl'];
+        let currentTheme = localStorage.getItem('theme') || 'default';
         applyTheme(currentTheme);
 
         document.getElementById('theme-toggle-btn').addEventListener('click', () => {
@@ -331,7 +331,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (theme === 'light') name = 'Light';
             else if (theme === 'dark') name = 'Dark';
             else if (theme === 'vinyl') name = 'Song';
-            else name = 'Gradient';
+            else name = 'Default';
             let popup = document.createElement('div');
             popup.className = 'theme-popup';
             popup.textContent = `Theme: ${name}`;
