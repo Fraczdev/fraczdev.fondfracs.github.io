@@ -34,14 +34,16 @@ document.addEventListener('DOMContentLoaded', () => {
     let isPlaying = false;
     let animationFrame;
 
-    
     const elements = document.querySelectorAll('.glass-card, .info-card, .profile-image, .contact-icon, .language-tag, .hobbies-icons li');
     
-    
-    const skillBars = {};
-    document.querySelectorAll('.skill-bar .skill-level').forEach(bar => {
-        const skillName = bar.closest('.skill').querySelector('span').textContent;
-        skillBars[skillName] = bar.style.width;
+    // Store original skill bar widths
+    const skillBars = new Map();
+    document.querySelectorAll('.skill').forEach(skill => {
+        const skillName = skill.querySelector('span').textContent;
+        const skillLevel = skill.querySelector('.skill-level');
+        if (skillLevel) {
+            skillBars.set(skillName, skillLevel.style.width);
+        }
     });
 
     function startVibe() {
@@ -71,11 +73,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-            
-            Object.entries(skillBars).forEach(([skillName, originalWidth]) => {
-                const skillBar = document.querySelector(`.skill span:contains('${skillName}')`).closest('.skill').querySelector('.skill-level');
-                if (skillBar) {
-                    skillBar.style.width = originalWidth;
+            // Restore original skill bar widths
+            skillBars.forEach((originalWidth, skillName) => {
+                const skill = Array.from(document.querySelectorAll('.skill')).find(s => 
+                    s.querySelector('span').textContent === skillName
+                );
+                if (skill) {
+                    const skillLevel = skill.querySelector('.skill-level');
+                    if (skillLevel) {
+                        skillLevel.style.width = originalWidth;
+                    }
                 }
             });
 
@@ -94,10 +101,16 @@ document.addEventListener('DOMContentLoaded', () => {
             element.style.transform = '';
         });
        
-        Object.entries(skillBars).forEach(([skillName, width]) => {
-            const skillBar = document.querySelector(`.skill span:contains('${skillName}')`).closest('.skill').querySelector('.skill-level');
-            if (skillBar) {
-                skillBar.style.width = width;
+        // Restore original skill bar widths
+        skillBars.forEach((originalWidth, skillName) => {
+            const skill = Array.from(document.querySelectorAll('.skill')).find(s => 
+                s.querySelector('span').textContent === skillName
+            );
+            if (skill) {
+                const skillLevel = skill.querySelector('.skill-level');
+                if (skillLevel) {
+                    skillLevel.style.width = originalWidth;
+                }
             }
         });
     }
@@ -107,7 +120,13 @@ document.addEventListener('DOMContentLoaded', () => {
         audio.src = songs[currentSongIndex].file;
         nowPlaying.textContent = `Now Playing: ${songs[currentSongIndex].title}`;
         if (isPlaying) {
-            audio.play();
+            audio.play().catch(error => {
+                console.error('Error playing audio:', error);
+                isPlaying = false;
+                lofiButton.classList.remove('playing');
+                stopVibe();
+                nowPlaying.textContent = 'Now Playing: None';
+            });
         }
     }
 
@@ -121,7 +140,13 @@ document.addEventListener('DOMContentLoaded', () => {
             if (audioContext.state === 'suspended') {
                 audioContext.resume();
             }
-            audio.play();
+            audio.play().catch(error => {
+                console.error('Error playing audio:', error);
+                isPlaying = false;
+                lofiButton.classList.remove('playing');
+                stopVibe();
+                nowPlaying.textContent = 'Now Playing: None';
+            });
             lofiButton.classList.add('playing');
             startVibe();
             nowPlaying.textContent = `Now Playing: ${songs[currentSongIndex].title}`;
