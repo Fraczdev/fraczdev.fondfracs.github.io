@@ -352,9 +352,13 @@ document.addEventListener('DOMContentLoaded', () => {
         // Typing effect for the bio
         const bioElement = document.querySelector('.bio-center');
         const originalBio = bioElement.textContent;
-        bioElement.textContent = '';
         let bioIndex = 0;
+        let bioTypingStarted = false;
+
         const typeBio = () => {
+            if (bioIndex === 0) {
+                bioElement.textContent = ''; 
+            }
             if (bioIndex < originalBio.length) {
                 bioElement.textContent += originalBio.charAt(bioIndex);
                 bioIndex++;
@@ -367,6 +371,11 @@ document.addEventListener('DOMContentLoaded', () => {
             document.querySelectorAll('[data-animate]').forEach(element => {
                 if (element.getBoundingClientRect().top < window.innerHeight) {
                     element.classList.add('animate');
+
+                    if (element === bioElement && !bioTypingStarted) {
+                        typeBio();
+                        bioTypingStarted = true;
+                    }
                 }
             });
         };
