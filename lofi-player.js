@@ -4,6 +4,15 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const nowPlaying = document.createElement('div');
     nowPlaying.className = 'now-playing-text';
+
+    // Create the icon wrapper for the local music player
+    const nowPlayingIconWrapper = document.createElement('div');
+    nowPlayingIconWrapper.className = 'now-playing-icon-wrapper';
+    const musicIcon = document.createElement('i');
+    musicIcon.className = 'fas fa-music';
+    nowPlayingIconWrapper.appendChild(musicIcon);
+    nowPlaying.appendChild(nowPlayingIconWrapper);
+
     const nowPlayingInnerSpan = document.createElement('span');
     nowPlayingInnerSpan.textContent = 'Now Playing: None';
     nowPlaying.appendChild(nowPlayingInnerSpan);
