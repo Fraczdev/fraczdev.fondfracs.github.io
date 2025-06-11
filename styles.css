@@ -53,9 +53,9 @@ body::before {
     pointer-events: none;
     background-color: transparent;
     background-image: 
-        linear-gradient(45deg, rgba(255, 255, 255, 0.1) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.1) 75%, rgba(255, 255, 255, 0.1)),
-        linear-gradient(-45deg, rgba(255, 255, 255, 0.1) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.1) 75%, rgba(255, 255, 255, 0.1));
-    background-size: 90px 90px; /* Set to 90x90 pixels */
+        linear-gradient(45deg, rgba(255, 255, 255, 0.1) 35%, transparent 35%, transparent 75%, rgba(255, 255, 255, 0.1) 75%, rgba(255, 255, 255, 0.1)),
+        linear-gradient(-45deg, rgba(255, 255, 255, 0.1) 35%, transparent 35%, transparent 75%, rgba(255, 255, 255, 0.1) 75%, rgba(255, 255, 255, 0.1));
+    background-size: 90px 90px;
     animation: patternMove 20s linear infinite;
 }
 
@@ -93,17 +93,17 @@ body.theme-default::before,
 body.theme-dark::before,
 body.theme-vinyl::before {
     background-image: 
-        linear-gradient(45deg, rgba(255, 255, 255, 0.1) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.1) 75%, rgba(255, 255, 255, 0.1)),
-        linear-gradient(-45deg, rgba(255, 255, 255, 0.1) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.1) 75%, rgba(255, 255, 255, 0.1));
-    background-size: 90px 90px; /* Set to 90x90 pixels */
+        linear-gradient(45deg, rgba(255, 255, 255, 0.1) 35%, transparent 35%, transparent 75%, rgba(255, 255, 255, 0.1) 75%, rgba(255, 255, 255, 0.1)),
+        linear-gradient(-45deg, rgba(255, 255, 255, 0.1) 35%, transparent 35%, transparent 75%, rgba(255, 255, 255, 0.1) 75%, rgba(255, 255, 255, 0.1));
+    background-size: 90px 90px;
     animation: patternMove 20s linear infinite;
 }
 
 body.theme-light::before {
     background-image: 
-        linear-gradient(45deg, rgba(0, 0, 0, 0.05) 25%, transparent 25%, transparent 75%, rgba(0, 0, 0, 0.05) 75%, rgba(0, 0, 0, 0.05)),
-        linear-gradient(-45deg, rgba(0, 0, 0, 0.05) 25%, transparent 25%, transparent 75%, rgba(0, 0, 0, 0.05) 75%, rgba(0, 0, 0, 0.05));
-    background-size: 90px 90px; /* Set to 90x90 pixels */
+        linear-gradient(45deg, rgba(0, 0, 0, 0.05) 35%, transparent 35%, transparent 75%, rgba(0, 0, 0, 0.05) 75%, rgba(0, 0, 0, 0.05)),
+        linear-gradient(-45deg, rgba(0, 0, 0, 0.05) 35%, transparent 35%, transparent 75%, rgba(0, 0, 0, 0.05) 75%, rgba(0, 0, 0, 0.05));
+    background-size: 90px 90px;
     animation: patternMove 20s linear infinite;
 }
 
