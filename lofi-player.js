@@ -2,6 +2,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const lofiPlayer = document.createElement('div');
     lofiPlayer.className = 'lofi-player';
     
+    const nowPlaying = document.createElement('div');
+    nowPlaying.className = 'now-playing-text';
+    nowPlaying.textContent = 'Now Playing: None';
+    lofiPlayer.appendChild(nowPlaying);
+    
     const lofiButton = document.createElement('button');
     lofiButton.className = 'lofi-button';
     lofiButton.innerHTML = '<i class="fas fa-music"></i>';
@@ -15,8 +20,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const bufferLength = analyser.frequencyBinCount;
     const dataArray = new Uint8Array(bufferLength);
 
-    const audio = new Audio('song1.mp3');
-    audio.loop = true;
+    const songs = [
+        { file: 'song1.mp3', title: 'Sogno Americano by Artie 5ive' },
+        { file: 'song2.mp3', title: 'None' },
+        { file: 'song3.mp3', title: 'None' }
+    ];
+    let currentSongIndex = 0;
+    const audio = new Audio(songs[currentSongIndex].file);
     const source = audioContext.createMediaElementSource(audio);
     source.connect(analyser);
     analyser.connect(audioContext.destination);
@@ -92,11 +102,21 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    function playNextSong() {
+        currentSongIndex = (currentSongIndex + 1) % songs.length;
+        audio.src = songs[currentSongIndex].file;
+        nowPlaying.textContent = `Now Playing: ${songs[currentSongIndex].title}`;
+        if (isPlaying) {
+            audio.play();
+        }
+    }
+
     lofiButton.addEventListener('click', () => {
         if (isPlaying) {
             audio.pause();
             lofiButton.classList.remove('playing');
             stopVibe();
+            nowPlaying.textContent = 'Now Playing: None';
         } else {
             if (audioContext.state === 'suspended') {
                 audioContext.resume();
@@ -104,14 +124,13 @@ document.addEventListener('DOMContentLoaded', () => {
             audio.play();
             lofiButton.classList.add('playing');
             startVibe();
+            nowPlaying.textContent = `Now Playing: ${songs[currentSongIndex].title}`;
         }
         isPlaying = !isPlaying;
     });
 
     audio.addEventListener('ended', () => {
-        lofiButton.classList.remove('playing');
-        stopVibe();
-        isPlaying = false;
+        playNextSong();
     });
 
     document.addEventListener('visibilitychange', () => {
@@ -119,6 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
             audio.pause();
             stopVibe();
             lofiButton.classList.remove('playing');
+            nowPlaying.textContent = 'Now Playing: None';
             isPlaying = false;
         }
     });

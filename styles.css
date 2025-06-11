@@ -1323,6 +1323,10 @@ body:not(.theme-light):not(.theme-dark):not(.theme-vinyl) {
     bottom: 20px;
     left: 20px;
     z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
 }
 
 .lofi-button {
@@ -1374,4 +1378,18 @@ body:not(.theme-light):not(.theme-dark):not(.theme-vinyl) {
 
 body.vibrating {
     animation: vibrate 0.1s linear infinite;
+}
+
+.now-playing-text {
+    color: white;
+    font-size: 0.9em;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 6px 12px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    white-space: nowrap;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }       
