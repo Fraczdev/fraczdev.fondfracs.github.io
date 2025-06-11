@@ -22,8 +22,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const songs = [
         { file: 'song1.mp3', title: 'Sogno Americano by Artie 5ive' },
-        { file: 'song2.mp3', title: 'None' },
-        { file: 'song3.mp3', title: 'None' }
+        { file: 'song2.mp3', title: 'FW/SS25 Freestyle by Artie 5ive' },
+        { file: 'song3.mp3', title: 'Fancy Clown by MF DOOM' }
     ];
     let currentSongIndex = 0;
     const audio = new Audio(songs[currentSongIndex].file);
