@@ -26,10 +26,6 @@ body {
     transform-origin: center center;
 }
 
-body::before, body::after {
-    display: none !important;
-}
-
 .glass-card, .info-card, .profile-image, .contact-icon, .skill-bar, .language-tag, .hobbies-icons li {
     transition: transform 0.1s ease-out;
 }
