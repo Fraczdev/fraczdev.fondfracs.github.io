@@ -22,7 +22,7 @@ body {
     background-color: transparent;
     padding: 20px;
     position: relative;
-    transition: transform 0.1s ease-out, filter 0.1s ease-out, background 0.3s;
+    transition: transform 0.1s ease-out, filter 0.1s ease-out;
     transform-origin: center center;
 }
 
@@ -66,6 +66,27 @@ body::before {
     100% {
         background-position: 40px 40px;
     }
+}
+
+body.theme-default::after {
+    background: linear-gradient(-45deg, var(--default-bg-1), var(--default-bg-2), var(--default-bg-3));
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+}
+
+body.theme-light::after {
+    background: var(--background);
+    animation: none;
+}
+
+body.theme-dark::after {
+    background: var(--background);
+    animation: none;
+}
+
+body.theme-vinyl::after {
+    background: var(--background);
+    animation: none;
 }
 
 body.theme-default::before,
