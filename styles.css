@@ -1392,4 +1392,19 @@ body.vibrating {
     max-width: 200px;
     overflow: hidden;
     text-overflow: ellipsis;
+    position: relative;
+}
+
+.now-playing-text.scroll {
+    padding-left: 100%;
+    animation: scrollText 15s linear infinite;
+}
+
+@keyframes scrollText {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
 }       

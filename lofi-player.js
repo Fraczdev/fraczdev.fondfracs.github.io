@@ -1,16 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Temporary fetch for debugging Netlify deployment
-    fetch('song1.wav')
-        .then(response => {
-            console.log('song1.wav fetch response status:', response.status);
-            if (!response.ok) {
-                console.error('song1.wav fetch failed:', response.statusText);
-            }
-        })
-        .catch(error => {
-            console.error('song1.wav fetch error:', error);
-        });
-
     const lofiPlayer = document.createElement('div');
     lofiPlayer.className = 'lofi-player';
     
@@ -67,20 +55,20 @@ document.addEventListener('DOMContentLoaded', () => {
             
             elements.forEach((element, index) => {
                 if (element.classList.contains('glass-card')) {
-                    element.style.transform = `scale(${1 + (bassFreq / 1024)})`; 
+                    element.style.transform = `scale(${1 + (bassFreq / 4096)})`; 
                 } else if (element.classList.contains('info-card')) {
                     const rotation = (midFreq - 128) / 64; 
-                    element.style.transform = `scale(${1 + (bassFreq / 2048)}) rotate(${rotation}deg)`;
+                    element.style.transform = `scale(${1 + (bassFreq / 8192)}) rotate(${rotation}deg)`;
                 } else if (element.classList.contains('profile-image')) {   
-                    element.style.transform = `scale(${1 + (bassFreq / 2048)})`;
+                    element.style.transform = `scale(${1 + (bassFreq / 8192)})`;
                 } else if (element.classList.contains('contact-icon')) {
-                    const bounce = Math.sin(Date.now() / 100) * (bassFreq / 512); 
+                    const bounce = Math.sin(Date.now() / 100) * (bassFreq / 2048); 
                     element.style.transform = `translateY(${bounce}px)`;
                 } else if (element.classList.contains('language-tag')) {
-                    const float = Math.sin(Date.now() / 150 + index) * (bassFreq / 1024); 
+                    const float = Math.sin(Date.now() / 150 + index) * (bassFreq / 4096); 
                     element.style.transform = `translateY(${float}px)`;
                 } else if (element.classList.contains('hobbies-icons')) {
-                    const rotation = Math.sin(Date.now() / 200 + index) * (midFreq / 512); 
+                    const rotation = Math.sin(Date.now() / 200 + index) * (midFreq / 2048); 
                     element.style.transform = `rotate(${rotation}deg)`;
                 }
             });
@@ -127,11 +115,22 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    function checkNowPlayingTextOverflow() {
+        if (nowPlaying) {
+            if (nowPlaying.scrollWidth > nowPlaying.clientWidth) {
+                nowPlaying.classList.add('scroll');
+            } else {
+                nowPlaying.classList.remove('scroll');
+            }
+        }
+    }
+
     function playNextSong() {
         currentSongIndex = (currentSongIndex + 1) % songs.length;
         audio.src = songs[currentSongIndex].file;
         audio.load();
         nowPlaying.textContent = `Now Playing: ${songs[currentSongIndex].title}`;
+        checkNowPlayingTextOverflow();
         if (isPlaying) {
             audio.play().catch(error => {
                 console.error('Error playing audio:', error);
@@ -149,6 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
             lofiButton.classList.remove('playing');
             stopVibe();
             nowPlaying.textContent = 'Now Playing: None';
+            checkNowPlayingTextOverflow();
         } else {
             if (audioContext.state === 'suspended') {
                 audioContext.resume();
@@ -165,6 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
             lofiButton.classList.add('playing');
             startVibe();
             nowPlaying.textContent = `Now Playing: ${songs[currentSongIndex].title}`;
+            checkNowPlayingTextOverflow();
         }
         isPlaying = !isPlaying;
     });
@@ -182,4 +183,12 @@ document.addEventListener('DOMContentLoaded', () => {
             isPlaying = false;
         }
     });
+
+    const resizeObserver = new ResizeObserver(() => {
+        checkNowPlayingTextOverflow();
+    });
+
+    if (nowPlaying) {
+        resizeObserver.observe(nowPlaying);
+    }
 });
