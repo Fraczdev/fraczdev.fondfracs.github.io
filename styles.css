@@ -18,7 +18,14 @@
 
 body {
     min-height: 100vh;
-    background: var(--background);
+    /* Combined background: pattern first, then main theme background */
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%),
+                      linear-gradient(-45deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%),
+                      var(--background); /* Your main theme background */
+    background-size: 20px 20px, 20px 20px, 400% 400%; /* Pattern size, Pattern size, Gradient size */
+    background-position: 0 0, 0 0, 0% 50%; /* Initial positions */
+    background-attachment: fixed; /* Keep pattern static */
+    background-repeat: repeat;
     background-color: transparent;
     padding: 20px;
     position: relative;
@@ -26,7 +33,7 @@ body {
     transform-origin: center center;
 }
 
-/* Base background gradient */
+/* Base background gradient - REMOVED, now part of body background */
 body::after {
     content: '';
     position: fixed;
@@ -40,7 +47,7 @@ body::after {
     animation: gradient 15s ease infinite;
 }
 
-/* Pattern overlay */
+/* Pattern overlay - REMOVED, now part of body background */
 body::before {
     content: '';
     position: fixed;
@@ -48,13 +55,12 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -1; /* Ensure it's behind content */
-    opacity: 0.3; /* Subtle opacity */
+    z-index: -1; /* Keep it behind content */
+    opacity: 1; /* Fully opaque to ensure visibility */
     pointer-events: none;
-    background-color: transparent;
-    /* Revert to subtle white dot pattern */
-    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
-    background-size: 20px 20px;
+    background-color: yellow; /* Solid yellow for unmistakable visibility */
+    background-image: none; /* No pattern image for this test */
+    background-size: auto; /* Default size */
 }
 
 body.theme-default::after {
@@ -78,16 +84,13 @@ body.theme-vinyl::after {
     animation: none;
 }
 
+/* Remove individual theme pattern overrides as they are now handled in the main body rule */
 body.theme-default::before,
 body.theme-dark::before,
-body.theme-vinyl::before {
-    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
-    background-size: 20px 20px;
-}
-
+body.theme-vinyl::before,
 body.theme-light::before {
-    background-image: radial-gradient(circle, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
-    background-size: 20px 20px;
+    background-image: none; /* Ensure no pattern from here */
+    background-size: auto;
 }
 
 body.theme-default {
