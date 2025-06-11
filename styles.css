@@ -36,11 +36,12 @@ body::before {
     z-index: -1;
     opacity: 0.15;
     pointer-events: none;
-    background: 
-        linear-gradient(45deg, transparent 48%, rgba(255, 255, 255, 0.1) 49%, rgba(255, 255, 255, 0.1) 51%, transparent 52%),
-        linear-gradient(-45deg, transparent 48%, rgba(255, 255, 255, 0.1) 49%, rgba(255, 255, 255, 0.1) 51%, transparent 52%);
-    background-size: 60px 60px;
-    animation: patternMove 20s linear infinite;
+    background-color: transparent;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+        radial-gradient(circle at 75% 75%, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+    background-size: 40px 40px;
+    animation: patternMove 30s linear infinite;
 }
 
 @keyframes patternMove {
@@ -48,7 +49,7 @@ body::before {
         background-position: 0 0;
     }
     100% {
-        background-position: 60px 60px;
+        background-position: 40px 40px;
     }
 }
 
@@ -64,11 +65,11 @@ body:not(.theme-light):not(.theme-dark):not(.theme-vinyl)::before {
 }
 
 body.theme-light::before {
-    background: 
-        linear-gradient(45deg, transparent 48%, rgba(0, 0, 0, 0.05) 49%, rgba(0, 0, 0, 0.05) 51%, transparent 52%),
-        linear-gradient(-45deg, transparent 48%, rgba(0, 0, 0, 0.05) 49%, rgba(0, 0, 0, 0.05) 51%, transparent 52%);
-    background-size: 60px 60px;
-    animation: patternMove 20s linear infinite;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+        radial-gradient(circle at 75% 75%, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+    animation: patternMove 30s linear infinite;
 }
 
 body.theme-default {
