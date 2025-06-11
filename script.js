@@ -184,16 +184,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 const disk = document.querySelector('.vinyl-disk');
                 
                 if (!data || !data.item) {
+                    console.log('No song playing or no item data.');
                     songTitle.textContent = "No song playing";
                     songArtist.textContent = "";  
                     progressBar.style.width = '0';
                     timestamp.textContent = '0:00 / 0:00';
                     
                     const img = disk.querySelector('img') || document.createElement('img');
-                    img.src = 'https://i.imgur.com/HmxbLzY.png';
-                    img.alt = 'No music playing';
-                    if (!disk.contains(img)) {
-                        disk.insertBefore(img, disk.firstChild);
+                    // Ensure placeholder image is set when no song
+                    if (img.src !== 'https://i.imgur.com/HmxbLzY.png') {
+                        img.src = 'https://i.imgur.com/HmxbLzY.png';
+                        img.alt = 'No music playing';
+                        if (!disk.contains(img)) {
+                            disk.insertBefore(img, disk.firstChild);
+                        }
                     }
                     
                     disk.style.animationPlayState = 'running';
@@ -208,9 +212,13 @@ document.addEventListener('DOMContentLoaded', () => {
                         document.body.style.removeProperty('--accent-color');
                     }
                 } else {
+                    console.log('Song data received:', data.item.name, 'by', data.item.artists[0].name);
                     
-                    lastPlayedSong = data.item.name;
-                    lastPlayedArtist = data.item.artists[0].name;
+                    // Check if song has changed before updating last played
+                    if (lastPlayedSong !== data.item.name) {
+                        lastPlayedSong = data.item.name;
+                        lastPlayedArtist = data.item.artists[0].name;
+                    }
                     
                     songTitle.textContent = data.item.name;
                     songArtist.textContent = data.item.artists[0].name;
@@ -230,38 +238,49 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     // Manage vinyl theme colors based on current theme and playback status
                     if (currentTheme === 'vinyl') {
-                        if (data && data.item && data.item.album?.images?.[0]?.url) {
-                            // Only set vinyl theme from image if actively playing music and it's the vinyl theme
+                        if (data.item.album?.images?.[0]?.url) {
                             const originalUrl = data.item.album.images[0].url;
                             const proxiedUrl = `/.netlify/functions/proxy-image?url=${encodeURIComponent(originalUrl)}`;
+                            console.log('Album art URL (proxied):', proxiedUrl);
+
                             const img = disk.querySelector('img') || document.createElement('img');
-                            img.src = proxiedUrl;
-                            img.alt = 'Album art';
-                            if (!disk.contains(img)) {
-                                disk.insertBefore(img, disk.firstChild);
-                            }
-                            if (img.complete) {
-                                setVinylThemeFromImage(img);
-                            } else {
+                            // Only update img.src if it's a new URL to prevent unnecessary reloads
+                            if (img.src !== proxiedUrl) {
+                                img.src = proxiedUrl;
+                                img.alt = 'Album art';
+                                if (!disk.contains(img)) {
+                                    disk.insertBefore(img, disk.firstChild);
+                                }
                                 img.onload = () => {
+                                    console.log('Album art image loaded. currentTheme:', currentTheme);
                                     if (currentTheme === 'vinyl') {
                                         setVinylThemeFromImage(img);
                                     }
                                 };
+                                // Handle cases where image might be cached and onload doesn't fire
+                                if (img.complete && currentTheme === 'vinyl') {
+                                    console.log('Album art already complete. Applying vinyl theme.');
+                                    setVinylThemeFromImage(img);
+                                }
+                            } else {
+                                console.log('Album art URL is the same, no update needed.');
+                                if (currentTheme === 'vinyl' && img.complete) { // Re-apply theme if already loaded
+                                    setVinylThemeFromImage(img);
+                                }
                             }
                         } else {
-                            // If vinyl theme, but no song or no album art, clear the vinyl colors
+                            console.log('Vinyl theme: No album art URL found. Clearing colors.');
                             document.body.style.removeProperty('--background');
                             document.body.style.removeProperty('--accent-color');
                         }
                     } else {
-                        // If not vinyl theme, always ensure vinyl colors are cleared
+                        console.log('Not vinyl theme. Clearing inline colors.');
                         document.body.style.removeProperty('--background');
                         document.body.style.removeProperty('--accent-color');
                     }
                 }
             } catch (err) {
-                console.error('Error:', err);
+                console.error('Error in checkPlaybackStatus:', err);
             }
         }
 
@@ -329,19 +348,24 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         function setVinylThemeFromImage(img) {
+            console.log('setVinylThemeFromImage called with image:', img.src);
             if (window.ColorThief && img.complete) {
                 try {
                     const colorThief = new ColorThief();
                     const rgb = colorThief.getColor(img);
+                    console.log('Extracted color:', rgb);
                   
                     document.body.style.setProperty('--background', `rgb(${rgb[0]},${rgb[1]},${rgb[2]})`);
                 
                     document.body.style.setProperty('--accent-color', `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.8)`);
                 } catch (e) {
+                    console.error('Error extracting color with ColorThief:', e);
                     // fallback to gradient bruh
                     document.body.style.removeProperty('--background');
                     document.body.style.removeProperty('--accent-color');
                 }
+            } else {
+                console.log('ColorThief not available or image not complete.', {colorThief: window.ColorThief, complete: img.complete});
             }
         }
 
