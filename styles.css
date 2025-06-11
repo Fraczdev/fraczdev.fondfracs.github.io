@@ -64,7 +64,7 @@ body::before {
         background-position: 0 0;
     }
     100% {
-        background-position: 30px 30px;
+        background-position: 15px 15px;
     }
 }
 
@@ -103,7 +103,7 @@ body.theme-light::before {
     background-image: 
         linear-gradient(45deg, rgba(0, 0, 0, 0.05) 25%, transparent 25%, transparent 75%, rgba(0, 0, 0, 0.05) 75%, rgba(0, 0, 0, 0.05)),
         linear-gradient(-45deg, rgba(0, 0, 0, 0.05) 25%, transparent 25%, transparent 75%, rgba(0, 0, 0, 0.05) 75%, rgba(0, 0, 0, 0.05));
-    background-size: 30px 30px;
+        background-size: 30px 30px;
     animation: patternMove 20s linear infinite;
 }
 
