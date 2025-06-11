@@ -203,6 +203,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         lastSongElement.textContent = `Last played: ${lastPlayedSong} - ${lastPlayedArtist}`;
                         lastSongElement.style.display = 'block';
                     }
+                    if (currentTheme === 'vinyl') {
+                        document.body.style.removeProperty('--background');
+                        document.body.style.removeProperty('--accent-color');
+                    }
                 } else {
                     
                     lastPlayedSong = data.item.name;
@@ -218,36 +222,43 @@ document.addEventListener('DOMContentLoaded', () => {
                     progressBar.style.width = `${progress}%`;
                     timestamp.textContent = `${formatTime(Math.floor(data.progress_ms / 1000))} / ${formatTime(Math.floor(data.item.duration_ms / 1000))}`;
                     
-                    if (data.item.album?.images?.[0]?.url) {
-                        const originalUrl = data.item.album.images[0].url;
-                        const proxiedUrl = `/.netlify/functions/proxy-image?url=${encodeURIComponent(originalUrl)}`;
-                        const img = disk.querySelector('img') || document.createElement('img');
-                        img.src = proxiedUrl;
-                        img.alt = 'Album art';
-                        if (!disk.contains(img)) {
-                            disk.insertBefore(img, disk.firstChild);
-                        }
-                        if (currentTheme === 'vinyl') {
+                    if (data && data.is_playing) {
+                        disk.classList.remove('paused');
+                    } else {
+                        disk.classList.add('paused');
+                    }
+
+                    // Manage vinyl theme colors based on current theme and playback status
+                    if (currentTheme === 'vinyl') {
+                        if (data && data.item && data.item.album?.images?.[0]?.url) {
+                            // Only set vinyl theme from image if actively playing music and it's the vinyl theme
+                            const originalUrl = data.item.album.images[0].url;
+                            const proxiedUrl = `/.netlify/functions/proxy-image?url=${encodeURIComponent(originalUrl)}`;
+                            const img = disk.querySelector('img') || document.createElement('img');
+                            img.src = proxiedUrl;
+                            img.alt = 'Album art';
+                            if (!disk.contains(img)) {
+                                disk.insertBefore(img, disk.firstChild);
+                            }
                             if (img.complete) {
                                 setVinylThemeFromImage(img);
                             } else {
-                                img.onload = () => setVinylThemeFromImage(img);
+                                img.onload = () => {
+                                    if (currentTheme === 'vinyl') {
+                                        setVinylThemeFromImage(img);
+                                    }
+                                };
                             }
+                        } else {
+                            // If vinyl theme, but no song or no album art, clear the vinyl colors
+                            document.body.style.removeProperty('--background');
+                            document.body.style.removeProperty('--accent-color');
                         }
+                    } else {
+                        // If not vinyl theme, always ensure vinyl colors are cleared
+                        document.body.style.removeProperty('--background');
+                        document.body.style.removeProperty('--accent-color');
                     }
-                    
-                    disk.style.animationPlayState = data.is_playing ? 'running' : 'paused';
-                }
-
-                if (data && data.is_playing) {
-                    disk.classList.remove('paused');
-                } else {
-                    disk.classList.add('paused');
-                }
-
-                if (currentTheme === 'vinyl' && !data.item) {
-                    document.body.style.removeProperty('--background');
-                    document.body.style.removeProperty('--accent-color');
                 }
             } catch (err) {
                 console.error('Error:', err);
