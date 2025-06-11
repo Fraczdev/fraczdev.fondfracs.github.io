@@ -1,496 +1,490 @@
 document.addEventListener('DOMContentLoaded', () => {
-        // Removed skill bar initialization and IntersectionObserver from here
-        
-        const glassCard = document.querySelector('.glass-card');
-        const audio = document.getElementById('player');
-        let lastPlayedSong = null;
-        let lastPlayedArtist = null;
-        
+    const skillBars = document.querySelectorAll('.skill-level');
     
-        document.addEventListener('mousemove', (e) => {
-            const rect = glassCard.getBoundingClientRect();
-            const x = (e.clientX - rect.left) / rect.width;
-            const y = (e.clientY - rect.top) / rect.height;
-            
-            const tiltX = 20;
-            const tiltY = 20;
-            const scale = 1.02;
-            
-            glassCard.style.transform = `
-                perspective(1000px)
-                rotateY(${x * tiltX - tiltX/2}deg)
-                rotateX(${y * -tiltY + tiltY/2}deg)
-                scale(${scale})
-            `;
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.width = entry.target.parentElement.getAttribute('data-level');
+                observer.unobserve(entry.target);
+            }
         });
+    }, { threshold: 0.5 });
 
-        document.addEventListener('mouseleave', () => {
-            glassCard.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1)';
-        });
+    skillBars.forEach(bar => {
+        const level = bar.style.width;
+        bar.style.width = '0';
+        bar.parentElement.setAttribute('data-level', level);
+        observer.observe(bar);
+    });
 
-        const nameElement = document.querySelector('.name');
-        const name = nameElement.textContent;
-        nameElement.textContent = '';
+    const glassCard = document.querySelector('.glass-card');
+    const audio = document.getElementById('player');
+    let lastPlayedSong = null;
+    let lastPlayedArtist = null;
+    
+
+    document.addEventListener('mousemove', (e) => {
+        const rect = glassCard.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width;
+        const y = (e.clientY - rect.top) / rect.height;
         
-        let i = 0;
-        const typeWriter = () => {
-            if (i < name.length) {
-                nameElement.textContent += name.charAt(i);
-                i++;
-                setTimeout(typeWriter, 100);
-            }
-        };
+        const tiltX = 20;
+        const tiltY = 20;
+        const scale = 1.02;
         
-        setTimeout(typeWriter, 1000);
+        glassCard.style.transform = `
+            perspective(1000px)
+            rotateY(${x * tiltX - tiltX/2}deg)
+            rotateX(${y * -tiltY + tiltY/2}deg)
+            scale(${scale})
+        `;
+    });
 
-        const lanyardSocket = new WebSocket('wss://api.lanyard.rest/socket');
-        const userId = '1235621597776445480';
-        let heartbeatInterval;
-        let receivedPresence = false;
+    document.addEventListener('mouseleave', () => {
+        glassCard.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1)';
+    });
 
-        lanyardSocket.addEventListener('open', () => {
-            console.log('[Lanyard] WebSocket opened');
-        });
+    const nameElement = document.querySelector('.name');
+    const name = nameElement.textContent;
+    nameElement.textContent = '';
+    
+    let i = 0;
+    const typeWriter = () => {
+        if (i < name.length) {
+            nameElement.textContent += name.charAt(i);
+            i++;
+            setTimeout(typeWriter, 100);
+        }
+    };
+    
+    setTimeout(typeWriter, 1000);
 
-        lanyardSocket.addEventListener('error', (e) => {
-            console.error('[Lanyard] WebSocket error:', e);
-        });
+    const lanyardSocket = new WebSocket('wss://api.lanyard.rest/socket');
+    const userId = '1235621597776445480';
+    let heartbeatInterval;
+    let receivedPresence = false;
 
-        lanyardSocket.addEventListener('close', (e) => {
-            console.warn('[Lanyard] WebSocket closed:', e);
-        });
+    lanyardSocket.addEventListener('open', () => {
+        console.log('[Lanyard] WebSocket opened');
+    });
 
-        lanyardSocket.addEventListener('message', (event) => {
-            const payload = JSON.parse(event.data);
-            console.log('[Lanyard] Message received:', payload);
+    lanyardSocket.addEventListener('error', (e) => {
+        console.error('[Lanyard] WebSocket error:', e);
+    });
 
-            if (payload.op === 1 && payload.d && payload.d.heartbeat_interval) {
-                if (heartbeatInterval) clearInterval(heartbeatInterval);
-                heartbeatInterval = setInterval(() => {
-                    lanyardSocket.send(JSON.stringify({ op: 3 }));
-                }, payload.d.heartbeat_interval);
+    lanyardSocket.addEventListener('close', (e) => {
+        console.warn('[Lanyard] WebSocket closed:', e);
+    });
 
-                lanyardSocket.send(JSON.stringify({
-                    op: 2,
-                    d: { subscribe_to_id: userId }
-                }));
-                console.log('[Lanyard] Sent subscribe_to_id');
+    lanyardSocket.addEventListener('message', (event) => {
+        const payload = JSON.parse(event.data);
+        console.log('[Lanyard] Message received:', payload);
+
+        if (payload.op === 1 && payload.d && payload.d.heartbeat_interval) {
+            if (heartbeatInterval) clearInterval(heartbeatInterval);
+            heartbeatInterval = setInterval(() => {
+                lanyardSocket.send(JSON.stringify({ op: 3 }));
+            }, payload.d.heartbeat_interval);
+
+            lanyardSocket.send(JSON.stringify({
+                op: 2,
+                d: { subscribe_to_id: userId }
+            }));
+            console.log('[Lanyard] Sent subscribe_to_id');
+        }
+
+        if (payload.t === 'INIT_STATE' || payload.t === 'PRESENCE_UPDATE') {
+            receivedPresence = true;
+            const d = payload.d;
+            const statusColors = {
+                online: '#43b581',
+                dnd: '#f04747',
+                idle: '#faa61a',
+                offline: '#747f8d'
+            };
+            const status = d.discord_status;
+            let activity = d.activities.find(a => a.type === 0 || a.type === 1 || a.type === 2);
+            let activityText = '';
+            if (activity) {
+                if (activity.type === 2) activityText = `Listening to ${activity.name}`;
+                else if (activity.type === 0) activityText = `Playing ${activity.name}`;
+                else activityText = activity.name;
             }
-
-            if (payload.t === 'INIT_STATE' || payload.t === 'PRESENCE_UPDATE') {
-                receivedPresence = true;
-                const d = payload.d;
-                const statusColors = {
-                    online: '#43b581',
-                    dnd: '#f04747',
-                    idle: '#faa61a',
-                    offline: '#747f8d'
-                };
-                const status = d.discord_status;
-                let activity = d.activities.find(a => a.type === 0 || a.type === 1 || a.type === 2);
-                let activityText = '';
-                if (activity) {
-                    if (activity.type === 2) activityText = `Listening to ${activity.name}`;
-                    else if (activity.type === 0) activityText = `Playing ${activity.name}`;
-                    else activityText = activity.name;
-                }
-                const statusDot = document.getElementById('discord-status-dot');
-                if (statusDot) {
-                    statusDot.style.background = statusColors[status] || '#747f8d';
-                    statusDot.style.display = 'block';
-                } else {
-                    console.log('Status dot element not found');
-                }
-                const activityDiv = document.getElementById('discord-activity-text');
-                if (activityDiv) {
-                    activityDiv.textContent = activityText;
-                }
+            const statusDot = document.getElementById('discord-status-dot');
+            if (statusDot) {
+                statusDot.style.background = statusColors[status] || '#747f8d';
+                statusDot.style.display = 'block';
+            } else {
+                console.log('Status dot element not found');
             }
-        });
-
-        setTimeout(() => {
-            if (!receivedPresence) {
-                console.warn('[Lanyard] No presence data received after 3s. Setting fallback.');
-                const statusDot = document.getElementById('discord-status-dot');
-                if (statusDot) {
-                    statusDot.style.background = '#747f8d';
-                }
-                const activityDiv = document.getElementById('discord-activity-text');
-                if (activityDiv) {
-                    activityDiv.textContent = '';
-                }
+            const activityDiv = document.getElementById('discord-activity-text');
+            if (activityDiv) {
+                activityDiv.textContent = activityText;
             }
-        }, 3000);
+        }
+    });
 
-        const disk = document.querySelector('.vinyl-disk');
+    setTimeout(() => {
+        if (!receivedPresence) {
+            console.warn('[Lanyard] No presence data received after 3s. Setting fallback.');
+            const statusDot = document.getElementById('discord-status-dot');
+            if (statusDot) {
+                statusDot.style.background = '#747f8d';
+            }
+            const activityDiv = document.getElementById('discord-activity-text');
+            if (activityDiv) {
+                activityDiv.textContent = '';
+            }
+        }
+    }, 3000);
+
+    const disk = document.querySelector('.vinyl-disk');
+    const songTitle = document.querySelector('.song-title');
+    const songArtist = document.querySelector('.song-artist');
+    const progressBar = document.querySelector('.progress');
+    const timestamp = document.querySelector('.timestamp');
+    const musicPlayer = document.querySelector('.music-player');
+    const lastSongElement = document.querySelector('.last-song');
+    
+    function updateMusicInfo(title, artist, currentTime, duration, imageUrl = null) {
+        songTitle.textContent = title;
+        songArtist.textContent = artist;
+        
+        const current = Math.floor(currentTime / 1000);
+        const total = Math.floor(duration / 1000);
+        const progress = (currentTime / duration) * 100;
+        
+        progressBar.style.width = `${progress}%`;
+        timestamp.textContent = `${formatTime(current)} / ${formatTime(total)}`;
+    }
+
+    function formatTime(seconds) {
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = seconds % 60;
+        return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+    }
+
+    function checkTextOverflow() {
         const songTitle = document.querySelector('.song-title');
         const songArtist = document.querySelector('.song-artist');
-        const progressBar = document.querySelector('.progress');
-        const timestamp = document.querySelector('.timestamp');
-        const musicPlayer = document.querySelector('.music-player');
-        const lastSongElement = document.querySelector('.last-song');
-        
-        function updateMusicInfo(title, artist, currentTime, duration, imageUrl = null) {
-            songTitle.textContent = title;
-            songArtist.textContent = artist;
-            
-            const current = Math.floor(currentTime / 1000);
-            const total = Math.floor(duration / 1000);
-            const progress = (currentTime / duration) * 100;
-            
-            progressBar.style.width = `${progress}%`;
-            timestamp.textContent = `${formatTime(current)} / ${formatTime(total)}`;
-        }
-
-        function formatTime(seconds) {
-            const minutes = Math.floor(seconds / 60);
-            const remainingSeconds = seconds % 60;
-            return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
-        }
-
-        function checkTextOverflow() {
-            const songTitle = document.querySelector('.song-title');
-            const songArtist = document.querySelector('.song-artist');
-            const titleWrapper = document.querySelector('.song-title-wrapper');
-            const artistWrapper = document.querySelector('.song-artist-wrapper');
-
-            if (songTitle && titleWrapper) {
-                if (songTitle.offsetWidth > titleWrapper.offsetWidth) {
-                    songTitle.classList.add('scroll');
-                } else {
-                    songTitle.classList.remove('scroll');
-                }
-            }
-
-            if (songArtist && artistWrapper) {
-                if (songArtist.offsetWidth > artistWrapper.offsetWidth) {
-                    songArtist.classList.add('scroll');
-                } else {
-                    songArtist.classList.remove('scroll');
-                }
-            }
-        }
-
-        async function checkPlaybackStatus() {
-            try {
-                const response = await fetch('/.netlify/functions/spotify/current-playback');
-                const data = await response.json();
-                
-                const musicPlayer = document.querySelector('.music-player');
-                const songTitle = document.querySelector('.song-title');
-                const songArtist = document.querySelector('.song-artist');
-                const progressBar = document.querySelector('.progress');
-                const timestamp = document.querySelector('.timestamp');
-                const disk = document.querySelector('.vinyl-disk');
-                
-                if (!data || !data.item) {
-                    console.log('No song playing or no item data.');
-                    songTitle.textContent = "No song playing";
-                    songArtist.textContent = "";  
-                    progressBar.style.width = '0';
-                    timestamp.textContent = '0:00 / 0:00';
-                    
-                    const img = disk.querySelector('img') || document.createElement('img');
-                    // Ensure placeholder image is set when no song
-                    if (img.src !== 'https://i.imgur.com/HmxbLzY.png') {
-                        img.src = 'https://i.imgur.com/HmxbLzY.png';
-                        img.alt = 'No music playing';
-                        if (!disk.contains(img)) {
-                            disk.insertBefore(img, disk.firstChild);
-                        }
-                    }
-                    
-                    disk.style.animationPlayState = 'running';
-
-                    
-                    if (lastPlayedSong && lastPlayedArtist) {
-                        lastSongElement.textContent = `Last played: ${lastPlayedSong} - ${lastPlayedArtist}`;
-                        lastSongElement.style.display = 'block';
-                    }
-                    if (currentTheme === 'vinyl') {
-                        document.body.style.removeProperty('--background');
-                        document.body.style.removeProperty('--accent-color');
-                    }
-                } else {
-                    console.log('Song data received:', data.item.name, 'by', data.item.artists[0].name);
-                    
-                    // Check if song has changed before updating last played
-                    if (lastPlayedSong !== data.item.name) {
-                        lastPlayedSong = data.item.name;
-                        lastPlayedArtist = data.item.artists[0].name;
-                    }
-                    
-                    songTitle.textContent = data.item.name;
-                    songArtist.textContent = data.item.artists[0].name;
-                    lastSongElement.style.display = 'none';
-                    
-                    setTimeout(checkTextOverflow, 100);
-                    
-                    const progress = (data.progress_ms / data.item.duration_ms) * 100;
-                    progressBar.style.width = `${progress}%`;
-                    timestamp.textContent = `${formatTime(Math.floor(data.progress_ms / 1000))} / ${formatTime(Math.floor(data.item.duration_ms / 1000))}`;
-                    
-                    if (data && data.is_playing) {
-                        disk.classList.remove('paused');
-                    } else {
-                        disk.classList.add('paused');
-                    }
-
-                    // Manage vinyl theme colors based on current theme and playback status
-                    if (currentTheme === 'vinyl') {
-                        if (data.item.album?.images?.[0]?.url) {
-                            const originalUrl = data.item.album.images[0].url;
-                            const proxiedUrl = `/.netlify/functions/proxy-image?url=${encodeURIComponent(originalUrl)}`;
-                            console.log('Album art URL (proxied):', proxiedUrl);
-
-                            const img = disk.querySelector('img') || document.createElement('img');
-                            // Only update img.src if it's a new URL to prevent unnecessary reloads
-                            if (img.src !== proxiedUrl) {
-                                img.src = proxiedUrl;
-                                img.alt = 'Album art';
-                                if (!disk.contains(img)) {
-                                    disk.insertBefore(img, disk.firstChild);
-                                }
-                                img.onload = () => {
-                                    console.log('Album art image loaded. currentTheme:', currentTheme);
-                                    if (currentTheme === 'vinyl') {
-                                        setVinylThemeFromImage(img);
-                                    }
-                                };
-                                // Handle cases where image might be cached and onload doesn't fire
-                                if (img.complete && currentTheme === 'vinyl') {
-                                    console.log('Album art already complete. Applying vinyl theme.');
-                                    setVinylThemeFromImage(img);
-                                }
-                            } else {
-                                console.log('Album art URL is the same, no update needed.');
-                                if (currentTheme === 'vinyl' && img.complete) { // Re-apply theme if already loaded
-                                    setVinylThemeFromImage(img);
-                                }
-                            }
-                        } else {
-                            console.log('Vinyl theme: No album art URL found. Clearing colors.');
-                            document.body.style.removeProperty('--background');
-                            document.body.style.removeProperty('--accent-color');
-                        }
-                    } else {
-                        console.log('Not vinyl theme. Clearing inline colors.');
-                        document.body.style.removeProperty('--background');
-                        document.body.style.removeProperty('--accent-color');
-                    }
-                }
-            } catch (err) {
-                console.error('Error in checkPlaybackStatus:', err);
-            }
-        }
-
-        checkPlaybackStatus();
-        setInterval(checkPlaybackStatus, 1000);
-
-        const resizeObserver = new ResizeObserver(() => {
-            checkTextOverflow();
-        });
-
         const titleWrapper = document.querySelector('.song-title-wrapper');
         const artistWrapper = document.querySelector('.song-artist-wrapper');
-        if (titleWrapper) resizeObserver.observe(titleWrapper);
-        if (artistWrapper) resizeObserver.observe(artistWrapper);
 
-        const listenWithMeBtn = document.querySelector('.listen-with-me');
-        listenWithMeBtn.addEventListener('click', async () => {
-            try {
-                const response = await fetch('/.netlify/functions/spotify/current-playback');
-                const data = await response.json();
-                if (!data || !data.item) {
-                    alert('No song is currently playing!');
-                    return;
-                }
-                const trackId = data.item.id;
-                const progressMs = data.progress_ms || 0;
-                // Since the spotify web player supports t=seconds for podcasts but not for songs, I'm going to use the URI for the song.
-                // However, the Spotify URI can be opened at a specific time using the Spotify app with a deep link, although it's not reliable on web. I tried my best to make it work.
-                const url = `https://open.spotify.com/track/${trackId}?si=listenwithme&t=${Math.floor(progressMs/1000)}`;
-                window.open(url, '_blank');
-            } catch (err) {
-                alert('Could not get current song info.');
+        if (songTitle && titleWrapper) {
+            if (songTitle.offsetWidth > titleWrapper.offsetWidth) {
+                songTitle.classList.add('scroll');
+            } else {
+                songTitle.classList.remove('scroll');
             }
-        });
+        }
 
-        const themes = ['default', 'light', 'dark', 'vinyl'];
-        let currentTheme = localStorage.getItem('theme') || 'default';
-        applyTheme(currentTheme);
+        if (songArtist && artistWrapper) {
+            if (songArtist.offsetWidth > artistWrapper.offsetWidth) {
+                songArtist.classList.add('scroll');
+            } else {
+                songArtist.classList.remove('scroll');
+            }
+        }
+    }
 
-        document.getElementById('theme-toggle-btn').addEventListener('click', () => {
-            const currentIndex = themes.indexOf(currentTheme);
-            const nextIndex = (currentIndex + 1) % themes.length;
-            currentTheme = themes[nextIndex];
-            localStorage.setItem('theme', currentTheme);
+    async function checkPlaybackStatus() {
+        try {
+            const response = await fetch('/.netlify/functions/spotify/current-playback');
+            const data = await response.json();
+            
+            const musicPlayer = document.querySelector('.music-player');
+            const songTitle = document.querySelector('.song-title');
+            const songArtist = document.querySelector('.song-artist');
+            const progressBar = document.querySelector('.progress');
+            const timestamp = document.querySelector('.timestamp');
+            const disk = document.querySelector('.vinyl-disk');
+            
+            if (!data || !data.item) {
+                songTitle.textContent = "No song playing";
+                songArtist.textContent = "";  
+                progressBar.style.width = '0';
+                timestamp.textContent = '0:00 / 0:00';
+                
+                const img = disk.querySelector('img') || document.createElement('img');
+                img.src = 'https://i.imgur.com/HmxbLzY.png';
+                img.alt = 'No music playing';
+                if (!disk.contains(img)) {
+                    disk.insertBefore(img, disk.firstChild);
+                }
+                
+                disk.style.animationPlayState = 'running';
+
+                
+                if (lastPlayedSong && lastPlayedArtist) {
+                    lastSongElement.textContent = `Last played: ${lastPlayedSong} - ${lastPlayedArtist}`;
+                    lastSongElement.style.display = 'block';
+                }
+            } else {
+                
+                lastPlayedSong = data.item.name;
+                lastPlayedArtist = data.item.artists[0].name;
+                
+                songTitle.textContent = data.item.name;
+                songArtist.textContent = data.item.artists[0].name;
+                lastSongElement.style.display = 'none';
+                
+                setTimeout(checkTextOverflow, 100);
+                
+                const progress = (data.progress_ms / data.item.duration_ms) * 100;
+                progressBar.style.width = `${progress}%`;
+                timestamp.textContent = `${formatTime(Math.floor(data.progress_ms / 1000))} / ${formatTime(Math.floor(data.item.duration_ms / 1000))}`;
+                
+                if (data.item.album?.images?.[0]?.url) {
+                    const originalUrl = data.item.album.images[0].url;
+                    const proxiedUrl = `/.netlify/functions/proxy-image?url=${encodeURIComponent(originalUrl)}`;
+                    const img = disk.querySelector('img') || document.createElement('img');
+                    img.src = proxiedUrl;
+                    img.alt = 'Album art';
+                    if (!disk.contains(img)) {
+                        disk.insertBefore(img, disk.firstChild);
+                    }
+                    if (currentTheme === 'vinyl') {
+                        if (img.complete) {
+                            setVinylThemeFromImage(img);
+                        } else {
+                            img.onload = () => setVinylThemeFromImage(img);
+                        }
+                    }
+                }
+                
+                disk.style.animationPlayState = data.is_playing ? 'running' : 'paused';
+            }
+
+            if (data && data.is_playing) {
+                disk.classList.remove('paused');
+            } else {
+                disk.classList.add('paused');
+            }
+
+            if (currentTheme === 'vinyl' && !data.item) {
+                document.body.style.removeProperty('--background');
+                document.body.style.removeProperty('--accent-color');
+            }
+        } catch (err) {
+            console.error('Error:', err);
+        }
+    }
+
+    checkPlaybackStatus();
+    setInterval(checkPlaybackStatus, 1000);
+
+    const resizeObserver = new ResizeObserver(() => {
+        checkTextOverflow();
+    });
+
+    const titleWrapper = document.querySelector('.song-title-wrapper');
+    const artistWrapper = document.querySelector('.song-artist-wrapper');
+    if (titleWrapper) resizeObserver.observe(titleWrapper);
+    if (artistWrapper) resizeObserver.observe(artistWrapper);
+
+    const listenWithMeBtn = document.querySelector('.listen-with-me');
+    listenWithMeBtn.addEventListener('click', async () => {
+        try {
+            const response = await fetch('/.netlify/functions/spotify/current-playback');
+            const data = await response.json();
+            if (!data || !data.item) {
+                alert('No song is currently playing!');
+                return;
+            }
+            const trackId = data.item.id;
+            const progressMs = data.progress_ms || 0;
+            // Since the spotify web player supports t=seconds for podcasts but not for songs, I'm going to use the URI for the song.
+            // However, the Spotify URI can be opened at a specific time using the Spotify app with a deep link, although it's not reliable on web. I tried my best to make it work.
+            const url = `https://open.spotify.com/track/${trackId}?si=listenwithme&t=${Math.floor(progressMs/1000)}`;
+            window.open(url, '_blank');
+        } catch (err) {
+            alert('Could not get current song info.');
+        }
+    });
+
+    const themes = ['gradient', 'light', 'dark', 'vinyl'];
+    let currentTheme = localStorage.getItem('theme') || 'gradient';
+
+    function applyTheme(theme) {
+        document.body.classList.remove('theme-light', 'theme-dark', 'theme-vinyl');
+        if (theme === 'light') document.body.classList.add('theme-light');
+        else if (theme === 'dark') document.body.classList.add('theme-dark');
+        else if (theme === 'vinyl') document.body.classList.add('theme-vinyl');
+        else document.body.classList.remove('theme-light', 'theme-dark', 'theme-vinyl');
+        if (theme !== 'vinyl') {
+            document.body.style.removeProperty('--background');
+            document.body.style.removeProperty('--accent-color');
+        }
+        localStorage.setItem('theme', theme);
+        if (!['light','dark','vinyl'].includes(theme)) {
+            createSolidColorPicker();
+        } else {
+            removeSolidColorPicker();
+        }
+    }
+
+    applyTheme(currentTheme);
+
+    const btn = document.getElementById('theme-toggle-btn');
+    if (btn) {
+        btn.addEventListener('click', () => {
+            let idx = themes.indexOf(currentTheme);
+            currentTheme = themes[(idx + 1) % themes.length];
             applyTheme(currentTheme);
             showThemePopup(currentTheme);
         });
+    }
 
-        function applyTheme(theme) {
-            console.log(`Applying theme: ${theme}`);
-            console.log('Body inline style BEFORE clearing:', document.body.style.cssText);
-
-            // Always remove inline background/accent colors first
-            document.body.style.removeProperty('--background');
-            document.body.style.removeProperty('--accent-color');
+    function setVinylThemeFromImage(img) {
+        if (window.ColorThief && img.complete) {
+            try {
+                const colorThief = new ColorThief();
+                const rgb = colorThief.getColor(img);
+              
+                document.body.style.setProperty('--background', `rgb(${rgb[0]},${rgb[1]},${rgb[2]})`);
             
-            console.log('Body inline style AFTER clearing:', document.body.style.cssText);
-
-            document.body.className = `theme-${theme}`;
-            console.log('Body className after applying theme:', document.body.className);
-
-            if (theme === 'vinyl') {
-                checkPlaybackStatus();
-            } 
-        }
-
-        function setVinylThemeFromImage(img) {
-            console.log('setVinylThemeFromImage called with image:', img.src);
-            if (window.ColorThief && img.complete) {
-                try {
-                    const colorThief = new ColorThief();
-                    const rgb = colorThief.getColor(img);
-                    console.log('Extracted color:', rgb);
-                  
-                    document.body.style.setProperty('--background', `rgb(${rgb[0]},${rgb[1]},${rgb[2]})`);
-                
-                    document.body.style.setProperty('--accent-color', `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.8)`);
-                } catch (e) {
-                    console.error('Error extracting color with ColorThief:', e);
-                    // fallback to gradient bruh
-                    document.body.style.removeProperty('--background');
-                    document.body.style.removeProperty('--accent-color');
-                }
-            } else {
-                console.log('ColorThief not available or image not complete.', {colorThief: window.ColorThief, complete: img.complete});
+                document.body.style.setProperty('--accent-color', `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.8)`);
+            } catch (e) {
+                // fallback to gradient bruh
+                document.body.style.removeProperty('--background');
+                document.body.style.removeProperty('--accent-color');
             }
         }
+    }
 
-        function showThemePopup(theme) {
-            let name = '';
-            if (theme === 'light') name = 'Light';
-            else if (theme === 'dark') name = 'Dark';
-            else if (theme === 'vinyl') name = 'Song';
-            else name = 'Default';
-            let popup = document.createElement('div');
-            popup.className = 'theme-popup';
-            popup.textContent = `Theme: ${name}`;
-            document.body.appendChild(popup);
-            setTimeout(() => {
-                popup.classList.add('hide');
-                setTimeout(() => popup.remove(), 300);
-            }, 1200);
-        }
+    function showThemePopup(theme) {
+        let name = '';
+        if (theme === 'light') name = 'Light';
+        else if (theme === 'dark') name = 'Dark';
+        else if (theme === 'vinyl') name = 'Song';
+        else name = 'Gradient';
+        let popup = document.createElement('div');
+        popup.className = 'theme-popup';
+        popup.textContent = `Theme: ${name}`;
+        document.body.appendChild(popup);
+        setTimeout(() => {
+            popup.classList.add('hide');
+            setTimeout(() => popup.remove(), 300);
+        }, 1200);
+    }
 
-        // === GSAP ENHANCEMENTS ===
-        gsap.set(['.glass-card', '.info-card', '.profile-image', '.contact-icon'], { opacity: 0, y: 40 });
-        gsap.to('.profile-image', { opacity: 1, y: 0, duration: 1, ease: 'power3.out', delay: 0.1 });
-        gsap.to('.glass-card', { opacity: 1, y: 0, duration: 1, ease: 'power3.out', delay: 0.2 });
-        gsap.to('.info-card', { opacity: 1, y: 0, duration: 1, ease: 'power3.out', stagger: 0.15, delay: 0.4 });
-        gsap.to('.contact-icon', { opacity: 1, y: 0, duration: 1, ease: 'back.out(1.7)', stagger: 0.1, delay: 0.8 });
+    // === GSAP ENHANCEMENTS ===
+    gsap.set(['.glass-card', '.info-card', '.profile-image', '.contact-icon'], { opacity: 0, y: 40 });
+    gsap.to('.profile-image', { opacity: 1, y: 0, duration: 1, ease: 'power3.out', delay: 0.1 });
+    gsap.to('.glass-card', { opacity: 1, y: 0, duration: 1, ease: 'power3.out', delay: 0.2 });
+    gsap.to('.info-card', { opacity: 1, y: 0, duration: 1, ease: 'power3.out', stagger: 0.15, delay: 0.4 });
+    gsap.to('.contact-icon', { opacity: 1, y: 0, duration: 1, ease: 'back.out(1.7)', stagger: 0.1, delay: 0.8 });
 
-        // Typing effect for the bio
-        const bioElement = document.querySelector('.bio-center');
-        const originalBio = bioElement.textContent;
-        let bioIndex = 0;
-        let bioTypingStarted = false;
-
-        const typeBio = () => {
-            if (bioIndex === 0) {
-                bioElement.textContent = ''; 
-            }
-            if (bioIndex < originalBio.length) {
-                bioElement.textContent += originalBio.charAt(bioIndex);
-                bioIndex++;
-                setTimeout(typeBio, 50);
-            }
-        };
-        
-        // GSAP ScrollTrigger for elements with data-animate
+    // GSAP scroll-triggered animation for .language-tag (float in as you scroll)
+    document.querySelectorAll('.language-tag').forEach((el, i) => {
+        gsap.set(el, { opacity: 0, x: -30 });
+        const trigger = el.closest('.language-item') || el;
         const onScroll = () => {
-            document.querySelectorAll('[data-animate]').forEach(element => {
-                if (element.getBoundingClientRect().top < window.innerHeight) {
-                    element.classList.add('animate');
-
-                    if (element === bioElement && !bioTypingStarted) {
-                        typeBio();
-                        bioTypingStarted = true;
-                    }
-                }
-            });
+            const rect = trigger.getBoundingClientRect();
+            if (rect.top < window.innerHeight - 60) {
+                gsap.to(el, { opacity: 1, x: 0, duration: 0.7, ease: 'power2.out', delay: i * 0.1 });
+                window.removeEventListener('scroll', onScroll);
+            }
         };
-
-        // Run once on load
-        onScroll();
-
-        // Attach scroll event listener
         window.addEventListener('scroll', onScroll);
+        onScroll();
+    });
 
-        // Optional: Smooth scroll for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+    // === GSAP INTERACTIVE SPIN EFFECTS ===
+    // Contact icons spin+scale on click
+    const contactIcons = document.querySelectorAll('.contact-icon');
+    contactIcons.forEach(icon => {
+        icon.addEventListener('click', e => {
+            e.preventDefault();
+            gsap.to(icon, {
+                rotate: 360,
+                scale: 1.3,
+                duration: 0.7,
+                ease: 'expo.inOut',
+                yoyo: true,
+                repeat: 1,
+                onComplete: () => { icon.style.transform = ''; }
+            });
+            // If it's a link, follow after animation
+            const href = icon.getAttribute('href');
+            if (href && href !== '#') {
+                setTimeout(() => { window.open(href, '_blank'); }, 700);
+            }
+        });
+    });
+    // Language tags spin+scale on click
+    const langTags = document.querySelectorAll('.language-tag');
+    langTags.forEach(tag => {
+        tag.addEventListener('click', () => {
+            gsap.to(tag, {
+                rotate: 360,
+                scale: 1.3,
+                duration: 0.7,
+                ease: 'expo.inOut',
+                yoyo: true,
+                repeat: 1,
+                onComplete: () => { tag.style.transform = ''; }
             });
         });
+    });
 
-        // Waveform visualization (moved to lofi-player.js)
-        // createWaveform();
+    // === GSAP TEXT REVEAL & STAGGER ANIMATIONS (RESTORED) ===
+    if (typeof gsap !== 'undefined') {
+        // Quicker for title and bio
+        gsap.fromTo('.name.gsap-text-reveal', { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 0.5, delay: 0.5, ease: 'power2.out' });
+        gsap.fromTo('.bio-center.gsap-text-reveal', { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 0.5, delay: 0.7, ease: 'power2.out' });
+        // Others as before
+        gsap.utils.toArray('.gsap-text-reveal').forEach((el, i) => {
+            if (el.classList.contains('name') || el.classList.contains('bio-center')) return;
+            gsap.fromTo(el, { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 1.1, delay: 1 + i * 0.2, ease: 'power2.out' });
+        });
+        gsap.utils.toArray('.gsap-stagger-list').forEach((list, i) => {
+            const children = list.children;
+            gsap.fromTo(children, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.9, stagger: 0.13, delay: 1.5 + i * 0.2, ease: 'back.out(1.7)' });
+        });
+    }
 
-        // Handle solid color picker for theme
-        function createSolidColorPicker() {
-            let picker = document.getElementById('solid-bg-picker');
-            if (!picker) {
-                picker = document.createElement('input');
-                picker.type = 'color';
-                picker.id = 'solid-bg-picker';
-                picker.value = '#101014';
-                picker.title = 'Pick background color';
-                picker.style.position = 'fixed';
-                picker.style.top = '18px';
-                picker.style.left = '72px';
-                picker.style.zIndex = 1001;
-                picker.style.width = '44px';
-                picker.style.height = '44px';
-                picker.style.border = 'none';
-                picker.style.background = 'none';
-                picker.style.cursor = 'pointer';
-                picker.style.boxShadow = '0 2px 8px rgba(0,0,0,0.08)';
-                document.body.appendChild(picker);
-                picker.addEventListener('input', (e) => {
-                    document.body.style.setProperty('--solid-bg', picker.value);
-                    localStorage.setItem('solid-bg', picker.value);
-                });
-            }
-            picker.style.display = 'block';
-            // Restore last color
-            const saved = localStorage.getItem('solid-bg');
-            if (saved) {
-                picker.value = saved;
-                document.body.style.setProperty('--solid-bg', saved);
-            } else {
+    // === SOLID THEME COLOR PICKER ===
+    function createSolidColorPicker() {
+        let picker = document.getElementById('solid-bg-picker');
+        if (!picker) {
+            picker = document.createElement('input');
+            picker.type = 'color';
+            picker.id = 'solid-bg-picker';
+            picker.value = '#101014';
+            picker.title = 'Pick background color';
+            picker.style.position = 'fixed';
+            picker.style.top = '18px';
+            picker.style.left = '72px';
+            picker.style.zIndex = 1001;
+            picker.style.width = '44px';
+            picker.style.height = '44px';
+            picker.style.border = 'none';
+            picker.style.background = 'none';
+            picker.style.cursor = 'pointer';
+            picker.style.boxShadow = '0 2px 8px rgba(0,0,0,0.08)';
+            document.body.appendChild(picker);
+            picker.addEventListener('input', (e) => {
                 document.body.style.setProperty('--solid-bg', picker.value);
-            }
+                localStorage.setItem('solid-bg', picker.value);
+            });
         }
-
-        function removeSolidColorPicker() {
-            const picker = document.getElementById('solid-bg-picker');
-            if (picker) picker.style.display = 'none';
+        picker.style.display = 'block';
+        // Restore last color
+        const saved = localStorage.getItem('solid-bg');
+        if (saved) {
+            picker.value = saved;
+            document.body.style.setProperty('--solid-bg', saved);
+        } else {
+            document.body.style.setProperty('--solid-bg', picker.value);
         }
-
-        // Initial check for hash and theme
-        if (window.location.hash) {
-            const themeFromHash = window.location.hash.substring(1);
-            if (themes.includes(themeFromHash)) {
-                currentTheme = themeFromHash;
-                localStorage.setItem('theme', currentTheme);
-                applyTheme(currentTheme);
-            }
-        }
-    }); 
+    }
+    function removeSolidColorPicker() {
+        const picker = document.getElementById('solid-bg-picker');
+        if (picker) picker.style.display = 'none';
+    }
+    // On load, if solid theme, show picker
+    if (!['light','dark','vinyl'].includes(localStorage.getItem('theme'))) {
+        createSolidColorPicker();
+    }
+}); 

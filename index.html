@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>(My)Zilk's Portfolio</title>
+  <title>Zilk's Personal Portfolio</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body class="theme-default">
+<body>
 <div class="squiggle squiggle-top-left">
   <svg width="260" height="70" viewBox="0 0 260 70" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M10 60 Q 40 10, 70 40 T 130 40 T 190 40 T 250 20" stroke="white" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
@@ -19,7 +19,6 @@
     <path d="M10 20 Q 70 60, 130 40 T 190 40 T 250 60" stroke="white" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>
 </div>
-
 <div class="container">
   <div class="glass-card" data-animate style="position:relative;">
     <div class="main-squiggle-upper-left" style="position:absolute;top:18px;left:18px;z-index:2;">
@@ -39,7 +38,7 @@
       </div>
       <div id="discord-activity-text" style="margin-top: 10px;"></div>
       <h1 class="name gsap-text-reveal" data-animate>zilk</h1>
-      <div class="bio-center gsap-text-reveal" data-animate>Hi! I'm zilk (aka fondcesk), a passionate coder who loves building cool things for communities. I enjoy coding because it makes me relax and I love collaborating with others depending on the project.</div>
+      <div class="bio-center gsap-text-reveal" data-animate>Hi! I'm zilk (aka fondfracz), a passionate coder who loves building cool things for communities. I enjoy coding because it makes me relax and I love collaborating with others depending on the project.</div>
       <div class="location" data-animate style="margin-top: 24px;">
         <i class="fas fa-map-marker-alt"></i><span>Italy</span>
       </div>
@@ -47,7 +46,7 @@
     <div class="info-section">
       <div class="info-card glass-effect" data-animate>
         <h2><i class="fas fa-user"></i> About Me</h2>
-        <p><span class="highlight">Residence:</span> <span class="highlight">MidSouthern Italy</span></p>
+        <p>Residence: <span class="highlight">MidSouthern Italy</span></p>
         <div class="about-extra">
           <div class="hobbies-list">
             <h3 class="hobbies-heading"><i class="fas fa-star"></i> Hobbies & Interests</h3>
@@ -152,6 +151,7 @@
       <div class="no-music-message">
         I'm not listening to music right now, come back later! 🎵
       </div>
+      <audio id="player" src="song1.wav" loop></audio>
     </div>
   </div>
 </div>
