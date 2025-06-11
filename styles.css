@@ -1519,4 +1519,18 @@ body.vibrating {
     100% {
         transform: translateX(-100%);
     }
+}
+
+.now-playing-text .scroll {
+    padding-left: 100%;
+    animation: scrollNowPlayingText 15s linear infinite;
+}
+
+@keyframes scrollNowPlayingText {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
 }       
