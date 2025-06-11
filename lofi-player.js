@@ -1,4 +1,16 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Temporary fetch for debugging Netlify deployment
+    fetch('song1.wav')
+        .then(response => {
+            console.log('song1.wav fetch response status:', response.status);
+            if (!response.ok) {
+                console.error('song1.wav fetch failed:', response.statusText);
+            }
+        })
+        .catch(error => {
+            console.error('song1.wav fetch error:', error);
+        });
+
     const lofiPlayer = document.createElement('div');
     lofiPlayer.className = 'lofi-player';
     
