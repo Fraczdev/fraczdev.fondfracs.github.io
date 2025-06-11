@@ -304,8 +304,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (theme === 'vinyl') {
                 checkPlaybackStatus();
             } else {
-                document.body.style.removeProperty('--background');
-                document.body.style.removeProperty('--accent-color');
+                // These properties are managed by CSS classes and should not be removed here
+                // document.body.style.removeProperty('--background');
+                // document.body.style.removeProperty('--accent-color');
             }
         }
 
