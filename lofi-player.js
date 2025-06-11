@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const lofiButton = document.createElement('button');
     lofiButton.className = 'lofi-button';
-    lofiButton.innerHTML = '<i class="fas fa-music"></i>';
+    lofiButton.innerHTML = '';
     
     lofiPlayer.appendChild(lofiButton);
     document.body.appendChild(lofiPlayer);
@@ -47,19 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const elements = document.querySelectorAll('.glass-card, .info-card, .profile-image, .contact-icon, .language-tag, .hobbies-icons li');
     
-    // Store original skill bar widths
-    const skillBars = new Map();
-    document.querySelectorAll('.skill').forEach(skill => {
-        const skillName = skill.querySelector('span').textContent;
-        const skillLevel = skill.querySelector('.skill-level');
-        if (skillLevel) {
-            const originalWidth = window.getComputedStyle(skillLevel).width;
-            skillBars.set(skillName, originalWidth);
-            // Set initial width to ensure it's displayed
-            skillLevel.style.width = originalWidth;
-        }
-    });
-
     function startVibe() {
         function updateVibe() {
             analyser.getByteFrequencyData(dataArray);
@@ -86,10 +73,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     element.style.transform = `rotate(${rotation}deg)`;
                 }
             });
-
-            // Skill bar widths are not restored here, as they are now handled by stopVibe and initial load
-            // They will only be affected by the vibe animation when playing
-
             animationFrame = requestAnimationFrame(updateVibe);
         }
         
@@ -103,19 +86,6 @@ document.addEventListener('DOMContentLoaded', () => {
         
         elements.forEach(element => {
             element.style.transform = '';
-        });
-       
-        // Restore original skill bar widths when vibe stops
-        skillBars.forEach((originalWidth, skillName) => {
-            const skill = Array.from(document.querySelectorAll('.skill')).find(s => 
-                s.querySelector('span').textContent === skillName
-            );
-            if (skill) {
-                const skillLevel = skill.querySelector('.skill-level');
-                if (skillLevel) {
-                    skillLevel.style.width = originalWidth;
-                }
-            }
         });
     }
 

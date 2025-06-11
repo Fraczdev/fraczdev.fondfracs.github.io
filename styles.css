@@ -1390,4 +1390,13 @@ body:not(.theme-light):not(.theme-dark):not(.theme-vinyl) {
 
 body.vibrating {
     animation: vibrate 0.1s linear infinite;
+}
+
+.now-playing-text {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+    margin-top: 15px;
+    font-weight: 600;
 }       
