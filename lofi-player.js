@@ -49,12 +49,12 @@ document.addEventListener('DOMContentLoaded', () => {
             
             elements.forEach((element, index) => {
                 if (element.classList.contains('glass-card')) {
-                    element.style.transform = `scale(${1 + (bassFreq / 2048)})`;
+                    element.style.transform = `scale(${0.98 + (bassFreq / 1500)})`;
                 } else if (element.classList.contains('info-card')) {
                     const rotation = (midFreq - 128) / 32;
-                    element.style.transform = `scale(${1 + (bassFreq / 4096)}) rotate(${rotation}deg)`;
+                    element.style.transform = `scale(${0.98 + (bassFreq / 3000)}) rotate(${rotation}deg)`;
                 } else if (element.classList.contains('profile-image')) {   
-                    element.style.transform = `scale(${1 + (bassFreq / 4096)})`;
+                    element.style.transform = `scale(${0.98 + (bassFreq / 3000)})`;
                 } else if (element.classList.contains('contact-icon')) {
                     const bounce = Math.sin(Date.now() / 100) * (bassFreq / 1024);
                     element.style.transform = `translateY(${bounce}px)`;
