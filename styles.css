@@ -1339,7 +1339,10 @@ body:not(.theme-light):not(.theme-dark):not(.theme-vinyl) {
     bottom: 20px;
     left: 20px;
     z-index: 1000;
-    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
 }
 
 .lofi-bubble {
@@ -1405,11 +1408,8 @@ body.vibrating {
     color: #fff;
     padding: 8px 15px;
     overflow: hidden;
-    white-space: nowrap;
     max-width: 200px;
-    position: absolute;
-    bottom: 60px;
-    left: 0;
+    margin-bottom: 10px;
 }
 
 .now-playing-text-content {
