@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             elements.forEach((element, index) => {
                 if (element.classList.contains('glass-card')) {
-                    element.style.transform = `scale(${0.98 + (bassFreq / 2000)})`;
+                    element.style.transform = `scale(${0.98 + (bassFreq / 2500)})`;
                 } else if (element.classList.contains('info-card')) {
                     const rotation = (midFreq - 128) / 32;
                     element.style.transform = `scale(${0.98 + (bassFreq / 4000)}) rotate(${rotation}deg)`;

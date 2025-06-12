@@ -49,7 +49,7 @@ body::before, body::after {
     color: var(--text-primary-dark);
     animation: fadeIn 1s ease-in-out;
     overflow: hidden;
-    transition: transform 0.3s ease;
+    transition: transform 0.08s ease;
     transform-style: preserve-3d;
     will-change: transform;
 }
