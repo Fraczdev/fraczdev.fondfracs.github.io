@@ -1339,9 +1339,7 @@ body:not(.theme-light):not(.theme-dark):not(.theme-vinyl) {
     bottom: 20px;
     left: 20px;
     z-index: 1000;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    position: relative;
 }
 
 .lofi-bubble {
@@ -1350,16 +1348,6 @@ body:not(.theme-light):not(.theme-dark):not(.theme-vinyl) {
     border-radius: 25px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     transition: all 0.3s ease;
-}
-
-.lofi-icon-bubble {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    font-size: 1.2em;
 }
 
 .lofi-button {
@@ -1419,6 +1407,9 @@ body.vibrating {
     overflow: hidden;
     white-space: nowrap;
     max-width: 200px;
+    position: absolute;
+    bottom: 60px;
+    left: 0;
 }
 
 .now-playing-text-content {

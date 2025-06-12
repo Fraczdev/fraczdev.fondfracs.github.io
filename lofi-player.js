@@ -1,13 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const lofiPlayer = document.createElement('div');
     lofiPlayer.className = 'lofi-player';
-    
-    const lofiIconBubble = document.createElement('div');
-    lofiIconBubble.className = 'lofi-bubble lofi-icon-bubble';
-    const musicIcon = document.createElement('i');
-    musicIcon.className = 'fas fa-music';
-    lofiIconBubble.appendChild(musicIcon);
-    lofiPlayer.appendChild(lofiIconBubble);
+
 
     const nowPlaying = document.createElement('div');
     nowPlaying.className = 'lofi-bubble now-playing-text';
