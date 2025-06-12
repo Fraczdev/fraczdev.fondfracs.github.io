@@ -84,7 +84,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function checkNowPlayingTextOverflow() {
         if (nowPlayingTextContent && nowPlaying) {
-            // Compare inner span's scrollWidth with container's clientWidth
             if (nowPlayingTextContent.scrollWidth > nowPlaying.clientWidth) {
                 nowPlayingTextContent.classList.add('scroll');
             } else {
@@ -96,16 +95,16 @@ document.addEventListener('DOMContentLoaded', () => {
     function playNextSong() {
         currentSongIndex = (currentSongIndex + 1) % songs.length;
         audio.src = songs[currentSongIndex].file;
-        audio.load(); // Explicitly load the new song
+        audio.load(); 
         nowPlayingTextContent.textContent = `Now Playing: ${songs[currentSongIndex].title}`;
-        checkNowPlayingTextOverflow(); // Check overflow when song changes
+        checkNowPlayingTextOverflow(); 
         if (isPlaying) {
             audio.play().catch(error => {
                 console.error('Error playing audio:', error);
                 isPlaying = false;
                 lofiButton.classList.remove('playing');
                 stopVibe();
-                nowPlayingTextContent.textContent = 'Now Playing: None'; // Update inner span
+                nowPlayingTextContent.textContent = 'Now Playing: None';
             });
         }
     }
@@ -115,25 +114,25 @@ document.addEventListener('DOMContentLoaded', () => {
             audio.pause();
             lofiButton.classList.remove('playing');
             stopVibe();
-            nowPlayingTextContent.textContent = 'Now Playing: None'; // Update inner span
-            checkNowPlayingTextOverflow(); // Check overflow when stopped
+            nowPlayingTextContent.textContent = 'Now Playing: None'; 
+            checkNowPlayingTextOverflow(); 
         } else {
             if (audioContext.state === 'suspended') {
                 audioContext.resume();
             }
-            audio.src = songs[currentSongIndex].file; // Set src here for initial play
-            audio.load(); // Explicitly load the initial song
+            audio.src = songs[currentSongIndex].file; 
+            audio.load(); 
             audio.play().catch(error => {
                 console.error('Error playing audio:', error);
                 isPlaying = false;
                 lofiButton.classList.remove('playing');
                 stopVibe();
-                nowPlayingTextContent.textContent = 'Now Playing: None'; // Update inner span
+                nowPlayingTextContent.textContent = 'Now Playing: None'; 
             });
             lofiButton.classList.add('playing');
             startVibe();
             nowPlayingTextContent.textContent = `Now Playing: ${songs[currentSongIndex].title}`;
-            checkNowPlayingTextOverflow(); // Check overflow when playing
+            checkNowPlayingTextOverflow(); 
         }
         isPlaying = !isPlaying;
     });
@@ -147,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
             audio.pause();
             stopVibe();
             lofiButton.classList.remove('playing');
-            nowPlayingTextContent.textContent = 'Now Playing: None'; // Update inner span
+            nowPlayingTextContent.textContent = 'Now Playing: None'; 
             isPlaying = false;
         }
     });
