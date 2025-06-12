@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const lofiButton = document.createElement('button');
     lofiButton.className = 'lofi-button';
-    lofiButton.innerHTML = '';
+    lofiButton.innerHTML = '<i class="fas fa-music"></i>';
     
     lofiPlayer.appendChild(lofiButton);
     document.body.appendChild(lofiPlayer);
