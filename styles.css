@@ -102,11 +102,6 @@ body::before, body::after {
     transition: none;
 }
 
-.music-player:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.5);
-}
-
 .music-player.no-music {
     background: rgba(255, 255, 255, 0.05);
 }
