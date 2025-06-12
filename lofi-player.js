@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const nowPlaying = document.createElement('div');
     nowPlaying.className = 'now-playing-text';
 
-
     const nowPlayingInnerSpan = document.createElement('span');
     nowPlayingInnerSpan.textContent = 'Now Playing: None';
     nowPlaying.appendChild(nowPlayingInnerSpan);
