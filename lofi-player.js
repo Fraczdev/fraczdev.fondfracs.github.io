@@ -2,12 +2,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const lofiPlayer = document.createElement('div');
     lofiPlayer.className = 'lofi-player';
     
-    const nowPlaying = document.createElement('div');
-    nowPlaying.className = 'now-playing-text';
+    const lofiIconBubble = document.createElement('div');
+    lofiIconBubble.className = 'lofi-bubble lofi-icon-bubble';
+    const musicIcon = document.createElement('i');
+    musicIcon.className = 'fas fa-music';
+    lofiIconBubble.appendChild(musicIcon);
+    lofiPlayer.appendChild(lofiIconBubble);
 
-    const nowPlayingInnerSpan = document.createElement('span');
-    nowPlayingInnerSpan.textContent = 'Now Playing: None';
-    nowPlaying.appendChild(nowPlayingInnerSpan);
+    const nowPlaying = document.createElement('div');
+    nowPlaying.className = 'lofi-bubble now-playing-text';
+
+    const nowPlayingTextContent = document.createElement('span');
+    nowPlayingTextContent.textContent = 'Now Playing: None';
+    nowPlaying.appendChild(nowPlayingTextContent);
     lofiPlayer.appendChild(nowPlaying);
     
     const lofiButton = document.createElement('button');
@@ -82,12 +89,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function checkNowPlayingTextOverflow() {
-        if (nowPlayingInnerSpan && nowPlaying) {
+        if (nowPlayingTextContent && nowPlaying) {
             // Compare inner span's scrollWidth with container's clientWidth
-            if (nowPlayingInnerSpan.scrollWidth > nowPlaying.clientWidth) {
-                nowPlayingInnerSpan.classList.add('scroll');
+            if (nowPlayingTextContent.scrollWidth > nowPlaying.clientWidth) {
+                nowPlayingTextContent.classList.add('scroll');
             } else {
-                nowPlayingInnerSpan.classList.remove('scroll');
+                nowPlayingTextContent.classList.remove('scroll');
             }
         }
     }
@@ -96,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
         currentSongIndex = (currentSongIndex + 1) % songs.length;
         audio.src = songs[currentSongIndex].file;
         audio.load(); // Explicitly load the new song
-        nowPlayingInnerSpan.textContent = `Now Playing: ${songs[currentSongIndex].title}`;
+        nowPlayingTextContent.textContent = `Now Playing: ${songs[currentSongIndex].title}`;
         checkNowPlayingTextOverflow(); // Check overflow when song changes
         if (isPlaying) {
             audio.play().catch(error => {
@@ -104,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 isPlaying = false;
                 lofiButton.classList.remove('playing');
                 stopVibe();
-                nowPlayingInnerSpan.textContent = 'Now Playing: None'; // Update inner span
+                nowPlayingTextContent.textContent = 'Now Playing: None'; // Update inner span
             });
         }
     }
@@ -114,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
             audio.pause();
             lofiButton.classList.remove('playing');
             stopVibe();
-            nowPlayingInnerSpan.textContent = 'Now Playing: None'; // Update inner span
+            nowPlayingTextContent.textContent = 'Now Playing: None'; // Update inner span
             checkNowPlayingTextOverflow(); // Check overflow when stopped
         } else {
             if (audioContext.state === 'suspended') {
@@ -127,11 +134,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 isPlaying = false;
                 lofiButton.classList.remove('playing');
                 stopVibe();
-                nowPlayingInnerSpan.textContent = 'Now Playing: None'; // Update inner span
+                nowPlayingTextContent.textContent = 'Now Playing: None'; // Update inner span
             });
             lofiButton.classList.add('playing');
             startVibe();
-            nowPlayingInnerSpan.textContent = `Now Playing: ${songs[currentSongIndex].title}`;
+            nowPlayingTextContent.textContent = `Now Playing: ${songs[currentSongIndex].title}`;
             checkNowPlayingTextOverflow(); // Check overflow when playing
         }
         isPlaying = !isPlaying;
@@ -146,7 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
             audio.pause();
             stopVibe();
             lofiButton.classList.remove('playing');
-            nowPlayingInnerSpan.textContent = 'Now Playing: None'; // Update inner span
+            nowPlayingTextContent.textContent = 'Now Playing: None'; // Update inner span
             isPlaying = false;
         }
     });

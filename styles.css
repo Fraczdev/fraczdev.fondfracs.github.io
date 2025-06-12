@@ -1339,6 +1339,27 @@ body:not(.theme-light):not(.theme-dark):not(.theme-vinyl) {
     bottom: 20px;
     left: 20px;
     z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.lofi-bubble {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 25px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+}
+
+.lofi-icon-bubble {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 1.2em;
 }
 
 .lofi-button {
@@ -1394,21 +1415,23 @@ body.vibrating {
 .now-playing-text {
     font-size: 14px;
     color: #fff;
-    margin-left: 10px;
+    padding: 8px 15px;
     overflow: hidden;
     white-space: nowrap;
-    text-overflow: ellipsis;
-    max-width: 200px; /* Adjust as needed */
-  }
-  
-  .now-playing-text span.scroll {
-    animation: scroll-text 10s linear infinite;
+    max-width: 200px;
+}
+
+.now-playing-text-content {
     display: inline-block;
     white-space: nowrap;
-  }
+}
   
-  @keyframes scroll-text {
+.now-playing-text-content.scroll {
+    animation: scroll-text 10s linear infinite;
+}
+  
+@keyframes scroll-text {
     0% { transform: translateX(0%); }
     100% { transform: translateX(-100%); }
-  }
+}
   
