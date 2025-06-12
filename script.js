@@ -293,8 +293,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             const trackId = data.item.id;
             const progressMs = data.progress_ms || 0;
-            // Since the spotify web player supports t=seconds for podcasts but not for songs, I'm going to use the URI for the song.
-            // However, the Spotify URI can be opened at a specific time using the Spotify app with a deep link, although it's not reliable on web. I tried my best to make it work.
             const url = `https://open.spotify.com/track/${trackId}?si=listenwithme&t=${Math.floor(progressMs/1000)}`;
             window.open(url, '_blank');
         } catch (err) {
@@ -345,7 +343,6 @@ document.addEventListener('DOMContentLoaded', () => {
             
                 document.body.style.setProperty('--accent-color', `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.8)`);
             } catch (e) {
-                // fallback to gradient bruh
                 document.body.style.removeProperty('--background');
                 document.body.style.removeProperty('--accent-color');
             }
@@ -368,14 +365,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 1200);
     }
 
-    // === GSAP ENHANCEMENTS ===
     gsap.set(['.glass-card', '.info-card', '.profile-image', '.contact-icon'], { opacity: 0, y: 40 });
     gsap.to('.profile-image', { opacity: 1, y: 0, duration: 1, ease: 'power3.out', delay: 0.1 });
     gsap.to('.glass-card', { opacity: 1, y: 0, duration: 1, ease: 'power3.out', delay: 0.2 });
     gsap.to('.info-card', { opacity: 1, y: 0, duration: 1, ease: 'power3.out', stagger: 0.15, delay: 0.4 });
     gsap.to('.contact-icon', { opacity: 1, y: 0, duration: 1, ease: 'back.out(1.7)', stagger: 0.1, delay: 0.8 });
 
-    // GSAP scroll-triggered animation for .language-tag (float in as you scroll)
     document.querySelectorAll('.language-tag').forEach((el, i) => {
         gsap.set(el, { opacity: 0, x: -30 });
         const trigger = el.closest('.language-item') || el;
@@ -390,8 +385,6 @@ document.addEventListener('DOMContentLoaded', () => {
         onScroll();
     });
 
-    // === GSAP INTERACTIVE SPIN EFFECTS ===
-    // Contact icons spin+scale on click
     const contactIcons = document.querySelectorAll('.contact-icon');
     contactIcons.forEach(icon => {
         icon.addEventListener('click', e => {
@@ -405,14 +398,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 repeat: 1,
                 onComplete: () => { icon.style.transform = ''; }
             });
-            // If it's a link, follow after animation
             const href = icon.getAttribute('href');
             if (href && href !== '#') {
                 setTimeout(() => { window.open(href, '_blank'); }, 700);
             }
         });
     });
-    // Language tags spin+scale on click
+
     const langTags = document.querySelectorAll('.language-tag');
     langTags.forEach(tag => {
         tag.addEventListener('click', () => {
@@ -428,12 +420,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // === GSAP TEXT REVEAL & STAGGER ANIMATIONS (RESTORED) ===
     if (typeof gsap !== 'undefined') {
-        // Quicker for title and bio
         gsap.fromTo('.name.gsap-text-reveal', { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 0.5, delay: 0.5, ease: 'power2.out' });
         gsap.fromTo('.bio-center.gsap-text-reveal', { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 0.5, delay: 0.7, ease: 'power2.out' });
-        // Others as before
         gsap.utils.toArray('.gsap-text-reveal').forEach((el, i) => {
             if (el.classList.contains('name') || el.classList.contains('bio-center')) return;
             gsap.fromTo(el, { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 1.1, delay: 1 + i * 0.2, ease: 'power2.out' });
@@ -444,7 +433,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // === SOLID THEME COLOR PICKER ===
     function createSolidColorPicker() {
         let picker = document.getElementById('solid-bg-picker');
         if (!picker) {
@@ -470,7 +458,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
         picker.style.display = 'block';
-        // Restore last color
         const saved = localStorage.getItem('solid-bg');
         if (saved) {
             picker.value = saved;
@@ -483,7 +470,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const picker = document.getElementById('solid-bg-picker');
         if (picker) picker.style.display = 'none';
     }
-    // On load, if solid theme, show picker
+
     if (!['light','dark','vinyl'].includes(localStorage.getItem('theme'))) {
         createSolidColorPicker();
     }
