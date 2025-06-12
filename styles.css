@@ -1391,3 +1391,24 @@ body:not(.theme-light):not(.theme-dark):not(.theme-vinyl) {
 body.vibrating {
     animation: vibrate 0.1s linear infinite;
 }       
+.now-playing-text {
+    font-size: 14px;
+    color: #fff;
+    margin-left: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 200px; /* Adjust as needed */
+  }
+  
+  .now-playing-text span.scroll {
+    animation: scroll-text 10s linear infinite;
+    display: inline-block;
+    white-space: nowrap;
+  }
+  
+  @keyframes scroll-text {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-100%); }
+  }
+  
