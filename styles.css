@@ -1429,29 +1429,6 @@ body.vibrating {
     margin-bottom: 10px;
 }
 
-.now-playing-text-content {
-    display: inline-block;
-    white-space: nowrap;
-}
-  
-.now-playing-text-content.scroll {
-    animation: scroll-text 10s linear infinite;
-}
-  
-@keyframes scroll-text {
-    0% { transform: translateX(0%); }
-    100% { transform: translateX(-100%); }
-}
-  
-.glass-card svg path {
-    stroke: var(--squiggly-color);
-    stroke-width: 2;
-    fill: none;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
-}
-  
 .lofi-player-text {
     color: white !important;
     font-size: 0.9em;
@@ -1470,6 +1447,5 @@ body.vibrating {
 
 .now-playing-text-content {
     display: inline-block;
-    white-space: nowrap;
 }
   
