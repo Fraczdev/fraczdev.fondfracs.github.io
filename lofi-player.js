@@ -5,6 +5,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const lofiPlayer = document.createElement('div');
     lofiPlayer.className = 'lofi-player';
 
+    const lofiPlayerText = document.createElement('div');
+    lofiPlayerText.className = 'lofi-player-text';
+    lofiPlayerText.textContent = 'click the button to hear some music i like!';
+    lofiPlayer.appendChild(lofiPlayerText);
 
     const nowPlaying = document.createElement('div');
     nowPlaying.className = 'lofi-bubble now-playing-text';
@@ -14,11 +18,6 @@ document.addEventListener('DOMContentLoaded', () => {
     nowPlaying.appendChild(nowPlayingTextContent);
     lofiPlayer.appendChild(nowPlaying);
     
-    const lofiPlayerText = document.createElement('div');
-    lofiPlayerText.className = 'lofi-player-text';
-    lofiPlayerText.textContent = 'click the button to hear some music i like!';
-    lofiPlayer.appendChild(lofiPlayerText);
-
     const lofiButton = document.createElement('button');
     lofiButton.className = 'lofi-button';
     lofiButton.innerHTML = '<i class="fas fa-music"></i>';
