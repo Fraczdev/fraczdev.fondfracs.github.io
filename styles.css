@@ -319,7 +319,7 @@ a, button, .skill-level, .lang-level {
 
 .skill-level {
     height: 100%;
-    background: linear-gradient(90deg, #FFCC70, #C850C0);
+    background: linear-gradient(90deg, #1b1c33, #2a2b4a);
     border-radius: 4px;
     transition: width 1s ease-in-out;
 }
@@ -444,7 +444,7 @@ a, button, .skill-level, .lang-level {
 }
 .lang-level {
     height: 100%;
-    background: linear-gradient(90deg, #FFCC70, #C850C0);
+    background: linear-gradient(90deg, #1b1c33, #2a2b4a);
     border-radius: 4px;
     transition: width 1s cubic-bezier(.4,2,.6,1);
 }
@@ -542,7 +542,7 @@ a, button, .skill-level, .lang-level {
 }
 .lang-journey-progress {
     height: 100%;
-    background: linear-gradient(90deg, #FFCC70, #C850C0);
+    background: linear-gradient(90deg, #1b1c33, #2a2b4a);
     border-radius: 6px;
     transition: width 1s cubic-bezier(.4,2,.6,1);
 }
