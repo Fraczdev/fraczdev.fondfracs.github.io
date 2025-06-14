@@ -55,7 +55,7 @@ body::before, body::after {
 }
 
 .glass-card:hover {
-    box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.5);
+    box-shadow: 0 12px 40px 0 rgba(27, 28, 51, 0.5);
 }
 
 [data-animate] {
