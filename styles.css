@@ -1447,5 +1447,6 @@ body.vibrating {
 
 .now-playing-text-content {
     display: inline-block;
+    white-space: nowrap;
 }
   
