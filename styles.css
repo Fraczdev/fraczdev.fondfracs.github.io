@@ -272,7 +272,7 @@ a, button, .skill-level, .lang-level {
 }
 
 .highlight {
-    color: #e0b873;
+    color: #4a4b6e;
     font-weight: 500;
 }
 
@@ -354,7 +354,7 @@ a, button, .skill-level, .lang-level {
 }
 
 .social-link:hover {
-    color: #FFCC70;
+    color: #4a4b6e;
 }
 
 .discord-link {
@@ -415,7 +415,7 @@ a, button, .skill-level, .lang-level {
     opacity: 0.95;
 }
 .about-extra .highlight {
-    color: #FFCC70;
+    color: #4a4b6e;
     font-weight: 600;
 }
 
@@ -473,7 +473,7 @@ a, button, .skill-level, .lang-level {
     font-size: 1.15rem;
     font-weight: 600;
     margin-bottom: 10px;
-    color: #FFCC70;
+    color: #4a4b6e;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -503,7 +503,7 @@ a, button, .skill-level, .lang-level {
 .hobby-icon {
     font-size: 1.3em;
     margin-right: 10px;
-    color: #FFCC70;
+    color: #4a4b6e;
     display: flex;
     align-items: center;
 }
@@ -527,7 +527,7 @@ a, button, .skill-level, .lang-level {
 }
 .lang-journey-label {
     font-size: 0.98rem;
-    color: #FFCC70;
+    color: #4a4b6e;
     font-weight: 500;
     margin-bottom: 2px;
 }
@@ -570,7 +570,7 @@ a, button, .skill-level, .lang-level {
     transition: color 0.2s;
 }
 .get-in-touch-link:hover i.fas.fa-envelope {
-    color: #FFCC70 !important;
+    color: #4a4b6e !important;
 }
 
 .get-in-touch {
@@ -583,7 +583,7 @@ a, button, .skill-level, .lang-level {
 
 .get-in-touch h2 {
     margin-bottom: 1rem;
-    color: #FFCC70;
+    color: #4a4b6e;
     font-size: 1.3rem;
     font-weight: 600;
 }
