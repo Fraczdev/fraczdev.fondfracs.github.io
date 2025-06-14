@@ -130,6 +130,21 @@ body::before, body::after {
 
 .music-player::after { display: none !important; }
 
+.music-player-text {
+    position: absolute;
+    top: -30px;
+    right: 24px;
+    color: white;
+    font-size: 0.9em;
+    text-align: center;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.music-player-text:hover {
+    opacity: 1;
+}
+
 a, button, .skill-level, .lang-level {
     transition: all 0.3s ease;
 }
