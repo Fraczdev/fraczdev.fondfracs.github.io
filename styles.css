@@ -272,7 +272,7 @@ a, button, .skill-level, .lang-level {
 }
 
 .highlight {
-    color: #4a4b6e;
+    color: var(--highlight-color);
     font-weight: 500;
 }
 
@@ -354,7 +354,7 @@ a, button, .skill-level, .lang-level {
 }
 
 .social-link:hover {
-    color: #4a4b6e;
+    color: var(--highlight-color);
 }
 
 .discord-link {
@@ -415,7 +415,7 @@ a, button, .skill-level, .lang-level {
     opacity: 0.95;
 }
 .about-extra .highlight {
-    color: #4a4b6e;
+    color: var(--highlight-color);
     font-weight: 600;
 }
 
@@ -473,7 +473,7 @@ a, button, .skill-level, .lang-level {
     font-size: 1.15rem;
     font-weight: 600;
     margin-bottom: 10px;
-    color: #4a4b6e;
+    color: var(--highlight-color);
     display: flex;
     align-items: center;
     gap: 8px;
@@ -503,7 +503,7 @@ a, button, .skill-level, .lang-level {
 .hobby-icon {
     font-size: 1.3em;
     margin-right: 10px;
-    color: #4a4b6e;
+    color: var(--highlight-color);
     display: flex;
     align-items: center;
 }
@@ -527,7 +527,7 @@ a, button, .skill-level, .lang-level {
 }
 .lang-journey-label {
     font-size: 0.98rem;
-    color: #4a4b6e;
+    color: var(--highlight-color);
     font-weight: 500;
     margin-bottom: 2px;
 }
@@ -570,7 +570,7 @@ a, button, .skill-level, .lang-level {
     transition: color 0.2s;
 }
 .get-in-touch-link:hover i.fas.fa-envelope {
-    color: #4a4b6e !important;
+    color: var(--highlight-color) !important;
 }
 
 .get-in-touch {
@@ -583,7 +583,7 @@ a, button, .skill-level, .lang-level {
 
 .get-in-touch h2 {
     margin-bottom: 1rem;
-    color: #4a4b6e;
+    color: var(--highlight-color);
     font-size: 1.3rem;
     font-weight: 600;
 }
@@ -799,7 +799,7 @@ a, button, .skill-level, .lang-level {
 }
 
 .listen-with-me {
-    background: var(--accent-color);
+    background: var(--highlight-color);
     color: white;
     border: none;
     padding: 8px 16px;
@@ -812,7 +812,8 @@ a, button, .skill-level, .lang-level {
 
 .listen-with-me:hover {
     transform: translateY(-2px);
-    background-color: var(--gradient-2);
+    background-color: var(--highlight-color);
+    filter: brightness(1.1);
 }
 
 .volume-control {
@@ -1245,6 +1246,7 @@ body.theme-light {
     --foreground: #23272a;
     --card-bg: #fff;
     --accent-color: #4f8cff;
+    --highlight-color: #4f8cff;
     --gradient-1: #e0eafc;
     --gradient-2: #cfdef3;
     --text-primary-dark: #23272a;
@@ -1259,7 +1261,8 @@ body.theme-dark {
     --background: #181a1b;
     --foreground: #f7f7f7;
     --card-bg: #23272a;
-    --accent-color: #ffcc70;
+    --accent-color: #7289da;
+    --highlight-color: #7289da;
     --gradient-1: #232526;
     --gradient-2: #414345;
     --text-primary-dark: #ffffff;
@@ -1303,7 +1306,8 @@ body:not(.theme-light):not(.theme-dark):not(.theme-vinyl) {
     --background: var(--solid-bg, #101014);
     --foreground: #f7f7f7;
     --card-bg: #23272a;
-    --accent-color: #e0b873;
+    --accent-color: #4a4b6e;
+    --highlight-color: #4a4b6e;
     --text-primary-dark: #ffffff;
     --text-secondary-dark: rgba(255, 255, 255, 0.7);
 }
