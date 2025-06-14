@@ -1,3 +1,7 @@
+
+/* was originally intended for lofi music, hence the name. 
+eventually got tired of just that so i just changed it to songs of my personal liking/ */
+
 document.addEventListener('DOMContentLoaded', () => {
     const lofiPlayer = document.createElement('div');
     lofiPlayer.className = 'lofi-player';
