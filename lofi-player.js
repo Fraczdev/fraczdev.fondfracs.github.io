@@ -15,7 +15,12 @@ document.addEventListener('DOMContentLoaded', () => {
     lofiButton.className = 'lofi-button';
     lofiButton.innerHTML = '<i class="fas fa-music"></i>';
     
+    const lofiPlayerText = document.createElement('div');
+    lofiPlayerText.className = 'lofi-player-text';
+    lofiPlayerText.textContent = 'click the button to hear some music i like!';
+    
     lofiPlayer.appendChild(lofiButton);
+    document.body.appendChild(lofiPlayerText);
     document.body.appendChild(lofiPlayer);
 
     const audioContext = new (window.AudioContext || window.webkitAudioContext)();
