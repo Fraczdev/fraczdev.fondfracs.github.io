@@ -1,4 +1,3 @@
-
 /* was originally intended for lofi music, hence the name. 
 eventually got tired of just that so i just changed it to songs of my personal liking/ */
 
@@ -15,16 +14,16 @@ document.addEventListener('DOMContentLoaded', () => {
     nowPlaying.appendChild(nowPlayingTextContent);
     lofiPlayer.appendChild(nowPlaying);
     
+    const lofiPlayerText = document.createElement('div');
+    lofiPlayerText.className = 'lofi-player-text';
+    lofiPlayerText.textContent = 'click the button to hear some music i like!';
+    lofiPlayer.appendChild(lofiPlayerText);
+
     const lofiButton = document.createElement('button');
     lofiButton.className = 'lofi-button';
     lofiButton.innerHTML = '<i class="fas fa-music"></i>';
     
-    const lofiPlayerText = document.createElement('div');
-    lofiPlayerText.className = 'lofi-player-text';
-    lofiPlayerText.textContent = 'click the button to hear some music i like!';
-    
     lofiPlayer.appendChild(lofiButton);
-    document.body.appendChild(lofiPlayerText);
     document.body.appendChild(lofiPlayer);
 
     const audioContext = new (window.AudioContext || window.webkitAudioContext)();
