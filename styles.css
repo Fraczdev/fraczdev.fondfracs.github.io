@@ -1251,6 +1251,7 @@ body.theme-light {
     --gradient-2: #cfdef3;
     --text-primary-dark: #23272a;
     --text-secondary-dark: rgba(30, 30, 30, 0.7);
+    --squiggly-color: #4f8cff;
 }
 
 body.theme-light, body.theme-light .glass-card, body.theme-light .info-card, body.theme-light .bio-center, body.theme-light .name, body.theme-light .self-taught-note, body.theme-light .highlight, body.theme-light .about-extra, body.theme-light .fun-fact, body.theme-light .location, body.theme-light .language-tag, body.theme-light .hobbies-icons li, body.theme-light .contact-icon, body.theme-light .get-in-touch, body.theme-light .song-title, body.theme-light .song-artist, body.theme-light .lang-quote {
@@ -1267,6 +1268,7 @@ body.theme-dark {
     --gradient-2: #414345;
     --text-primary-dark: #ffffff;
     --text-secondary-dark: rgba(255, 255, 255, 0.7);
+    --squiggly-color: #7289da;
 }
 
 body.theme-vinyl {
@@ -1310,6 +1312,7 @@ body:not(.theme-light):not(.theme-dark):not(.theme-vinyl) {
     --highlight-color: #6b6d9e;
     --text-primary-dark: #ffffff;
     --text-secondary-dark: rgba(255, 255, 255, 0.7);
+    --squiggly-color: #6b6d9e;
 }
 
 .theme-popup {
@@ -1423,5 +1426,14 @@ body.vibrating {
 @keyframes scroll-text {
     0% { transform: translateX(0%); }
     100% { transform: translateX(-100%); }
+}
+  
+.glass-card svg path {
+    stroke: var(--squiggly-color);
+    stroke-width: 2;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
 }
   
