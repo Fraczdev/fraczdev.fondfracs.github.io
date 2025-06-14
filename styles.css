@@ -1307,7 +1307,7 @@ body:not(.theme-light):not(.theme-dark):not(.theme-vinyl) {
     --foreground: #f7f7f7;
     --card-bg: #23272a;
     --accent-color: #4a4b6e;
-    --highlight-color: #4a4b6e;
+    --highlight-color: #6b6d9e;
     --text-primary-dark: #ffffff;
     --text-secondary-dark: rgba(255, 255, 255, 0.7);
 }
