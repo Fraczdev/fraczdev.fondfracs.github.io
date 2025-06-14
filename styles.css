@@ -132,7 +132,7 @@ body::before, body::after {
 
 .music-player-text {
     position: absolute;
-    top: -30px;
+    top: 5px;
     right: 24px;
     color: white;
     font-size: 0.9em;
