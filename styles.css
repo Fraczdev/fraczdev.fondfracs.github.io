@@ -1425,8 +1425,11 @@ body.vibrating {
     color: #fff;
     padding: 8px 15px;
     overflow: hidden;
-    max-width: 200px;
     margin-bottom: 10px;
+    display: flex;
+    width: fit-content;
+    justify-content: center;
+    align-items: center;
 }
 
 .lofi-player-text {
@@ -1448,5 +1451,6 @@ body.vibrating {
 .now-playing-text-content {
     display: inline-block;
     white-space: nowrap;
+    flex-shrink: 0;
 }
   
